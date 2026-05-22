@@ -1,5 +1,6 @@
 [
   "dataview",
-  "graph-analysis",
+  "juggl",
+  "obsidian-path-finder",
   "folder-notes"
 ]

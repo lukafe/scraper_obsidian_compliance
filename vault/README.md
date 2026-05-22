@@ -38,9 +38,11 @@ _quarantine/                → nós de baixa confiança (FORA do grafo principa
 | Plugin | Por quê |
 |---|---|
 | **Dataview** | obrigatório — todas as queries do Dashboard dependem dele |
-| **Graph Analysis** | métricas de centralidade (qual norma é o hub de cada país?) |
-| **Folder Notes** | transforma os arquivos em `_MOC/` em landing pages |
-| **Templater** | (opcional) se quiser editar normas à mão |
+| **Juggl** | visualização interativa do grafo (filtra por país/status/type ao vivo) |
+| **Path Finder** | encontra caminhos entre 2 normas (ex.: "como a Lei BR conecta com FATF?") |
+| **Folder Notes** | transforma os arquivos em `_MOC/` em landing pages das pastas |
+
+> *Sobre centralidade:* o antigo **Graph Analysis** foi removido. O Dashboard já tem uma query Dataview que faz o mesmo trabalho (top hubs por inlinks).
 
 ## Edição manual
 
