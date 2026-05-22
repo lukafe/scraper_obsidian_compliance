@@ -67,14 +67,25 @@ class Config:
     respect_robots_txt: bool = True
     playwright_fallback: bool = True
 
+    provider: str = "anthropic"   # "anthropic" or "gemini"
     models: dict[str, str] = field(default_factory=lambda: {
         "discovery": "claude-sonnet-4-6",
         "analysis": "claude-sonnet-4-6",
         "extraction": "claude-haiku-4-5-20251001",
     })
+    models_anthropic: dict[str, str] = field(default_factory=dict)
+    models_gemini: dict[str, str] = field(default_factory=dict)
     web_search: dict = field(default_factory=lambda: {"enabled": True, "max_uses_per_call": 5})
     retry: dict = field(default_factory=lambda: {"max_attempts": 5, "base_delay_seconds": 2.0, "max_delay_seconds": 60.0})
     log_level: str = "INFO"
+
+    def active_models(self) -> dict[str, str]:
+        """Pick the right per-provider model map, falling back to legacy `models`."""
+        if self.provider == "gemini" and self.models_gemini:
+            return self.models_gemini
+        if self.provider == "anthropic" and self.models_anthropic:
+            return self.models_anthropic
+        return self.models
 
     @classmethod
     def load(cls, path: str | Path) -> "Config":
@@ -160,24 +171,51 @@ class Orchestrator:
             playwright_fallback=cfg.playwright_fallback,
         )
 
-        ant_cfg = AnthropicConfig(
-            discovery_model=cfg.models.get("discovery", "claude-sonnet-4-6"),
-            analysis_model=cfg.models.get("analysis", "claude-sonnet-4-6"),
-            extraction_model=cfg.models.get("extraction", "claude-haiku-4-5-20251001"),
-            web_search_enabled=bool(cfg.web_search.get("enabled", True)),
-            web_search_max_uses=int(cfg.web_search.get("max_uses_per_call", 5)),
-            max_attempts=int(cfg.retry.get("max_attempts", 5)),
-            base_delay_seconds=float(cfg.retry.get("base_delay_seconds", 2.0)),
-            max_delay_seconds=float(cfg.retry.get("max_delay_seconds", 60.0)),
-        )
-        self.client = AnthropicClient(ant_cfg)
+        models = cfg.active_models()
+        provider = (cfg.provider or "anthropic").lower()
+        if provider == "gemini":
+            from .gemini_client import GeminiClient, GeminiConfig
+            gem_cfg = GeminiConfig(
+                discovery_model=models.get("discovery", "gemini-2.5-flash"),
+                analysis_model=models.get("analysis", "gemini-2.5-flash"),
+                extraction_model=models.get("extraction", "gemini-2.5-flash-lite"),
+                web_search_enabled=bool(cfg.web_search.get("enabled", True)),
+                max_attempts=int(cfg.retry.get("max_attempts", 5)),
+                base_delay_seconds=float(cfg.retry.get("base_delay_seconds", 2.0)),
+                max_delay_seconds=float(cfg.retry.get("max_delay_seconds", 60.0)),
+            )
+            self.client = GeminiClient(gem_cfg)
+            discovery_model = gem_cfg.discovery_model
+            analysis_model = gem_cfg.analysis_model
+            log.info("provider=gemini discovery=%s analysis=%s extraction=%s",
+                     gem_cfg.discovery_model, gem_cfg.analysis_model, gem_cfg.extraction_model)
+        else:
+            ant_cfg = AnthropicConfig(
+                discovery_model=models.get("discovery", "claude-sonnet-4-6"),
+                analysis_model=models.get("analysis", "claude-sonnet-4-6"),
+                extraction_model=models.get("extraction", "claude-haiku-4-5-20251001"),
+                web_search_enabled=bool(cfg.web_search.get("enabled", True)),
+                web_search_max_uses=int(cfg.web_search.get("max_uses_per_call", 5)),
+                max_attempts=int(cfg.retry.get("max_attempts", 5)),
+                base_delay_seconds=float(cfg.retry.get("base_delay_seconds", 2.0)),
+                max_delay_seconds=float(cfg.retry.get("max_delay_seconds", 60.0)),
+            )
+            self.client = AnthropicClient(ant_cfg)
+            discovery_model = ant_cfg.discovery_model
+            analysis_model = ant_cfg.analysis_model
+            log.info("provider=anthropic discovery=%s analysis=%s extraction=%s",
+                     ant_cfg.discovery_model, ant_cfg.analysis_model, ant_cfg.extraction_model)
+
+        # Make active models accessible elsewhere (used by normalize for extraction).
+        self.active_models_map = models
+
         self.discovery = DiscoveryEngine(
             self.client,
             self.scraper,
-            discovery_model=ant_cfg.discovery_model,
+            discovery_model=discovery_model,
             max_seed_per_country=cfg.max_seed_per_country,
         )
-        self.analyzer = AnalyzerEngine(self.client, model=ant_cfg.analysis_model)
+        self.analyzer = AnalyzerEngine(self.client, model=analysis_model)
 
         self.run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         self.all_stats: list[CycleStats] = []
@@ -309,7 +347,7 @@ class Orchestrator:
                 fr.text,
                 translate_to=self.cfg.target_language if self.cfg.translate else None,
                 client=self.client,
-                translation_model=self.cfg.models.get("extraction", "claude-haiku-4-5-20251001"),
+                translation_model=self.active_models_map.get("extraction"),
             )
             note.body = normalized.body
             if normalized.language and not note.language:
@@ -686,9 +724,16 @@ def main(argv: Optional[list[str]] = None) -> int:
         log.error("no countries to process (config.countries empty and --countries not given)")
         return 2
 
-    if not os.environ.get("ANTHROPIC_API_KEY") and not args.dry_run:
-        log.error("ANTHROPIC_API_KEY is not set — refusing to run without it. Use --dry-run to debug structure.")
-        return 2
+    provider = (cfg.provider or "anthropic").lower()
+    if not args.dry_run:
+        if provider == "gemini":
+            if not (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
+                log.error("GEMINI_API_KEY (or GOOGLE_API_KEY) is not set — refusing to run without it. Use --dry-run to debug structure.")
+                return 2
+        else:
+            if not os.environ.get("ANTHROPIC_API_KEY"):
+                log.error("ANTHROPIC_API_KEY is not set — refusing to run without it. Use --dry-run to debug structure.")
+                return 2
 
     orch = Orchestrator(
         cfg,

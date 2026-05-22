@@ -23,22 +23,37 @@ from rapidfuzz import fuzz
 
 # Domain substrings that mark a primary (official) source.
 PRIMARY_DOMAINS: tuple[str, ...] = (
-    # gov / official gazettes
+    # Executive / federal gov gazettes
     ".gov", ".gob.", ".gouv.", ".gov.br", ".gov.uk", ".gov.sg", ".gov.ae",
     ".gov.au", ".gov.hk", ".gov.kr", ".gov.za", ".gov.in", ".gov.mx",
     ".admin.ch", ".bund.de", ".europa.eu", "eur-lex.europa.eu",
-    "planalto.gov.br", "bcb.gov.br", "cvm.gov.br", "in.gov.br",
+    # Brazilian legislative + judicial + prosecutorial branches
+    ".leg.br", ".jus.br", ".mp.br", "camara.leg.br", "senado.leg.br",
+    "stf.jus.br", "stj.jus.br", "tse.jus.br",
+    "planalto.gov.br", "bcb.gov.br", "cvm.gov.br", "in.gov.br", "receita.fazenda.gov.br",
+    # US
     "congress.gov", "federalregister.gov", "sec.gov", "treasury.gov",
-    "cftc.gov", "fincen.gov", "occ.treas.gov", "irs.gov",
-    "legislation.gov.uk", "fca.org.uk", "bankofengland.co.uk",
-    "mas.gov.sg", "sso.agc.gov.sg",
-    "japaneselawtranslation.go.jp", "fsa.go.jp",
-    "bafin.de", "gesetze-im-internet.de",
-    "finma.ch", "fedlex.admin.ch",
-    "sfc.hk", "hkma.gov.hk",
-    "fsc.go.kr", "law.go.kr",
+    "cftc.gov", "fincen.gov", "occ.treas.gov", "irs.gov", "supremecourt.gov",
+    "uscourts.gov",
+    # UK
+    "legislation.gov.uk", "fca.org.uk", "bankofengland.co.uk", "parliament.uk",
+    # Singapore
+    "mas.gov.sg", "sso.agc.gov.sg", "supremecourt.gov.sg",
+    # Japan
+    "japaneselawtranslation.go.jp", "fsa.go.jp", ".go.jp", "courts.go.jp",
+    # Germany
+    "bafin.de", "gesetze-im-internet.de", "bundestag.de",
+    # Switzerland
+    "finma.ch", "fedlex.admin.ch", "parlament.ch",
+    # Hong Kong
+    "sfc.hk", "hkma.gov.hk", "legislation.gov.hk",
+    # South Korea
+    "fsc.go.kr", "law.go.kr", ".go.kr",
+    # UAE
+    "centralbank.ae", "vara.ae", "sca.gov.ae",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
+    "oecd.org", "worldbank.org", "un.org",
 )
 
 # Aggregators / law databases — usually accurate but second-hand.

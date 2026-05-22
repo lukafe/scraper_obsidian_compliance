@@ -42,13 +42,28 @@ rate_limit_per_host_seconds: 1.5
 respect_robots_txt: true
 playwright_fallback: true
 
-# Anthropic
-models:
+# LLM provider: "anthropic" or "gemini"
+provider: gemini
+
+# Per-provider model names. The active block is whichever matches `provider`;
+# the `models` block below is a fallback for backwards compatibility.
+models_anthropic:
   discovery: claude-sonnet-4-6
   analysis: claude-sonnet-4-6
   extraction: claude-haiku-4-5-20251001
 
-# Web search tool (Anthropic server-side tool)
+models_gemini:
+  discovery: gemini-2.5-flash
+  analysis: gemini-2.5-flash
+  extraction: gemini-2.5-flash-lite
+
+models:
+  discovery: gemini-2.5-flash
+  analysis: gemini-2.5-flash
+  extraction: gemini-2.5-flash-lite
+
+# Web search tool. On Anthropic this is the native web_search server tool;
+# on Gemini this is Google Search grounding. Same flag, different mechanism.
 web_search:
   enabled: true
   max_uses_per_call: 5
