@@ -136,9 +136,23 @@ _ANALYZE_BODY_LIMIT = 80_000
 
 
 class AnalyzerEngine:
-    def __init__(self, client: AnthropicClient, *, model: str):
+    def __init__(
+        self,
+        client: AnthropicClient,
+        *,
+        model: str,
+        max_output_tokens: int = 8000,
+        thinking_budget: int = 0,
+    ):
         self.client = client
         self.model = model
+        self.max_output_tokens = max_output_tokens
+        self.thinking_budget = thinking_budget
+
+    def _gemini_kwargs(self) -> dict:
+        if hasattr(self.client, "cfg") and self.client.cfg.__class__.__name__ == "GeminiConfig":
+            return {"thinking_budget": self.thinking_budget}
+        return {}
 
     def analyze(
         self,
@@ -171,7 +185,8 @@ class AnalyzerEngine:
                 model=self.model,
                 system=_ANALYZE_SYSTEM,
                 user=user,
-                max_tokens=4000,
+                max_tokens=self.max_output_tokens,
+                **self._gemini_kwargs(),
             )
         except Exception as e:
             log.warning("analyze failed note_id=%s err=%s", note_id, e)

@@ -27,14 +27,12 @@ node_types: [statute, regulation, guidance, case_law]
 confidence_threshold: 0.70          # below -> quarantine
 convergence_threshold: 0.85         # fraction of already-known refs to halt a country
 
-# Budget caps
+# Budget caps — quality mode (token cost not a concern).
 max_cycles_per_country: 4
-max_new_nodes_per_cycle: 25
-max_depth: 3                        # graph distance from any seed node
-max_seed_per_country: 15            # how many seed normas to ask for in the first pass
-
-# Per-country per-cycle hard ceilings on API tokens (rough guard)
-max_tokens_per_country_per_cycle: 250000
+max_new_nodes_per_cycle: 60
+max_depth: 4                        # graph distance from any seed node
+max_seed_per_country: 25            # how many seed normas to ask for in the first pass
+max_tokens_per_country_per_cycle: 1500000
 
 # Normalization
 translate: true
@@ -50,28 +48,43 @@ playwright_fallback: true
 # LLM provider: "anthropic" or "gemini"
 provider: gemini
 
-# Per-provider model names. The active block is whichever matches `provider`;
-# the `models` block below is a fallback for backwards compatibility.
+# Per-provider model names. The active block is whichever matches `provider`.
 models_anthropic:
   discovery: claude-sonnet-4-6
   analysis: claude-sonnet-4-6
   extraction: claude-haiku-4-5-20251001
 
+# Quality mode: use Pro for analysis (deeper citation extraction);
+# Flash is enough for breadth discovery and translation.
 models_gemini:
   discovery: gemini-2.5-flash
-  analysis: gemini-2.5-flash
-  extraction: gemini-2.5-flash-lite
+  analysis: gemini-2.5-pro
+  extraction: gemini-2.5-flash
 
+# Legacy fallback (used if no per-provider block matches `provider`).
 models:
   discovery: gemini-2.5-flash
-  analysis: gemini-2.5-flash
-  extraction: gemini-2.5-flash-lite
+  analysis: gemini-2.5-pro
+  extraction: gemini-2.5-flash
+
+# Per-prompt thinking budgets (Gemini 2.5 only).
+# 0 disables. Higher = deeper reasoning, slower & more expensive.
+thinking_budgets:
+  discovery: 0        # enumeration; thinking would just blow the budget
+  analysis: 8000      # legal-citation extraction benefits from reasoning
+  extraction: 0       # translation is mechanical
+
+# Per-prompt max output tokens.
+max_output_tokens:
+  discovery: 24000
+  analysis: 16000
+  extraction: 12000
 
 # Web search tool. On Anthropic this is the native web_search server tool;
-# on Gemini this is Google Search grounding. Same flag, different mechanism.
+# on Gemini this is Google Search grounding.
 web_search:
   enabled: true
-  max_uses_per_call: 5
+  max_uses_per_call: 8
 
 # Retry / backoff
 retry:
@@ -81,3 +94,68 @@ retry:
 
 # Logging
 log_level: INFO
+
+# ---------- Force-include ------------------------------------------------
+# Norms the user explicitly wants seeded for each country, BEFORE auto-discovery.
+# Each entry:
+#   title_hint:  English/canonical title (mandatory)
+#   url_hint:    optional — if present, verify+admit directly (no LLM call)
+#   type:        statute | regulation | guidance | case_law
+#   regulator:   acronym
+#   date:        YYYY-MM-DD (optional)
+#   short_label: ID-slug hint (LAW14478, IN701...) — keeps IDs predictable
+#   title_original: original-language title (optional)
+#
+# Without url_hint, the pipeline uses targeted semantic resolution to find one.
+
+force_include:
+  BR:
+    # ---- Verified URLs (LexML and Receita Federal portals serve static HTML) ----
+    - title_hint: "Brazilian Law No. 14,478 of 2022 (Virtual Assets Framework)"
+      title_original: "Lei nº 14.478, de 21 de dezembro de 2022"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2022-12-21;14478"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2022-12-21"
+      short_label: "LAW14478"
+
+    - title_hint: "Brazilian Receita Federal Normative Instruction No. 1,888 of 2019 (crypto-asset reporting obligation to RFB)"
+      title_original: "Instrução Normativa RFB nº 1.888, de 3 de maio de 2019"
+      url_hint: "http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=100592"
+      type: regulation
+      regulator: "RFB"
+      date: "2019-05-03"
+      short_label: "IN1888"
+
+    - title_hint: "Brazilian Receita Federal Normative Instruction No. 2,228 of 2024 (updated crypto-asset reporting; supersedes 1888 from 2025)"
+      title_original: "Instrução Normativa RFB nº 2.228, de 1º de outubro de 2024"
+      url_hint: "http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=139000"
+      type: regulation
+      regulator: "RFB"
+      date: "2024-10-01"
+      short_label: "IN2228"
+
+    # ---- High-priority norms (LexML or Receita) without specific URL guess ----
+    # The semantic resolver will find URLs.
+    - title_hint: "Brazilian CVM Resolution No. 175 of 2022 — investment funds, includes provisions for crypto-asset funds"
+      title_original: "Resolução CVM nº 175, de 23 de dezembro de 2022"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:comissao.valores.mobiliarios:resolucao:2022-12-23;175"
+      type: regulation
+      regulator: "CVM"
+      date: "2022-12-23"
+      short_label: "CVMRES175"
+
+    - title_hint: "Brazilian BCB Circular No. 3,978 of 2020 — AML / KYC / financial-crime compliance (covers VASPs by extension)"
+      title_original: "Circular BCB nº 3.978, de 23 de janeiro de 2020"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:banco.central.brasil:circular:2020-01-23;3978"
+      type: regulation
+      regulator: "BCB"
+      date: "2020-01-23"
+      short_label: "CIRC3978"
+
+    # IMPORTANT: The user originally requested "IN 701" and "IN 704" but no Brazilian
+    # crypto-related Normative Instructions with those numbers were located. They may
+    # have been confused with the BCB Resolutions 519/520/521/561 of 2024-2025 (which
+    # ARE present in the seed) or with other RFB INs. Flagged for human review.
+
+  # TR: (added in Phase 2 below)

@@ -79,6 +79,28 @@ class Config:
     retry: dict = field(default_factory=lambda: {"max_attempts": 5, "base_delay_seconds": 2.0, "max_delay_seconds": 60.0})
     log_level: str = "INFO"
 
+    # Force-include: norms the user explicitly wants seeded for each country.
+    # Each entry: { title_hint: <str>, url_hint: <str|null>, type: <str|null>,
+    #               regulator: <str|null>, date: <str|null> }.
+    # url_hint > 0 chars  -> verify + admit directly (skip discovery LLM).
+    # url_hint empty       -> targeted semantic resolution via the LLM.
+    force_include: dict[str, list[dict]] = field(default_factory=dict)
+
+    # Per-prompt thinking budgets (Gemini 2.5 only — Anthropic ignores).
+    # 0 disables (faster, cheaper); higher = deeper reasoning.
+    thinking_budgets: dict[str, int] = field(default_factory=lambda: {
+        "discovery": 0,
+        "analysis": 4000,
+        "extraction": 0,
+    })
+
+    # Per-prompt max output tokens.
+    max_output_tokens: dict[str, int] = field(default_factory=lambda: {
+        "discovery": 16000,
+        "analysis": 8000,
+        "extraction": 8000,
+    })
+
     def active_models(self) -> dict[str, str]:
         """Pick the right per-provider model map, falling back to legacy `models`."""
         if self.provider == "gemini" and self.models_gemini:
@@ -214,8 +236,15 @@ class Orchestrator:
             self.scraper,
             discovery_model=discovery_model,
             max_seed_per_country=cfg.max_seed_per_country,
+            max_output_tokens=int(cfg.max_output_tokens.get("discovery", 16000)),
+            thinking_budget=int(cfg.thinking_budgets.get("discovery", 0)),
         )
-        self.analyzer = AnalyzerEngine(self.client, model=analysis_model)
+        self.analyzer = AnalyzerEngine(
+            self.client,
+            model=analysis_model,
+            max_output_tokens=int(cfg.max_output_tokens.get("analysis", 8000)),
+            thinking_budget=int(cfg.thinking_budgets.get("analysis", 4000)),
+        )
 
         self.run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         self.all_stats: list[CycleStats] = []
@@ -264,6 +293,9 @@ class Orchestrator:
 
         # SEED — only on the very first cycle for this country.
         if not self._has_seed_nodes(country):
+            # Force-include first (guaranteed inclusion of user-specified norms),
+            # then auto-discovery via the LLM for everything else.
+            self._force_include_for(country)
             self._seed(country)
 
         if seed_only:
@@ -327,6 +359,62 @@ class Orchestrator:
             intl_cands = self.discovery.seed_country(SUPRANATIONAL_COUNTRY)
             for cand in intl_cands:
                 self._admit_candidate(cand, cycle=0, discovered_via="seed", depth=0)
+
+    def _force_include_for(self, country: str) -> None:
+        """Admit user-specified must-have norms before auto-discovery runs.
+
+        Two paths per entry:
+          - If `url_hint` is provided -> verify + admit directly (no LLM cost).
+          - Otherwise -> targeted semantic resolution to find a primary URL.
+        """
+        entries = self.cfg.force_include.get(country.upper()) or []
+        if not entries:
+            return
+        log.info("force_include country=%s n=%d", country, len(entries))
+        if self.dry_run:
+            return
+
+        for entry in entries:
+            title_hint = (entry.get("title_hint") or entry.get("title") or "").strip()
+            if not title_hint:
+                continue
+            type_ = (entry.get("type") or "regulation").strip()
+            regulator = (entry.get("regulator") or None)
+            date_str = entry.get("date")
+            url_hint = (entry.get("url_hint") or entry.get("url") or "").strip()
+            jurisdiction = COUNTRY_NAMES.get(country.upper(), country)
+
+            if url_hint:
+                # Direct admission path: build candidate, verify, admit.
+                cand = CandidateNorm(
+                    country=country.upper(),
+                    jurisdiction=jurisdiction,
+                    title=title_hint,
+                    title_original=entry.get("title_original"),
+                    short_label=entry.get("short_label"),
+                    type=type_,
+                    regulator=regulator,
+                    candidate_url=url_hint,
+                    date=date_str,
+                )
+                self._admit_candidate(cand, cycle=0, discovered_via="seed", depth=0)
+            else:
+                # Semantic-resolution path: ask the model to find a primary URL.
+                resolved = self.discovery.resolve_semantic_suggestion(
+                    country=country.upper(),
+                    jurisdiction=jurisdiction,
+                    title=title_hint,
+                    type_=type_,
+                    regulator=regulator,
+                )
+                if resolved is None:
+                    log.warning("force_include unresolved title=%r", title_hint)
+                    continue
+                # Honor the user's type/regulator hints over the model's guess.
+                resolved.type = type_
+                if regulator and not resolved.regulator:
+                    resolved.regulator = regulator
+                self._admit_candidate(resolved, cycle=0, discovered_via="seed", depth=0)
 
     def _scrape_pending(self, country: str) -> int:
         pending = self.vault.query(status="verified", country=country)

@@ -31,6 +31,7 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     ".leg.br", ".jus.br", ".mp.br", "camara.leg.br", "senado.leg.br",
     "stf.jus.br", "stj.jus.br", "tse.jus.br",
     "planalto.gov.br", "bcb.gov.br", "cvm.gov.br", "in.gov.br", "receita.fazenda.gov.br",
+    "lexml.gov.br", "normas.receita.fazenda.gov.br",  # canonical normative DBs
     # US
     "congress.gov", "federalregister.gov", "sec.gov", "treasury.gov",
     "cftc.gov", "fincen.gov", "occ.treas.gov", "irs.gov", "supremecourt.gov",

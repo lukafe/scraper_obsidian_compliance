@@ -196,6 +196,7 @@ class GeminiClient:
         max_tokens: int = 4000,
         use_web_search: bool = False,
         max_web_searches: Optional[int] = None,
+        thinking_budget: Optional[int] = 0,
     ) -> Any:
         out = self.message(
             model=model,
@@ -205,6 +206,7 @@ class GeminiClient:
             temperature=0.0,
             use_web_search=use_web_search,
             max_web_searches=max_web_searches,
+            thinking_budget=thinking_budget,
         )
         return parse_json_lenient(out["text"])
 

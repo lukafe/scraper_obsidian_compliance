@@ -154,11 +154,22 @@ class DiscoveryEngine:
         *,
         discovery_model: str,
         max_seed_per_country: int = 15,
+        max_output_tokens: int = 8000,
+        thinking_budget: int = 0,
     ):
         self.client = client
         self.scraper = scraper
         self.discovery_model = discovery_model
         self.max_seed_per_country = max_seed_per_country
+        self.max_output_tokens = max_output_tokens
+        self.thinking_budget = thinking_budget
+
+    def _gemini_kwargs(self) -> dict:
+        """Provider-conditional kwargs. AnthropicClient.message_json doesn't
+        accept `thinking_budget`; GeminiClient does. Use duck typing to detect."""
+        if hasattr(self.client, "cfg") and self.client.cfg.__class__.__name__ == "GeminiConfig":
+            return {"thinking_budget": self.thinking_budget}
+        return {}
 
     # ------------------------------------------------------------------
 
@@ -176,8 +187,9 @@ class DiscoveryEngine:
                 model=self.discovery_model,
                 system=_SEED_SYSTEM,
                 user=user,
-                max_tokens=8000,
+                max_tokens=self.max_output_tokens,
                 use_web_search=True,
+                **self._gemini_kwargs(),
             )
         except Exception as e:
             log.warning("seed_country failed country=%s err=%s", country, e)
@@ -286,9 +298,10 @@ class DiscoveryEngine:
                 model=self.discovery_model,
                 system=_SEMANTIC_SYSTEM,
                 user=user,
-                max_tokens=1500,
+                max_tokens=3000,
                 use_web_search=True,
                 max_web_searches=3,
+                **self._gemini_kwargs(),
             )
         except Exception as e:
             log.warning("resolve_semantic failed title=%r err=%s", title, e)
