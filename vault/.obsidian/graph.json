@@ -7,18 +7,90 @@
   "showOrphans": false,
   "collapse-color-groups": false,
   "colorGroups": [
-    { "query": "path:\"INTL\"", "color": { "a": 1, "rgb": 14474460 } },
-    { "query": "path:\"BR\"",   "color": { "a": 1, "rgb": 5294200 } },
-    { "query": "path:\"US\"",   "color": { "a": 1, "rgb": 3447003 } },
-    { "query": "path:\"SG\"",   "color": { "a": 1, "rgb": 15844367 } },
-    { "query": "path:\"AE\"",   "color": { "a": 1, "rgb": 10181046 } },
-    { "query": "path:\"GB\"",   "color": { "a": 1, "rgb": 13648927 } },
-    { "query": "path:\"JP\"",   "color": { "a": 1, "rgb": 15158332 } },
-    { "query": "path:\"DE\"",   "color": { "a": 1, "rgb": 6710886 } },
-    { "query": "path:\"CH\"",   "color": { "a": 1, "rgb": 16729423 } },
-    { "query": "path:\"HK\"",   "color": { "a": 1, "rgb": 15418782 } },
-    { "query": "path:\"KR\"",   "color": { "a": 1, "rgb": 11027200 } },
-    { "query": "[status:quarantine]", "color": { "a": 1, "rgb": 16711680 } }
+    {
+      "query": "path:\"INTL\"",
+      "color": {
+        "a": 1,
+        "rgb": 14474460
+      }
+    },
+    {
+      "query": "path:\"BR\"",
+      "color": {
+        "a": 1,
+        "rgb": 5294200
+      }
+    },
+    {
+      "query": "path:\"US\"",
+      "color": {
+        "a": 1,
+        "rgb": 3447003
+      }
+    },
+    {
+      "query": "path:\"SG\"",
+      "color": {
+        "a": 1,
+        "rgb": 15844367
+      }
+    },
+    {
+      "query": "path:\"AE\"",
+      "color": {
+        "a": 1,
+        "rgb": 10181046
+      }
+    },
+    {
+      "query": "path:\"GB\"",
+      "color": {
+        "a": 1,
+        "rgb": 13648927
+      }
+    },
+    {
+      "query": "path:\"JP\"",
+      "color": {
+        "a": 1,
+        "rgb": 15158332
+      }
+    },
+    {
+      "query": "path:\"DE\"",
+      "color": {
+        "a": 1,
+        "rgb": 6710886
+      }
+    },
+    {
+      "query": "path:\"CH\"",
+      "color": {
+        "a": 1,
+        "rgb": 16729423
+      }
+    },
+    {
+      "query": "path:\"HK\"",
+      "color": {
+        "a": 1,
+        "rgb": 15418782
+      }
+    },
+    {
+      "query": "path:\"KR\"",
+      "color": {
+        "a": 1,
+        "rgb": 11027200
+      }
+    },
+    {
+      "query": "[status:quarantine]",
+      "color": {
+        "a": 1,
+        "rgb": 16711680
+      }
+    }
   ],
   "collapse-display": false,
   "showArrow": true,

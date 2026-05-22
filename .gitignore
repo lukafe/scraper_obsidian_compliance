@@ -13,9 +13,9 @@ vault/*
 !vault/Dashboard.md
 !vault/README.md
 !vault/.obsidian/
-!vault/.obsidian/**
-
-# Inside .obsidian, ignore the user-specific state files.
-vault/.obsidian/workspace*.json
-vault/.obsidian/cache
-vault/.obsidian/plugins/*/data.json
+vault/.obsidian/*
+!vault/.obsidian/graph.json
+!vault/.obsidian/appearance.json
+!vault/.obsidian/community-plugins.json
+!vault/.obsidian/snippets/
+!vault/.obsidian/snippets/**
