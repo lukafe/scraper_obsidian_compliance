@@ -1,0 +1,63 @@
+vault_path: ./vault
+cache_path: ./cache
+
+countries:
+  - BR    # Brazil
+  - US    # United States
+  - SG    # Singapore
+  - AE    # United Arab Emirates
+  - GB    # United Kingdom
+  - JP    # Japan
+  - DE    # Germany
+  - CH    # Switzerland
+  - HK    # Hong Kong
+  - KR    # South Korea
+
+# Supranational bodies are always seeded (FATF, BIS, FSB, IOSCO, etc.)
+seed_supranational: true
+
+node_types: [statute, regulation, guidance, case_law]
+
+# Confidence + convergence
+confidence_threshold: 0.70          # below -> quarantine
+convergence_threshold: 0.85         # fraction of already-known refs to halt a country
+
+# Budget caps
+max_cycles_per_country: 4
+max_new_nodes_per_cycle: 25
+max_depth: 3                        # graph distance from any seed node
+max_seed_per_country: 15            # how many seed normas to ask for in the first pass
+
+# Per-country per-cycle hard ceilings on API tokens (rough guard)
+max_tokens_per_country_per_cycle: 250000
+
+# Normalization
+translate: true
+target_language: en                 # only when translate=true; original is always preserved
+
+# HTTP scraping
+user_agent: "crypto-lawmap/0.1 (+research; contact: lucasfeka@gmail.com)"
+http_timeout_seconds: 30
+rate_limit_per_host_seconds: 1.5
+respect_robots_txt: true
+playwright_fallback: true
+
+# Anthropic
+models:
+  discovery: claude-sonnet-4-6
+  analysis: claude-sonnet-4-6
+  extraction: claude-haiku-4-5-20251001
+
+# Web search tool (Anthropic server-side tool)
+web_search:
+  enabled: true
+  max_uses_per_call: 5
+
+# Retry / backoff
+retry:
+  max_attempts: 5
+  base_delay_seconds: 2.0
+  max_delay_seconds: 60.0
+
+# Logging
+log_level: INFO
