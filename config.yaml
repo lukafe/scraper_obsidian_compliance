@@ -4,8 +4,8 @@ cache_path: ./cache
 # Phased rollout: uncomment one country at a time, validate, move on.
 # Override via CLI: `python -m src.orchestrator --countries BR,TR`
 countries:
-  - BR    # Phase 1 — Brazil (validation baseline)
-  # - TR    # Phase 2 — Türkiye
+  - BR    # Phase 1 — Brazil (validation baseline) ✓
+  - TR    # Phase 2 — Türkiye
   # - DE    # Phase 3 — Germany
   # - FR    # Phase 4 — France
   # --- not yet active ---
@@ -158,4 +158,49 @@ force_include:
     # have been confused with the BCB Resolutions 519/520/521/561 of 2024-2025 (which
     # ARE present in the seed) or with other RFB INs. Flagged for human review.
 
-  # TR: (added in Phase 2 below)
+  TR:
+    # Turkish norms — URL hints intentionally omitted because mevzuat.gov.tr is
+    # an Angular SPA (same problem as Brazilian BCB). Let the semantic resolver
+    # find Resmi Gazete PDFs or third-party mirrors that serve static content.
+
+    - title_hint: "Turkish Law No. 7518 of 2024 amending Capital Markets Law 6362 to regulate Crypto-Asset Service Providers (CASPs)"
+      title_original: "7518 sayılı Kanun (Sermaye Piyasası Kanununda Değişiklik) - Kripto Varlık Hizmet Sağlayıcıları"
+      type: statute
+      regulator: "TBMM (Turkish Grand National Assembly)"
+      date: "2024-07-02"
+      short_label: "LAW7518"
+
+    - title_hint: "Turkish Capital Markets Law No. 6362 of 2012 (as amended in 2024 for crypto-asset service providers)"
+      title_original: "6362 sayılı Sermaye Piyasası Kanunu"
+      type: statute
+      regulator: "TBMM"
+      date: "2012-12-06"
+      short_label: "LAW6362"
+
+    - title_hint: "Turkish SPK Communiqué No. III-35/B.1 — Principles of Establishment and Operations of Crypto-Asset Service Providers (2025)"
+      title_original: "Kripto Varlık Hizmet Sağlayıcılarının Kuruluşuna ve Faaliyetlerine İlişkin Esaslar Hakkında Tebliğ (III-35/B.1)"
+      type: regulation
+      regulator: "SPK (Capital Markets Board)"
+      date: "2025-03-13"
+      short_label: "SPKCOMM35B1"
+
+    - title_hint: "Turkish SPK Communiqué No. III-35/B.2 — Capital and Liquidity Requirements for Crypto-Asset Service Providers (2025)"
+      title_original: "Kripto Varlık Hizmet Sağlayıcılarının Sermaye ve Likidite Yükümlülükleri Hakkında Tebliğ (III-35/B.2)"
+      type: regulation
+      regulator: "SPK"
+      date: "2025-03-13"
+      short_label: "SPKCOMM35B2"
+
+    - title_hint: "Turkish Central Bank (TCMB) Regulation on the Prohibition of the Use of Crypto-Assets in Payments (Official Gazette No. 31415 of 2021)"
+      title_original: "Ödemelerde Kripto Varlıkların Kullanılmamasına Dair Yönetmelik"
+      type: regulation
+      regulator: "TCMB (Central Bank of Türkiye)"
+      date: "2021-04-16"
+      short_label: "TCMB31415"
+
+    - title_hint: "Turkish MASAK General Communiqué No. 19 of 2021 — extends AML/CFT (Law 5549) obligations to Crypto-Asset Service Providers"
+      title_original: "Mali Suçları Araştırma Kurulu (MASAK) Genel Tebliği Sıra No: 19"
+      type: guidance
+      regulator: "MASAK (Financial Crimes Investigation Board)"
+      date: "2021-05-01"
+      short_label: "MASAK19"
