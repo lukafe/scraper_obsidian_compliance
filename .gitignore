@@ -1,6 +1,21 @@
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 cache/
-vault/
 .DS_Store
+
+# Stray .obsidian at repo root (happens if Obsidian opens the project root by mistake — the real vault is in vault/)
+/.obsidian/
+
+# Ignore vault data, but keep the scaffolding (Dashboard, README, Obsidian config, CSS).
+vault/*
+!vault/Dashboard.md
+!vault/README.md
+!vault/.obsidian/
+!vault/.obsidian/**
+
+# Inside .obsidian, ignore the user-specific state files.
+vault/.obsidian/workspace*.json
+vault/.obsidian/cache
+vault/.obsidian/plugins/*/data.json

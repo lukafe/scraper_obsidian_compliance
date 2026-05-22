@@ -1,0 +1,55 @@
+/* Crypto LawMap — visual badges for status, authority, discovery source.
+ *
+ * Enable in: Settings → Appearance → CSS snippets → toggle "lawmap".
+ */
+
+/* ---------- Properties (frontmatter) panel ---------- */
+
+/* Status badges */
+.metadata-property[data-property-key="status"] .metadata-property-value::before {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75em;
+  font-weight: 600;
+  margin-right: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metadata-property[data-property-key="status"]:has([value="analyzed"]) .metadata-property-value::before {
+  content: "✓ analyzed"; background: #1f7a3f; color: white;
+}
+.metadata-property[data-property-key="status"]:has([value="scraped"]) .metadata-property-value::before {
+  content: "scraped"; background: #2e6bb8; color: white;
+}
+.metadata-property[data-property-key="status"]:has([value="verified"]) .metadata-property-value::before {
+  content: "verified"; background: #7a6a1f; color: white;
+}
+.metadata-property[data-property-key="status"]:has([value="discovered"]) .metadata-property-value::before {
+  content: "discovered"; background: #555; color: white;
+}
+.metadata-property[data-property-key="status"]:has([value="quarantine"]) .metadata-property-value::before {
+  content: "⚠ quarantine"; background: #a83232; color: white;
+}
+
+/* Authority badges */
+.metadata-property[data-property-key="source_authority"]:has([value="primary"]) .metadata-property-value::before {
+  content: "● primary"; color: #1f7a3f; font-weight: 600;
+}
+.metadata-property[data-property-key="source_authority"]:has([value="secondary"]) .metadata-property-value::before {
+  content: "● secondary"; color: #b8862e; font-weight: 600;
+}
+.metadata-property[data-property-key="source_authority"]:has([value="tertiary"]) .metadata-property-value::before {
+  content: "● tertiary"; color: #a83232; font-weight: 600;
+}
+
+/* Tint quarantined notes' background subtly */
+.workspace-leaf-content[data-type="markdown"]:has(.metadata-property[data-property-key="status"] [value="quarantine"]) {
+  background: rgba(168, 50, 50, 0.04);
+}
+
+/* ---------- Dashboard table polish ---------- */
+
+.dashboard table th { font-weight: 600; }
+.dashboard table td:first-child { font-weight: 600; }
