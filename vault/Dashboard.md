@@ -4,15 +4,15 @@ cssclasses: [dashboard]
 
 # Crypto LawMap — Dashboard
 
-> Requer o plugin **Dataview** instalado. As queries abaixo se preenchem sozinhas conforme o pipeline rodar.
+> Requires the **Dataview** plugin. Queries below populate themselves as the pipeline runs.
 
 ---
 
-## Estado geral
+## Overall state
 
 ```dataview
 TABLE WITHOUT ID
-  country as "País",
+  country as "Country",
   length(rows) as "Total",
   length(filter(rows, (r) => r.status = "analyzed")) as "✓ analyzed",
   length(filter(rows, (r) => r.status = "scraped"))  as "scraped",
@@ -26,15 +26,15 @@ SORT length(rows) DESC
 
 ---
 
-## Distribuição por tipo
+## Distribution by type
 
 ```dataview
 TABLE WITHOUT ID
-  type as "Tipo",
+  type as "Type",
   length(rows) as "Total",
   length(filter(rows, (r) => r.discovered_via = "seed"))     as "seed",
-  length(filter(rows, (r) => r.discovered_via = "citation")) as "citação",
-  length(filter(rows, (r) => r.discovered_via = "semantic")) as "semântico"
+  length(filter(rows, (r) => r.discovered_via = "citation")) as "citation",
+  length(filter(rows, (r) => r.discovered_via = "semantic")) as "semantic"
 FROM ""
 WHERE type AND status != "quarantine"
 GROUP BY type
@@ -43,13 +43,13 @@ SORT length(rows) DESC
 
 ---
 
-## Top 15 hubs do grafo  *(normas mais citadas — proxy de centralidade)*
+## Top 15 graph hubs  *(most-cited norms — centrality proxy)*
 
 ```dataview
 TABLE WITHOUT ID
-  link(file.link, title) as "Norma",
-  country as "País",
-  type as "Tipo",
+  link(file.link, title) as "Norm",
+  country as "Country",
+  type as "Type",
   length(file.inlinks) as "Inlinks"
 FROM ""
 WHERE status != "quarantine" AND length(file.inlinks) > 0
@@ -59,13 +59,13 @@ LIMIT 15
 
 ---
 
-## Pontes supranacionais  *(normas INTL ordenadas por quantos países as citam)*
+## Supranational bridges  *(INTL norms ranked by how many jurisdictions cite them)*
 
 ```dataview
 TABLE WITHOUT ID
-  link(file.link, title) as "Norma INTL",
-  regulator as "Órgão",
-  length(file.inlinks) as "Total inlinks"
+  link(file.link, title) as "INTL norm",
+  regulator as "Body",
+  length(file.inlinks) as "Inlinks"
 FROM "INTL"
 WHERE status = "analyzed" AND length(file.inlinks) > 0
 SORT length(file.inlinks) DESC
@@ -74,15 +74,15 @@ LIMIT 15
 
 ---
 
-## Adicionadas no último ciclo
+## Added in the latest cycle
 
 ```dataview
 TABLE WITHOUT ID
-  link(file.link, title) as "Norma",
-  country as "País",
-  type as "Tipo",
-  discovered_via as "Origem",
-  cycle as "Ciclo"
+  link(file.link, title) as "Norm",
+  country as "Country",
+  type as "Type",
+  discovered_via as "Source",
+  cycle as "Cycle"
 FROM ""
 WHERE status != "quarantine"
 SORT cycle DESC, file.ctime DESC
@@ -91,12 +91,12 @@ LIMIT 20
 
 ---
 
-## ⚠ Quarentena  *(baixa confiança — fora do grafo principal)*
+## ⚠ Quarantine  *(low confidence — excluded from the main graph)*
 
 ```dataview
 TABLE WITHOUT ID
-  link(file.link, title) as "Norma",
-  country as "País",
+  link(file.link, title) as "Norm",
+  country as "Country",
   source_url as "URL",
   confidence as "Conf.",
   source_authority as "Authority"
@@ -107,7 +107,7 @@ LIMIT 25
 
 ---
 
-## Por jurisdição
+## By jurisdiction
 
 ```dataview
 LIST link(file.link, title) + " *(" + type + ")*"
@@ -119,10 +119,10 @@ SORT jurisdiction ASC
 
 ---
 
-## Receitas úteis
+## Useful recipes
 
-**Filtrar para um país específico:** abra qualquer query, mude `WHERE country` para `WHERE country = "BR"`.
+**Filter to one country:** open any query and change `WHERE country` to `WHERE country = "BR"`.
 
-**Caminho entre 2 normas:** com **Path Finder** instalado, abra a norma origem → comando `Path Finder: Find paths from this note` → selecione a destino.
+**Path between two norms:** with **Path Finder** installed, open the source norm → command `Path Finder: Find paths from this note` → pick the destination.
 
-**Visualização avançada do grafo:** comando `Juggl: Open Juggl` → permite filtrar por status, type, country interativamente.
+**Advanced graph exploration:** command `Juggl: Open Juggl` → filter interactively by status, type, country.

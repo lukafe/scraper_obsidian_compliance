@@ -37,8 +37,10 @@ class CandidateNorm:
 
     country: str
     jurisdiction: str
-    title: str
-    type: str  # statute | regulation | guidance | case_law
+    title: str                          # English display title (title_en)
+    type: str                           # statute | regulation | guidance | case_law
+    title_original: Optional[str] = None  # title in the source language, for legal verification
+    short_label: Optional[str] = None     # compact slug hint from the model (LAW14478, MICA, etc.)
     regulator: Optional[str] = None
     candidate_url: Optional[str] = None
     source_authority: Optional[str] = None  # set by verify_candidate
@@ -60,6 +62,7 @@ COUNTRY_NAMES: dict[str, str] = {
     "AE": "United Arab Emirates", "GB": "United Kingdom", "JP": "Japan",
     "DE": "Germany", "CH": "Switzerland", "HK": "Hong Kong",
     "KR": "South Korea", "FR": "France", "ES": "Spain", "IT": "Italy",
+    "TR": "Türkiye (Turkey)",
     "CA": "Canada", "AU": "Australia", "NZ": "New Zealand", "ZA": "South Africa",
     "IN": "India", "MX": "Mexico", "AR": "Argentina", "CO": "Colombia",
     "CL": "Chile", "PT": "Portugal", "NL": "Netherlands", "BE": "Belgium",
@@ -90,10 +93,12 @@ travel rule), payments, tax, central bank stance, consumer protection.
 For each norm return ONE object with these fields:
 
   {{
-    "title": "<official title in the original language>",
+    "title_en": "<title in ENGLISH — use the official English version if the regulator publishes one; otherwise translate accurately. Keep numeric identifiers (e.g. 'Law No. 14,478 of 2022', 'Circular No. 701/2024').>",
+    "title_original": "<official title in the ORIGINAL language>",
+    "short_label": "<6-20 char compact identifier suitable for a slug, e.g. 'LAW14478', 'CIRC701', 'MICA', 'BITLICENSE'. Prefer the most recognizable form lawyers in the jurisdiction use.>",
     "type": "statute | regulation | guidance | case_law",
     "regulator": "<short acronym of the issuing body, or null>",
-    "jurisdiction": "<country or sub-jurisdiction name>",
+    "jurisdiction": "<country or sub-jurisdiction name in English>",
     "candidate_url": "<the most authoritative public URL>",
     "source_authority": "primary | secondary | tertiary",
     "date": "<YYYY-MM-DD if known, else null>",
@@ -122,7 +127,9 @@ Hint:
 Return ONE JSON object with these fields:
 
   {{
-    "title": "<corrected official title>",
+    "title_en": "<corrected official title in ENGLISH>",
+    "title_original": "<official title in the original language>",
+    "short_label": "<6-20 char compact identifier (e.g. 'LAW14478', 'MICA', 'BITLICENSE')>",
     "candidate_url": "<best URL>",
     "source_authority": "primary | secondary | tertiary",
     "date": "<YYYY-MM-DD or null>",
@@ -191,11 +198,17 @@ class DiscoveryEngine:
             if not url:
                 continue
             authority = (item.get("source_authority") or "").strip() or None
+            # Tolerate old shape ("title") as well as new ("title_en"/"title_original").
+            title_en = (item.get("title_en") or item.get("title") or "").strip()
+            title_original = (item.get("title_original") or "").strip() or None
+            short_label = (item.get("short_label") or "").strip() or None
             out.append(
                 CandidateNorm(
                     country=country.upper(),
                     jurisdiction=(item.get("jurisdiction") or name),
-                    title=(item.get("title") or "").strip(),
+                    title=title_en,
+                    title_original=title_original,
+                    short_label=short_label,
                     type=t,
                     regulator=(item.get("regulator") or None),
                     candidate_url=url,
@@ -287,10 +300,15 @@ class DiscoveryEngine:
         if not url:
             return None
 
+        title_en = (data.get("title_en") or data.get("title") or title).strip()
+        title_original = (data.get("title_original") or "").strip() or None
+        short_label = (data.get("short_label") or "").strip() or None
         return CandidateNorm(
             country=country.upper(),
             jurisdiction=jurisdiction or country,
-            title=(data.get("title") or title).strip(),
+            title=title_en,
+            title_original=title_original,
+            short_label=short_label,
             type=type_,
             regulator=(data.get("regulator") or regulator),
             candidate_url=url,

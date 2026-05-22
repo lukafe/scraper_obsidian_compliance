@@ -488,6 +488,7 @@ class Orchestrator:
         nid = make_id(
             country=cand.country, title=cand.title,
             regulator=cand.regulator, date_str=cand.date,
+            short_label=cand.short_label,
         )
 
         existing = self.vault.read(nid)
@@ -502,6 +503,7 @@ class Orchestrator:
             jurisdiction=cand.jurisdiction,
             type=cand.type,
             title=cand.title,
+            title_original=cand.title_original,
             status=status,
             regulator=cand.regulator,
             source_url=cand.candidate_url,
@@ -562,7 +564,8 @@ class Orchestrator:
                 # Create a stub with no URL — keeps the citation in the graph
                 # but quarantined until a URL can be found.
                 nid = make_id(country=cit.country, title=cit.title,
-                              regulator=cit.regulator, date_str=cit.date)
+                              regulator=cit.regulator, date_str=cit.date,
+                              short_label=cit.short_label)
                 if self.vault.exists(nid):
                     return False
                 stub = Note(
@@ -571,6 +574,7 @@ class Orchestrator:
                     jurisdiction=cit.jurisdiction,
                     type=cit.type,
                     title=cit.title,
+                    title_original=cit.title_original,
                     status="quarantine",
                     regulator=cit.regulator,
                     confidence=0.0,
@@ -677,6 +681,7 @@ def _id_from_citation(cit: Citation) -> str:
         title=cit.title,
         regulator=cit.regulator,
         date_str=cit.date,
+        short_label=cit.short_label,
     )
 
 

@@ -29,10 +29,12 @@ log = logging.getLogger(__name__)
 @dataclass
 class Citation:
     """An explicit reference found in the body of a norm."""
-    title: str
-    country: str         # ISO alpha-2 ("INTL" for supranational)
+    title: str                          # English display title
+    country: str                        # ISO alpha-2 ("INTL" for supranational)
     jurisdiction: str
-    type: str            # statute | regulation | guidance | case_law | treaty
+    type: str                           # statute | regulation | guidance | case_law | treaty
+    title_original: Optional[str] = None
+    short_label: Optional[str] = None
     regulator: Optional[str] = None
     candidate_url: Optional[str] = None
     date: Optional[str] = None
@@ -41,12 +43,14 @@ class Citation:
 @dataclass
 class Related:
     """A semantically related-but-uncited norm suggested by the model."""
-    title: str
+    title: str                          # English display title
     country: str
     jurisdiction: str
     type: str
+    title_original: Optional[str] = None
+    short_label: Optional[str] = None
     regulator: Optional[str] = None
-    reason: str = ""     # one short sentence on why it's relevant
+    reason: str = ""                    # one short sentence on why it's relevant
 
 
 @dataclass
@@ -74,7 +78,8 @@ Source metadata:
   regulator    : {regulator}
   title        : {title}
 
-Return a JSON object with exactly TWO fields:
+Return a JSON object with exactly TWO fields. ALL titles in `title_en` MUST
+be in English (the engineers who read this graph speak only English).
 
 {{
   "citations": [
@@ -82,9 +87,11 @@ Return a JSON object with exactly TWO fields:
     // treaties, FATF recommendations, court decisions, EU directives, etc.
     // ONE object per distinct norm; deduplicate.
     {{
-      "title": "<official title as cited or as best known>",
+      "title_en": "<title in ENGLISH — official English version where one exists, otherwise faithful translation; keep numeric identifiers, e.g. 'Law No. 14,478 of 2022'>",
+      "title_original": "<title in the original language; null only if the cited norm was natively in English>",
+      "short_label": "<6-20 char compact identifier, e.g. 'LAW14478', 'MICA', 'AMLD5'>",
       "country": "<ISO alpha-2; use 'INTL' for supranational like FATF/BIS/FSB>",
-      "jurisdiction": "<jurisdiction name>",
+      "jurisdiction": "<jurisdiction name in English>",
       "type": "statute | regulation | guidance | case_law | treaty",
       "regulator": "<acronym or null>",
       "candidate_url": "<URL if you are confident, else null>",
@@ -96,12 +103,14 @@ Return a JSON object with exactly TWO fields:
     // this regulation implements, the EU directive being transposed, a
     // standard from FATF that informs the article). Max 8 items.
     {{
-      "title": "<best-known title>",
+      "title_en": "<best-known title in ENGLISH>",
+      "title_original": "<title in the original language or null>",
+      "short_label": "<compact identifier or null>",
       "country": "<ISO alpha-2 or INTL>",
-      "jurisdiction": "<jurisdiction name>",
+      "jurisdiction": "<jurisdiction name in English>",
       "type": "statute | regulation | guidance | case_law",
       "regulator": "<acronym or null>",
-      "reason": "<one short sentence>"
+      "reason": "<one short sentence in English>"
     }}
   ]
 }}
@@ -111,6 +120,7 @@ Rules:
   says "applicable AML legislation" without naming the law, do NOT include it.
 - Use the country code of the cited norm's jurisdiction (e.g. the body text
   is Brazilian but it cites a FATF recommendation -> country: "INTL").
+- All English fields MUST be in English. Do not mix languages.
 - Return JSON only.
 
 --- BEGIN BODY ---
@@ -201,7 +211,8 @@ def _parse_citations(items: Any) -> list[Citation]:
         t = (it.get("type") or "").strip()
         if t not in _VALID_TYPES_CIT:
             continue
-        title = (it.get("title") or "").strip()
+        # Accept both new ("title_en") and old ("title") shapes.
+        title = (it.get("title_en") or it.get("title") or "").strip()
         if not title:
             continue
         # We normalize "treaty" -> "guidance" for vault purposes (treaties
@@ -210,6 +221,8 @@ def _parse_citations(items: Any) -> list[Citation]:
         node_type = "guidance" if t == "treaty" else t
         out.append(Citation(
             title=title,
+            title_original=(it.get("title_original") or None),
+            short_label=(it.get("short_label") or None),
             country=_norm_country(it.get("country")),
             jurisdiction=(it.get("jurisdiction") or "").strip() or "Unknown",
             type=node_type,
@@ -228,11 +241,13 @@ def _parse_related(items: Any) -> list[Related]:
         t = (it.get("type") or "").strip()
         if t not in _VALID_TYPES_REL:
             continue
-        title = (it.get("title") or "").strip()
+        title = (it.get("title_en") or it.get("title") or "").strip()
         if not title:
             continue
         out.append(Related(
             title=title,
+            title_original=(it.get("title_original") or None),
+            short_label=(it.get("short_label") or None),
             country=_norm_country(it.get("country")),
             jurisdiction=(it.get("jurisdiction") or "").strip() or "Unknown",
             type=t,

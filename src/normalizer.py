@@ -127,29 +127,48 @@ def normalize(
     client: Optional[AnthropicClient] = None,
     translation_model: str = "claude-haiku-4-5-20251001",
 ) -> NormalizedBody:
+    """Clean + (optionally) translate.
+
+    When `translate_to` is provided and the detected source language differs,
+    the body becomes ENGLISH-FIRST: the translated text is the main content,
+    and the original is collapsed into a `<details>` block at the bottom for
+    legal verification. Engineers reading the vault see English by default;
+    a lawyer auditing the source can click to expand the original.
+    """
     cleaned = clean_text(raw_text)
     lang = detect_language(cleaned)
-    body, truncated = truncate(cleaned)
+    body_original, truncated = truncate(cleaned)
 
-    if (
+    should_translate = (
         translate_to
         and client is not None
         and lang is not None
         and lang != translate_to
         and len(cleaned) > 200
-    ):
-        translated = translate(
-            client,
-            text=cleaned,
-            source_lang=lang,
-            target_lang=translate_to,
-            model=translation_model,
-        )
-        if translated:
-            body = (
-                body
-                + f"\n\n---\n\n## Translation ({lang} → {translate_to})\n\n"
-                + translated
-            )
+    )
 
+    if not should_translate:
+        return NormalizedBody(body=body_original, language=lang, truncated=truncated)
+
+    translated = translate(
+        client,
+        text=cleaned,
+        source_lang=lang,
+        target_lang=translate_to,
+        model=translation_model,
+    )
+    if not translated:
+        # Translation failed — keep the original rather than blocking the pipeline.
+        return NormalizedBody(body=body_original, language=lang, truncated=truncated)
+
+    # English-first: translation is the main body; original goes in a foldable section.
+    body = (
+        f"> *Auto-translated from `{lang}` to `{translate_to}`. "
+        f"For legal verification, expand the original below or follow `source_url`.*\n\n"
+        + translated
+        + "\n\n---\n\n"
+        + f"<details>\n<summary>Original text ({lang})</summary>\n\n"
+        + body_original
+        + "\n\n</details>\n"
+    )
     return NormalizedBody(body=body, language=lang, truncated=truncated)

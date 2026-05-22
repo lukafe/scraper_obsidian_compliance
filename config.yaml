@@ -1,17 +1,22 @@
 vault_path: ./vault
 cache_path: ./cache
 
+# Phased rollout: uncomment one country at a time, validate, move on.
+# Override via CLI: `python -m src.orchestrator --countries BR,TR`
 countries:
-  - BR    # Brazil
-  - US    # United States
-  - SG    # Singapore
-  - AE    # United Arab Emirates
-  - GB    # United Kingdom
-  - JP    # Japan
-  - DE    # Germany
-  - CH    # Switzerland
-  - HK    # Hong Kong
-  - KR    # South Korea
+  - BR    # Phase 1 — Brazil (validation baseline)
+  # - TR    # Phase 2 — Türkiye
+  # - DE    # Phase 3 — Germany
+  # - FR    # Phase 4 — France
+  # --- not yet active ---
+  # - US    # United States
+  # - SG    # Singapore
+  # - AE    # United Arab Emirates
+  # - GB    # United Kingdom
+  # - JP    # Japan
+  # - CH    # Switzerland
+  # - HK    # Hong Kong
+  # - KR    # South Korea
 
 # Supranational bodies are always seeded (FATF, BIS, FSB, IOSCO, etc.)
 seed_supranational: true

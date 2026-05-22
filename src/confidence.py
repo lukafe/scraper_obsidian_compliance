@@ -51,6 +51,14 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "fsc.go.kr", "law.go.kr", ".go.kr",
     # UAE
     "centralbank.ae", "vara.ae", "sca.gov.ae",
+    # Turkey
+    ".gov.tr", ".org.tr", "mevzuat.gov.tr", "resmigazete.gov.tr",
+    "spk.gov.tr", "bddk.org.tr", "tcmb.gov.tr", "masak.hmb.gov.tr",
+    "anayasa.gov.tr", "danistay.gov.tr",
+    # France
+    ".gouv.fr", "legifrance.gouv.fr", "amf-france.org", "acpr.banque-france.fr",
+    "banque-france.fr", "tracfin.economie.gouv.fr", "conseil-etat.fr",
+    "courdecassation.fr",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
     "oecd.org", "worldbank.org", "un.org",

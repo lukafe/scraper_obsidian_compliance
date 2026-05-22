@@ -49,8 +49,9 @@ class Note:
     country: str
     jurisdiction: str
     type: str
-    title: str
+    title: str                           # English display title (always)
     status: str = "discovered"
+    title_original: Optional[str] = None  # original-language title for legal verification
     regulator: Optional[str] = None
     source_url: Optional[str] = None
     source_authority: Optional[str] = None  # primary | secondary | tertiary
@@ -79,6 +80,8 @@ class Note:
             "references": list(self.references),
             "ref_types": dict(self.ref_types),
         }
+        if self.title_original is not None:
+            data["title_original"] = self.title_original
         if self.regulator is not None:
             data["regulator"] = self.regulator
         if self.source_url is not None:
@@ -97,11 +100,9 @@ class Note:
     @classmethod
     def from_post(cls, post: frontmatter.Post) -> "Note":
         d = dict(post.metadata)
-        # Pop typed fields, leave the rest in `extra`.
         def pop(key: str, default: Any = None) -> Any:
             return d.pop(key, default)
 
-        # `date` may come back as datetime.date from YAML — coerce to str.
         raw_date = pop("date")
         if isinstance(raw_date, date):
             date_str = raw_date.isoformat()
@@ -116,6 +117,7 @@ class Note:
             jurisdiction=pop("jurisdiction", ""),
             type=pop("type"),
             title=pop("title", ""),
+            title_original=pop("title_original"),
             status=pop("status", "discovered"),
             regulator=pop("regulator"),
             source_url=pop("source_url"),
@@ -227,13 +229,22 @@ def make_id(
     title: str,
     regulator: Optional[str] = None,
     date_str: Optional[str] = None,
+    short_label: Optional[str] = None,
 ) -> str:
     """Build a deterministic id: `{COUNTRY}-{SLUG}-{YEAR}`.
 
     Same logical norm -> same id, even rediscovered through a different route.
+
+    If `short_label` is supplied (from the model's discovery output), it is
+    preferred over the title-derived slug — the model usually picks a cleaner
+    canonical form (e.g. "MICA", "BITLICENSE", "LAW14478") than the regex
+    heuristic can extract from an English-translated title.
     """
     country = (country or "").strip().upper() or "ZZ"
-    slug = _identifier_slug(title, regulator)
+    if short_label:
+        slug = _NON_ALNUM.sub("", short_label).upper()[:24] or _identifier_slug(title, regulator)
+    else:
+        slug = _identifier_slug(title, regulator)
     year = _extract_year(date_str, title)
     if year:
         return f"{country}-{slug}-{year}"
