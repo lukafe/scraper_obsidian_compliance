@@ -222,6 +222,15 @@ class HttpScraper:
         cached_html = self.cache.get(url, "html")
         if cached_html:
             text = _html_to_text(cached_html, url)
+            # Apply the same JS-render fallback to cached HTML — the cached
+            # entry was likely written during the lightweight probe step,
+            # which never tries playwright.
+            if self.playwright_fallback and _needs_js_render(text, cached_html):
+                log.info("fetch (cache): triggering playwright fallback url=%s extracted_chars=%d",
+                         url, len(text))
+                pw_text = _playwright_render(url, self.user_agent, self.timeout)
+                if pw_text and len(pw_text.strip()) > len(text.strip()):
+                    text = pw_text
             return FetchResult(
                 url=url, final_url=url, status_code=200,
                 content_type="text/html", content=cached_html,
@@ -241,11 +250,17 @@ class HttpScraper:
             else:
                 self.cache.put(url, content, "html")
                 text = _html_to_text(content, url)
-                # Fall back to playwright for JS-rendered pages with very
-                # little extracted text.
-                if self.playwright_fallback and len(text.strip()) < 200:
+                # Fall back to playwright when the page looks JS-rendered:
+                # - very short extracted text, OR
+                # - looks like an SPA shell (contains the canonical "enable js"
+                #   noscript message in any language), OR
+                # - extracted text is small relative to raw HTML (HTML > 50KB
+                #   but trafilatura got < 500 chars of body)
+                if self.playwright_fallback and _needs_js_render(text, content):
+                    log.info("fetch: triggering playwright fallback url=%s extracted_chars=%d",
+                             url, len(text))
                     pw_text = _playwright_render(url, self.user_agent, self.timeout)
-                    if pw_text:
+                    if pw_text and len(pw_text.strip()) > len(text.strip()):
                         text = pw_text
 
             return FetchResult(
@@ -302,7 +317,9 @@ def _html_to_text(content: bytes, url: str) -> str:
         from html import unescape
         import re
 
-        doc = Document(content)
+        # readability-lxml's encoding regex chokes on bytes; decode first.
+        html_str = content.decode("utf-8", errors="ignore") if isinstance(content, bytes) else content
+        doc = Document(html_str)
         summary_html = doc.summary(html_partial=True)
         # Crude HTML strip — good enough as a last resort.
         text = re.sub(r"<[^>]+>", " ", summary_html)
@@ -328,6 +345,37 @@ def _pdf_to_text(content: bytes) -> str:
     return "\n\n".join(out)
 
 
+# Multi-language markers that indicate a page is a JavaScript-rendered SPA
+# whose pre-render text is just a "please enable JS" notice.
+_JS_REQUIRED_HINTS = (
+    "enable javascript",
+    "please enable js",
+    "javascript is disabled",
+    "essa pagina depende do javascript",
+    "esta página depende do javascript",
+    "habilitar el javascript",
+    "veuillez activer javascript",
+    "javascript aktivieren",
+)
+
+
+def _needs_js_render(extracted_text: str, raw_html: bytes) -> bool:
+    """Heuristic: decide whether to retry via headless browser."""
+    text = (extracted_text or "").strip()
+    low = text.lower()
+
+    # Very short extracted text relative to a substantial HTML body.
+    if len(raw_html) > 30_000 and len(text) < 500:
+        return True
+    # Triggered by a clearly JS-shell marker.
+    if any(hint in low for hint in _JS_REQUIRED_HINTS):
+        return True
+    # Just very little extracted text.
+    if len(text) < 200:
+        return True
+    return False
+
+
 def _playwright_render(url: str, user_agent: str, timeout: float) -> str:
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
@@ -340,7 +388,13 @@ def _playwright_render(url: str, user_agent: str, timeout: float) -> str:
             context = browser.new_context(user_agent=user_agent)
             page = context.new_page()
             page.goto(url, timeout=int(timeout * 1000), wait_until="domcontentloaded")
-            page.wait_for_timeout(1500)  # let JS settle
+            # Wait for network to go idle (SPAs typically fire 2-3 XHRs after DOMContentLoaded).
+            try:
+                page.wait_for_load_state("networkidle", timeout=10_000)
+            except Exception:
+                pass
+            # Then give a small extra wait for late-firing renders.
+            page.wait_for_timeout(2000)
             text = page.evaluate("() => document.body && document.body.innerText || ''")
             browser.close()
             return text or ""
