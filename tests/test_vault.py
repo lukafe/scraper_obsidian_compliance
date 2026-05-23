@@ -32,6 +32,24 @@ def test_make_id_known_cases(kwargs, expected):
     assert make_id(**kwargs) == expected
 
 
+def test_make_id_strips_year_dup_from_short_label():
+    """When short_label already ends in the year, don't double it."""
+    nid = make_id(
+        country="BR", title="BCB Circular 3978",
+        short_label="BCBCIRC39782020", date_str="2020-01-23",
+    )
+    assert nid == "BR-BCBCIRC3978-2020"
+
+
+def test_make_id_keeps_short_label_when_no_year_dup():
+    """Trailing digits that aren't the date year should be preserved."""
+    nid = make_id(
+        country="BR", title="BCB Resolution 519",
+        short_label="BCBRES519", date_str="2025-11-10",
+    )
+    assert nid == "BR-BCBRES519-2025"
+
+
 def test_make_id_is_deterministic_across_whitespace():
     a = make_id(country="BR", title="Lei nº 14.478")
     b = make_id(country="BR", title="  Lei nº 14.478  ")

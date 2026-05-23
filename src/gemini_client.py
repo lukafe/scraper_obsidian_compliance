@@ -63,7 +63,11 @@ class GeminiClient:
         if not key:
             raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) is not set")
         self.cfg = cfg
-        self.client = genai.Client(api_key=key)
+        # Hard 180s timeout on every API call. Without this, the SDK can hang
+        # indefinitely on stalled streams (observed in production: a single
+        # generate_content() call sat idle for 2h before being killed).
+        http_options = genai_types.HttpOptions(timeout=180_000)  # milliseconds
+        self.client = genai.Client(api_key=key, http_options=http_options)
         self.ledger = CostLedger()
 
     # ------------------------------------------------------------------

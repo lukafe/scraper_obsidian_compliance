@@ -110,8 +110,17 @@ log_level: INFO
 
 force_include:
   BR:
-    # ---- Verified URLs (LexML and Receita Federal portals serve static HTML) ----
-    - title_hint: "Brazilian Law No. 14,478 of 2022 (Virtual Assets Framework)"
+    # ==================================================================
+    # Aligned with the user's Crypto Regulatory Matrix for Brazil.
+    # URL strategy:
+    #   - lexml.gov.br for all Planalto federal laws + decrees  (verified static)
+    #   - conteudo.cvm.gov.br for CVM pareceres + resolutions    (verified static)
+    #   - normas.receita.fazenda.gov.br for RFB INs              (verified static)
+    #   - bcb.gov.br SPA URLs included for BCB normativos        (playwright fallback)
+    # ==================================================================
+
+    # ---------- Section 1: Marco Legal + competência ----------
+    - title_hint: "Brazilian Law No. 14,478 of 2022 (Virtual Assets Framework / Marco Legal dos Criptoativos)"
       title_original: "Lei nº 14.478, de 21 de dezembro de 2022"
       url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2022-12-21;14478"
       type: statute
@@ -119,25 +128,116 @@ force_include:
       date: "2022-12-21"
       short_label: "LAW14478"
 
-    - title_hint: "Brazilian Receita Federal Normative Instruction No. 1,888 of 2019 (crypto-asset reporting obligation to RFB)"
-      title_original: "Instrução Normativa RFB nº 1.888, de 3 de maio de 2019"
-      url_hint: "http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=100592"
+    - title_hint: "Brazilian Decree No. 11,563 of 2023 — regulates Law 14,478, designates BCB as crypto regulator, preserves CVM and AML competences"
+      title_original: "Decreto nº 11.563, de 13 de junho de 2023"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2023-06-13;11563"
       type: regulation
-      regulator: "RFB"
-      date: "2019-05-03"
-      short_label: "IN1888"
+      regulator: "Presidência da República"
+      date: "2023-06-13"
+      short_label: "DEC11563"
 
-    - title_hint: "Brazilian Receita Federal Normative Instruction No. 2,228 of 2024 (updated crypto-asset reporting; supersedes 1888 from 2025)"
-      title_original: "Instrução Normativa RFB nº 2.228, de 1º de outubro de 2024"
-      url_hint: "http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=139000"
+    # ---------- Section 2: BCB — PSAVs / SPSAVs ----------
+    - title_hint: "BCB Resolution No. 519 of 2025 — authorization process for SPSAVs (Crypto-Asset Service Provider Companies)"
+      title_original: "Resolução BCB nº 519, de 10 de novembro de 2025"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=519"
       type: regulation
-      regulator: "RFB"
-      date: "2024-10-01"
-      short_label: "IN2228"
+      regulator: "BCB"
+      date: "2025-11-10"
+      short_label: "BCBRES519"
 
-    # ---- High-priority norms (LexML or Receita) without specific URL guess ----
-    # The semantic resolver will find URLs.
-    - title_hint: "Brazilian CVM Resolution No. 175 of 2022 — investment funds, includes provisions for crypto-asset funds"
+    - title_hint: "BCB Resolution No. 520 of 2025 — establishment and operation of PSAVs/SPSAVs (intermediary, custodian, broker classes)"
+      title_original: "Resolução BCB nº 520, de 10 de novembro de 2025"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=520"
+      type: regulation
+      regulator: "BCB"
+      date: "2025-11-10"
+      short_label: "BCBRES520"
+
+    - title_hint: "BCB Resolution No. 521 of 2025 — integrates crypto-asset operations into the FX market and international capital regime; amends Res. 277/278/279"
+      title_original: "Resolução BCB nº 521, de 10 de novembro de 2025"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=521"
+      type: regulation
+      regulator: "BCB"
+      date: "2025-11-10"
+      short_label: "BCBRES521"
+
+    - title_hint: "BCB Normative Instruction No. 701 of 2026 — technical-certification requirements by independent qualified firms for crypto-asset intermediation/custody licenses (anchors Res. 520 arts. 20 and 23)"
+      title_original: "Instrução Normativa BCB nº 701, de 22 de janeiro de 2026"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Instru%C3%A7%C3%A3o%20Normativa%20BCB&numero=701"
+      type: regulation
+      regulator: "BCB"
+      date: "2026-01-22"
+      short_label: "BCBIN701"
+
+    - title_hint: "BCB Normative Instruction No. 704 of 2026 — procedures, documents and Sisorf models for SPSAV authorization filings, including the two-phase transition for existing operators (deadline 2026-10-30)"
+      title_original: "Instrução Normativa BCB nº 704, de 29 de janeiro de 2026"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Instru%C3%A7%C3%A3o%20Normativa%20BCB&numero=704"
+      type: regulation
+      regulator: "BCB"
+      date: "2026-01-29"
+      short_label: "BCBIN704"
+
+    - title_hint: "BCB Resolution No. 277 of 2022 — FX market rules (amended by Res. 521 to include crypto operations)"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=277"
+      type: regulation
+      regulator: "BCB"
+      date: "2022-12-31"
+      short_label: "BCBRES277"
+
+    - title_hint: "BCB Resolution No. 278 of 2022 — FX market rules (amended by Res. 521)"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=278"
+      type: regulation
+      regulator: "BCB"
+      date: "2022-12-31"
+      short_label: "BCBRES278"
+
+    - title_hint: "BCB Resolution No. 279 of 2022 — FX market rules (amended by Res. 521)"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=279"
+      type: regulation
+      regulator: "BCB"
+      date: "2022-12-31"
+      short_label: "BCBRES279"
+
+    # ---------- Section 3: CVM — securities-classified crypto ----------
+    - title_hint: "CVM Orientation Opinion No. 40 of 2022 — consolidates CVM's view on crypto-assets as securities (Howey-style functional test)"
+      title_original: "Parecer de Orientação CVM nº 40, de 11 de outubro de 2022"
+      url_hint: "https://conteudo.cvm.gov.br/legislacao/pareceres-orientacao/pare040.html"
+      type: guidance
+      regulator: "CVM"
+      date: "2022-10-11"
+      short_label: "CVMPO40"
+
+    - title_hint: "Brazilian Law No. 6,385 of 1976 — creates the CVM and defines securities (art. 2)"
+      title_original: "Lei nº 6.385, de 7 de dezembro de 1976"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1976-12-07;6385"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "1976-12-07"
+      short_label: "LAW6385"
+
+    - title_hint: "Brazilian Law No. 14,430 of 2022 — securitization framework, defines CRs frequently tokenized"
+      title_original: "Lei nº 14.430, de 3 de agosto de 2022"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2022-08-03;14430"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2022-08-03"
+      short_label: "LAW14430"
+
+    - title_hint: "CVM Resolution No. 88 of 2022 — public offerings of small value via crowdfunding platforms (common path for small token offerings)"
+      url_hint: "https://conteudo.cvm.gov.br/legislacao/resolucoes/resol088.html"
+      type: regulation
+      regulator: "CVM"
+      date: "2022-04-27"
+      short_label: "CVMRES88"
+
+    - title_hint: "CVM Resolution No. 160 of 2022 — general regime of public offerings (applies to security tokens offered to the public)"
+      url_hint: "https://conteudo.cvm.gov.br/legislacao/resolucoes/resol160.html"
+      type: regulation
+      regulator: "CVM"
+      date: "2022-07-13"
+      short_label: "CVMRES160"
+
+    - title_hint: "CVM Resolution No. 175 of 2022 — investment-fund framework, permits crypto-asset allocations within limits"
       title_original: "Resolução CVM nº 175, de 23 de dezembro de 2022"
       url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:comissao.valores.mobiliarios:resolucao:2022-12-23;175"
       type: regulation
@@ -145,7 +245,95 @@ force_include:
       date: "2022-12-23"
       short_label: "CVMRES175"
 
-    - title_hint: "Brazilian BCB Circular No. 3,978 of 2020 — AML / KYC / financial-crime compliance (covers VASPs by extension)"
+    # ---------- Section 4: Taxation + RFB obligations ----------
+    - title_hint: "Brazilian Law No. 14,754 of 2023 — taxation of offshore financial holdings; equates foreign-held crypto-assets to foreign financial investments (15%)"
+      title_original: "Lei nº 14.754, de 12 de dezembro de 2023"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2023-12-12;14754"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2023-12-12"
+      short_label: "LAW14754"
+
+    - title_hint: "Receita Federal Normative Instruction No. 2,180 of 2024 — regulates arts. 1-15 of Law 14,754/2023, including foreign-held crypto-asset tax treatment"
+      title_original: "Instrução Normativa RFB nº 2.180, de 11 de março de 2024"
+      type: regulation
+      regulator: "RFB"
+      date: "2024-03-11"
+      short_label: "INRFB2180"
+
+    - title_hint: "Receita Federal Normative Instruction No. 1,888 of 2019 — monthly crypto-asset operations reporting (R$30k threshold); to be revoked by IN 2,291 on 2026-07-01"
+      title_original: "Instrução Normativa RFB nº 1.888, de 3 de maio de 2019"
+      url_hint: "http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=100592"
+      type: regulation
+      regulator: "RFB"
+      date: "2019-05-03"
+      short_label: "IN1888"
+
+    - title_hint: "Receita Federal Normative Instruction No. 1,500 of 2014 — consolidated rules on Brazilian individual income tax, basis for crypto capital-gains taxation"
+      title_original: "Instrução Normativa RFB nº 1.500, de 29 de outubro de 2014"
+      type: regulation
+      regulator: "RFB"
+      date: "2014-10-29"
+      short_label: "IN1500"
+
+    - title_hint: "Receita Federal Normative Instruction No. 2,291 of 2025 (DeCripto) — Crypto-Asset Declaration via e-CAC; aligns Brazil with OECD CARF; covers DeFi/staking/airdrop/mining/NFTs; obligates foreign VASPs; effects from 2026-07-01"
+      title_original: "Instrução Normativa RFB nº 2.291, de 14 de novembro de 2025"
+      url_hint: "https://www.in.gov.br/en/web/dou/-/instrucao-normativa-rfb-n-2.291-de-14-de-novembro-de-2025-669274421"
+      type: regulation
+      regulator: "RFB"
+      date: "2025-11-14"
+      short_label: "INRFB2291"
+
+    - title_hint: "Brazilian Law No. 8,981 of 1995 — individual capital-gains tax rules; basis for crypto sales taxation with R$35k monthly exemption"
+      title_original: "Lei nº 8.981, de 20 de janeiro de 1995"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1995-01-20;8981"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "1995-01-20"
+      short_label: "LAW8981"
+
+    # ---------- Section 5: AML / CFT ----------
+    - title_hint: "Brazilian Law No. 9,613 of 1998 (Money Laundering Law) — Law 14,478 added VASPs to the list of obligated parties (art. 9)"
+      title_original: "Lei nº 9.613, de 3 de março de 1998"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1998-03-03;9613"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "1998-03-03"
+      short_label: "LAW9613"
+
+    - title_hint: "Brazilian Penal Code (Decree-Law 2,848/1940) — art. 171-A inserted by Law 14,478: fraud with virtual assets, securities or financial assets (4-8 years imprisonment + fine)"
+      title_original: "Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal)"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto.lei:1940-12-07;2848"
+      type: statute
+      regulator: "Presidência da República"
+      date: "1940-12-07"
+      short_label: "PENALCODE"
+
+    - title_hint: "Brazilian Law No. 7,492 of 1986 (Crimes against the National Financial System) — Law 14,478 amended it to reach unauthorized VASP operations"
+      title_original: "Lei nº 7.492, de 16 de junho de 1986"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1986-06-16;7492"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "1986-06-16"
+      short_label: "LAW7492"
+
+    - title_hint: "Brazilian Law No. 13,260 of 2016 (Anti-terrorism Law) — typifies terrorism financing (CFT pillar)"
+      title_original: "Lei nº 13.260, de 16 de março de 2016"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2016-03-16;13260"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2016-03-16"
+      short_label: "LAW13260"
+
+    - title_hint: "BCB Resolution No. 119 of 2021 — current AML/CFT framework for BCB-regulated institutions (replaces Circular 3,978/2020)"
+      title_original: "Resolução BCB nº 119, de 4 de junho de 2021"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=119"
+      type: regulation
+      regulator: "BCB"
+      date: "2021-06-04"
+      short_label: "BCBRES119"
+
+    - title_hint: "BCB Circular No. 3,978 of 2020 — AML/KYC controls (predecessor of Res. BCB 119/2021)"
       title_original: "Circular BCB nº 3.978, de 23 de janeiro de 2020"
       url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:banco.central.brasil:circular:2020-01-23;3978"
       type: regulation
@@ -153,10 +341,55 @@ force_include:
       date: "2020-01-23"
       short_label: "CIRC3978"
 
-    # IMPORTANT: The user originally requested "IN 701" and "IN 704" but no Brazilian
-    # crypto-related Normative Instructions with those numbers were located. They may
-    # have been confused with the BCB Resolutions 519/520/521/561 of 2024-2025 (which
-    # ARE present in the seed) or with other RFB INs. Flagged for human review.
+    # ---------- Section 6: FX, International Capital, Payments ----------
+    - title_hint: "Brazilian Law No. 14,286 of 2021 (Brazilian FX Framework / Marco Legal Cambial) — basis on which Res. BCB 521 integrates crypto into FX"
+      title_original: "Lei nº 14.286, de 29 de dezembro de 2021"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-12-29;14286"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2021-12-29"
+      short_label: "LAW14286"
+
+    - title_hint: "Brazilian Law No. 12,865 of 2013 — Brazilian Payment System (SPB) arrangements and payment institutions; touches crypto when operations involve payment accounts"
+      title_original: "Lei nº 12.865, de 9 de outubro de 2013"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2013-10-09;12865"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2013-10-09"
+      short_label: "LAW12865"
+
+    # ---------- Section 7: Consumer protection, Data, Cybersecurity ----------
+    - title_hint: "Brazilian Consumer Defense Code (Law 8,078/1990) — applies to PSAV/user relations as preserved by Decree 11,563"
+      title_original: "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor)"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-09-11;8078"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "1990-09-11"
+      short_label: "CDC8078"
+
+    - title_hint: "Brazilian General Data Protection Law (LGPD - Law 13,709/2018) — governs PSAV KYC, onboarding, monitoring"
+      title_original: "Lei nº 13.709, de 14 de agosto de 2018 (LGPD)"
+      url_hint: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2018-08-14;13709"
+      type: statute
+      regulator: "Congresso Nacional"
+      date: "2018-08-14"
+      short_label: "LGPD"
+
+    - title_hint: "CMN Resolution No. 4,893 of 2021 — cybersecurity policy and cloud-processing/storage requirements for BCB-regulated institutions; extended to SPSAVs by Res. 520"
+      title_original: "Resolução CMN nº 4.893, de 26 de fevereiro de 2021"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20CMN&numero=4893"
+      type: regulation
+      regulator: "CMN"
+      date: "2021-02-26"
+      short_label: "CMNRES4893"
+
+    - title_hint: "BCB Resolution No. 85 of 2021 — cybersecurity policy for payment institutions (companion of CMN 4,893)"
+      title_original: "Resolução BCB nº 85, de 8 de abril de 2021"
+      url_hint: "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=85"
+      type: regulation
+      regulator: "BCB"
+      date: "2021-04-08"
+      short_label: "BCBRES85"
 
   TR:
     # Turkish norms — URL hints intentionally omitted because mevzuat.gov.tr is

@@ -291,11 +291,12 @@ class Orchestrator:
         country = country.upper()
         log.info("=== country=%s ===", country)
 
-        # SEED — only on the very first cycle for this country.
+        # Force-include runs every time (idempotent — vault.upsert dedups by id).
+        # Lets the user add new must-haves to config and re-run to backfill.
+        self._force_include_for(country)
+
+        # Auto-discovery seed only on the very first cycle for this country.
         if not self._has_seed_nodes(country):
-            # Force-include first (guaranteed inclusion of user-specified norms),
-            # then auto-discovery via the LLM for everything else.
-            self._force_include_for(country)
             self._seed(country)
 
         if seed_only:

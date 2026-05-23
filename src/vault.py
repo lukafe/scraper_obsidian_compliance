@@ -241,11 +241,18 @@ def make_id(
     heuristic can extract from an English-translated title.
     """
     country = (country or "").strip().upper() or "ZZ"
+    year = _extract_year(date_str, title)
     if short_label:
         slug = _NON_ALNUM.sub("", short_label).upper()[:24] or _identifier_slug(title, regulator)
+        # Strip a trailing year embedded in the short_label so we don't double
+        # it when appending `-YEAR` (e.g. model returns "BCBCIRC39782020" for a
+        # 2020 circular -> we'd get BR-BCBCIRC39782020-2020 instead of
+        # BR-BCBCIRC3978-2020). Only strip if the trailing 4 digits match the
+        # year we're about to append.
+        if year and slug.endswith(year) and len(slug) > 4:
+            slug = slug[: -len(year)]
     else:
         slug = _identifier_slug(title, regulator)
-    year = _extract_year(date_str, title)
     if year:
         return f"{country}-{slug}-{year}"
     return f"{country}-{slug}"
