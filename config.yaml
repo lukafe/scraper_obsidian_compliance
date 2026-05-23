@@ -12,7 +12,11 @@ countries:
   - GB    # Phase 6 — United Kingdom ✓
   - AE    # Phase 7 — United Arab Emirates ✓
   - US    # Phase 8 — United States ✓
-  - NG    # Phase 9 — Nigeria
+  - HK    # Phase 9 — Hong Kong ✓
+  - MX    # Phase 10 — Mexico
+  - NG    # Phase 11 — Nigeria
+  - LT    # Phase 12 — Lithuania
+  - AR    # Phase 13 — Argentina
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -1651,3 +1655,168 @@ force_include:
       regulator: "National Assembly of Nigeria"
       date: "2022-12-31"
       short_label: "FINANCEACT2022"
+
+  LT:
+    # ==================================================================
+    # Aligned with the user's Lithuania Crypto Regulatory Matrix.
+    # URL strategy: e-tar.lt, lb.lt, fntt.lt are Cloudflare-blocked.
+    # Use e-Seimas direct (works for some laws), Wayback for FNTT,
+    # VMI direct (works). Semantic resolver fills the gaps.
+    # ==================================================================
+
+    # ---------- Layer 1: EU directly applicable (already present) ----------
+    # EU-MICA-2023, EU-TFR-2023, EU-DORA-2022, EU-PROSPECTUSREG-2017,
+    # EU-DAC8-2023 — already in vault from prior phases.
+
+    # ---------- Layer 2: Lithuanian MiCA implementation ----------
+    - title_hint: "Lithuanian Law on Markets in Crypto-Assets (Lietuvos Respublikos kriptoturto rinkų įstatymas) — in force 2024-07-11; national implementation of MiCA; transfers CASP licensing to Lietuvos bankas (formerly FCIS registered VASPs); organises VASP -> CASP transition until 2026-01-01"
+      title_original: "Lietuvos Respublikos kriptoturto rinkų įstatymas"
+      type: statute
+      regulator: "Seimas / Lietuvos bankas"
+      date: "2024-07-11"
+      short_label: "LTCRYPTOMARKETSLAW"
+
+    - title_hint: "Lietuvos bankas CASP licensing regime — single licence covering crypto/fiat and crypto/crypto exchange, custody, transfer, portfolio management, advisory, staking; capital EUR 50,000-150,000 depending on services; remote process ~60-90 business days; one of the fastest in the EU; no white-label/sub-licensing"
+      type: regulation
+      regulator: "Lietuvos bankas"
+      date: "2024-12-30"
+      short_label: "LBCASP"
+
+    - title_hint: "Lithuanian transitional regime extension for VASPs to CASPs — original deadline 2025-06-01 extended to 2026-01-01 by Parliament; after 2025-12-31, operating without a CASP licence is illegal financial activity"
+      type: regulation
+      regulator: "Seimas"
+      date: "2025-12-31"
+      short_label: "LTCASPTRANSIT"
+
+    # ---------- Layer 3: National AML / Original VASP regime ----------
+    - title_hint: "Lithuanian Law on the Prevention of Money Laundering and Terrorist Financing (Pinigų plovimo ir teroristų finansavimo prevencijos įstatymas) — transposed the 5th AML Directive; created the VASP registration regime (VCESP exchange operators + VCWSP custodial wallet operators); KYC, monitoring, FCIS reporting; remains the AML base under CASP"
+      title_original: "Pinigų plovimo ir teroristų finansavimo prevencijos įstatymas"
+      type: statute
+      regulator: "Seimas / FCIS (FNTT)"
+      short_label: "LTAMLLAW"
+
+    - title_hint: "Lithuanian VASP regime tightening 2022-2023 — amendments raising minimum share capital to EUR 125,000, requiring local management/contact person residency, enhanced KYC, listing on Registru centras; effective Nov/2022 (new) and Dec/2022-Jan/2023 (existing); drastically cut the number of active VASPs"
+      type: regulation
+      regulator: "Seimas"
+      date: "2022-11-01"
+      short_label: "LTVASPTIGHTEN"
+
+    - title_hint: "FCIS / FNTT (Finansinių nusikaltimų tyrimo tarnyba — Financial Crime Investigation Service of Lithuania) — supervisor of AML/CFT for VASPs/CASPs: KYC, monitoring, fit-and-proper, suspicious-transaction reporting; works alongside Lietuvos bankas in licensing"
+      url_hint: "https://web.archive.org/web/2024/https://fntt.lt/en"
+      type: guidance
+      regulator: "FCIS (FNTT)"
+      short_label: "FCISFNTT"
+
+    # ---------- Layer 4: Securities + MiFID ----------
+    - title_hint: "Lithuanian Law on Markets in Financial Instruments (Finansinių priemonių rinkų įstatymas) — implements MiFID II; applies when a token is a security or derivative (security tokens, financial arrangements linked to crypto variation); OUTSIDE MiCA; Lietuvos bankas has confirmed this position"
+      title_original: "Finansinių priemonių rinkų įstatymas"
+      type: statute
+      regulator: "Seimas / Lietuvos bankas"
+      short_label: "LTMIFID"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "Lithuanian Personal Income Tax Law (GPM — Gyventojų pajamų mokesčio įstatymas) — NO dedicated crypto tax law; crypto treated as current asset/property; each disposal (sale to fiat, crypto/crypto swap, payment for goods/services, staking interest) is taxable; treated as 'other taxable income' with EUR 2,500/year tax-free allowance; excess taxed at 15% (20% above high-income threshold)"
+      title_original: "Lietuvos Respublikos gyventojų pajamų mokesčio įstatymas"
+      url_hint: "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/TAIS.171369"
+      type: statute
+      regulator: "Seimas / VMI"
+      short_label: "LTGPM"
+
+    - title_hint: "VMI (Valstybinė mokesčių inspekcija — State Tax Inspectorate of Lithuania) guidance on crypto-assets — details taxable transactions, computation by EUR market value at event, mining (monetary/business activity at 15%), staking, NFTs, DeFi reporting; annual PIT declaration by May 1"
+      url_hint: "https://www.vmi.lt"
+      type: guidance
+      regulator: "VMI"
+      short_label: "VMICRYPTO"
+
+    - title_hint: "Lithuanian Corporate Income Tax Law (Pelno mokesčio įstatymas) — crypto companies pay corporate income tax at 16% (general rate from 2025; reduced for small companies)"
+      title_original: "Lietuvos Respublikos pelno mokesčio įstatymas"
+      type: statute
+      regulator: "Seimas / VMI"
+      short_label: "LTCIT"
+
+    - title_hint: "CJEU Skatteverket v David Hedqvist (C-264/14) — EU jurisprudence holding that crypto-to-fiat exchange is VAT-exempt across the EU; applies in Lithuania"
+      title_original: "Hedqvist, C-264/14"
+      url_hint: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A62014CJ0264"
+      type: case_law
+      regulator: "Court of Justice of the EU"
+      date: "2015-10-22"
+      short_label: "HEDQVIST"
+
+  MX:
+    # ==================================================================
+    # Aligned with the user's Mexico Crypto Regulatory Matrix.
+    # URL strategy: diputados.gob.mx times out and gob.mx returns "Challenge
+    # Validation" (Akamai). Use Wayback Machine for the Cámara de Diputados
+    # consolidated PDFs (verified working). Banxico Circular 4/2019, CNBV
+    # ITF page, UIF, SAT criptoactivos, SPPLD — left for semantic resolver.
+    # ==================================================================
+
+    - title_hint: "Mexican Law to Regulate Financial Technology Institutions (Ley Fintech) — DOF 2018-03-09 — defines 'activo virtual' (art. 30); creates IFPE (electronic-payment fund institutions / wallets) and IFC (crowdfunding); banks and ITFs may only operate with virtual assets determined by Banxico with prior authorization"
+      title_original: "Ley para Regular las Instituciones de Tecnología Financiera (Ley Fintech)"
+      url_hint: "https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/pdf/LRITF.pdf"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "2018-03-09"
+      short_label: "LEYFINTECH"
+
+    - title_hint: "Banxico Circular 4/2019 — restricts virtual-asset operations: regulated institutions (banks/ITFs) may only perform them internally and with Banxico prior authorization; NO authorization has been publicly granted as of 2026, making the regulated track effectively frozen"
+      title_original: "Circular 4/2019 (Banco de México)"
+      type: regulation
+      regulator: "Banxico"
+      date: "2019-03-08"
+      short_label: "BANXICOC42019"
+
+    - title_hint: "Mexican Federal Law for the Prevention and Identification of Operations with Resources of Illicit Origin (LFPIORPI / Ley Antilavado) — DOF 2012, in force 2013, reformed 2025 — the habitual/professional commercialization or exchange of virtual assets by entities other than those regulated under Ley Fintech is 'vulnerable activity' (art. 17 §XVI); requires SPPLD registration, KYC, recordkeeping and reports to SAT; basis under which exchanges effectively operate in Mexico"
+      title_original: "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI)"
+      url_hint: "https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/ref/LFPIORPI.htm"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "2012-10-17"
+      short_label: "LFPIORPI"
+
+    - title_hint: "2025 reform of the LFPIORPI — expressly includes virtual-asset companies in the law; report unusual/suspicious operations within 24h; lowers beneficial-owner threshold to 25% (from 50%); reaches operations abroad with Mexican impact; strengthens SHCP–CNBV–SAT–UIF coordination"
+      title_original: "Reforma 2025 a la LFPIORPI"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "2025-01-01"
+      short_label: "LFPIORPIREFORM2025"
+
+    - title_hint: "Mexican Securities Market Law (Ley del Mercado de Valores) — when a virtual asset qualifies as a security (investment token) offered to the public, this law applies under CNBV supervision (registration, offering, intermediation)"
+      title_original: "Ley del Mercado de Valores"
+      url_hint: "https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/pdf/LMV.pdf"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "2005-12-30"
+      short_label: "LMV"
+
+    - title_hint: "Mexican Income Tax Law (Ley del Impuesto sobre la Renta / LISR) — no dedicated crypto tax law; crypto treated as intangible movable property; holding is not taxed; ENAJENACIÓN (sale, crypto/crypto swap, payment in crypto) is an ISR event; individuals progressive 1.92%-35%; INPC inflation adjustment; 20% provisional payment; mining/services income = ordinary"
+      title_original: "Ley del Impuesto sobre la Renta (LISR)"
+      url_hint: "https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/pdf/LISR.pdf"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "2013-12-11"
+      short_label: "LISR"
+
+    - title_hint: "Mexican VAT Law (Ley del Impuesto al Valor Agregado / LIVA) — the sale/purchase of crypto itself is VAT-exempt; VAT (16%) may apply to platform fees/services"
+      title_original: "Ley del Impuesto al Valor Agregado (LIVA)"
+      url_hint: "https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf"
+      type: statute
+      regulator: "Congreso de la Unión"
+      date: "1978-12-29"
+      short_label: "LIVA"
+
+    - title_hint: "SAT (Servicio de Administración Tributaria) — Mexican tax authority criteria and digital-assets reporting; gains declared under 'Enajenación de Bienes' (annual return by April 30); annual exemption ~128,383 MXN (3x annual UMA); detailed records required; from April 2026 platforms must give SAT access to transaction data"
+      type: guidance
+      regulator: "SAT"
+      date: "2026-04-01"
+      short_label: "SATCRIPTO"
+
+    - title_hint: "CNBV (Comisión Nacional Bancaria y de Valores) — supervises ITFs (IFPE, IFC) and banks under Ley Fintech; verifies capital, controls, AML/KYC and conduct; co-regulator with SHCP and Banxico"
+      type: guidance
+      regulator: "CNBV"
+      short_label: "CNBVITF"
+
+    - title_hint: "UIF (Unidad de Inteligencia Financiera) — Mexican financial intelligence unit (under SHCP); receives reports from SAT and produces financial intelligence; cross-references with CNBV and Banxico"
+      type: guidance
+      regulator: "UIF / SHCP"
+      short_label: "UIFMX"

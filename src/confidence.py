@@ -26,6 +26,8 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     # Executive / federal gov gazettes
     ".gov", ".gob.", ".gouv.", ".gov.br", ".gov.uk", ".gov.sg", ".gov.ae",
     ".gov.au", ".gov.hk", ".gov.kr", ".gov.za", ".gov.in", ".gov.mx",
+    ".gob.mx", ".gob.ar", ".gob.es", ".gob.cl", ".gob.pe",  # Spanish-LATAM
+    "diputados.gob.mx", "banxico.org.mx", "sat.gob.mx", "sppld.sat.gob.mx",
     ".admin.ch", ".bund.de", ".europa.eu", "eur-lex.europa.eu",
     # Brazilian legislative + judicial + prosecutorial branches
     ".leg.br", ".jus.br", ".mp.br", "camara.leg.br", "senado.leg.br",
@@ -68,12 +70,19 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "banque-france.fr", "tracfin.economie.gouv.fr", "conseil-etat.fr",
     "courdecassation.fr", "bofip.impots.gouv.fr", "impots.gouv.fr",
     "vie-publique.fr", "assemblee-nationale.fr", "senat.fr",
+    # Lithuania
+    "e-tar.lt", "e-seimas.lrs.lt", "lrs.lt", "lb.lt", "vmi.lt", "fntt.lt",
+    ".gov.lt", "registrucentras.lt",
     # Wayback Machine — treated as primary because it mirrors official sources
     # (we only use it for Legifrance URLs that Cloudflare blocks our scraper from)
     "web.archive.org",
     # Nigeria
     "sec.gov.ng", "cbn.gov.ng", "firs.gov.ng", "nrs.gov.ng",
     "nfiu.gov.ng", "efcc.gov.ng", "placng.org", "lawnigeria.com",
+    # Argentina
+    ".gob.ar", "argentina.gob.ar", "boletinoficial.gob.ar",
+    "infoleg.gob.ar", "servicios.infoleg.gob.ar", "cnv.gob.ar",
+    "bcra.gob.ar", "arca.gob.ar", "afip.gob.ar", "saij.gob.ar",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
     "oecd.org", "worldbank.org", "un.org",
