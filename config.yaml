@@ -6,8 +6,8 @@ cache_path: ./cache
 countries:
   - BR    # Phase 1 — Brazil (validation baseline) ✓
   - TR    # Phase 2 — Türkiye ✓
-  - DE    # Phase 3 — Germany
-  # - FR    # Phase 4 — France
+  - DE    # Phase 3 — Germany ✓
+  - FR    # Phase 4 — France
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -668,3 +668,138 @@ force_include:
       regulator: "Bundestag"
       date: "1896-08-18"
       short_label: "BGB"
+
+  FR:
+    # ==================================================================
+    # Aligned with the user's Crypto Regulatory Matrix for France.
+    # URL strategy: legifrance.gouv.fr is Cloudflare-protected and blocks
+    # both httpx and headless playwright. We use Wayback Machine snapshots
+    # for Legifrance URLs (verified working), plus direct URLs for BOFiP,
+    # AMF, ACPR where they're available.
+    # ==================================================================
+
+    # ---------- Layer 1: EU directly applicable (already in vault) ----------
+    # EU-MICA-2023, EU-TFR-2023, EU-DORA-2022 — already present from Phase 3
+
+    # ---------- Layer 2: French MiCA transposition ----------
+    - title_hint: "French Law n° 2023-171 of 9 March 2023 (DDADUE) — sets the PSAN→PSCA transition regime; authorizes legislation by ordonnance"
+      title_original: "Loi n° 2023-171 du 9 mars 2023 portant diverses dispositions d'adaptation au droit de l'Union européenne"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047280939"
+      type: statute
+      regulator: "Parlement"
+      date: "2023-03-09"
+      short_label: "LOIDDADUE2023"
+
+    - title_hint: "French Ordonnance n° 2024-936 of 15 October 2024 — markets in crypto-assets — adapts the Code monétaire et financier to MiCA; allocates AMF/ACPR powers; creates new Title II bis Livre II CMF on legal nature of digital assets; institutes simplified procedure for registered PSANs"
+      title_original: "Ordonnance n° 2024-936 du 15 octobre 2024 relative aux marchés de crypto-actifs"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000050353747"
+      type: regulation
+      regulator: "Gouvernement"
+      date: "2024-10-15"
+      short_label: "ORD2024936"
+
+    - title_hint: "French Ordonnance n° 2024-937 of 15 October 2024 — extends AML/CFT (LCB-FT) regime to CASPs; transposes EU TFR 2023/1113 into French law; enhanced due diligence for crypto transfers"
+      title_original: "Ordonnance n° 2024-937 du 15 octobre 2024 relative à la lutte contre le blanchiment de capitaux et au financement du terrorisme"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000050353756"
+      type: regulation
+      regulator: "Gouvernement"
+      date: "2024-10-15"
+      short_label: "ORD2024937"
+
+    - title_hint: "French Décret n° 2025-169 of 21 February 2025 — application decree detailing the regulatory part of the CMF for PSCAs; procedures and competences"
+      title_original: "Décret n° 2025-169 du 21 février 2025 relatif aux marchés de crypto-actifs"
+      type: regulation
+      regulator: "Gouvernement"
+      date: "2025-02-21"
+      short_label: "DEC2025169"
+
+    - title_hint: "AMF General Regulation (RGAMF) — Book VII — adapts public-offering and CASP rules to MiCA"
+      title_original: "Règlement général de l'Autorité des marchés financiers, Livre VII"
+      url_hint: "https://www.amf-france.org/fr/reglementation/reglement-general-et-instructions/reglement-general-en-vigueur"
+      type: regulation
+      regulator: "AMF"
+      short_label: "RGAMF"
+
+    # ---------- Layer 3: PSAN — original French regime (sunset 2026-07-01) ----------
+    - title_hint: "French PACTE Law n° 2019-486 of 22 May 2019 — created PSAN status (Prestataire de Services sur Actifs Numériques) and the definition of digital assets (actifs numériques = tokens + virtual currencies); pioneering, inspired MiCA"
+      title_original: "Loi n° 2019-486 du 22 mai 2019 relative à la croissance et la transformation des entreprises (Loi PACTE)"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038496102"
+      type: statute
+      regulator: "Parlement"
+      date: "2019-05-22"
+      short_label: "LOIPACTE"
+
+    - title_hint: "French CMF Articles L.54-10-1 to L.54-10-10 — heart of the PSAN regime: definition of digital assets, list of services, mandatory enregistrement for AML, optional agrément, supervision"
+      title_original: "Code monétaire et financier, articles L.54-10-1 à L.54-10-10"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000038509284"
+      type: statute
+      regulator: "Parlement"
+      date: "2019-05-22"
+      short_label: "CMFL5410"
+
+    - title_hint: "French Décret n° 2019-1213 of 21 November 2019 — application decree of PSAN regime: conditions of enregistrement and agrément"
+      title_original: "Décret n° 2019-1213 du 21 novembre 2019 relatif aux prestataires de services sur actifs numériques"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000039406407"
+      type: regulation
+      regulator: "Gouvernement"
+      date: "2019-11-21"
+      short_label: "DEC2019PSAN"
+
+    # ---------- Layer 4: AML / CFT ----------
+    - title_hint: "French CMF Articles L.561-1 to L.561-50 — central AML/CFT regime; PSANs/PSCAs are obligated entities (L.561-2) with KYC, monitoring and Tracfin reporting duties"
+      title_original: "Code monétaire et financier, Livre V, Titre VI — Obligations relatives à la lutte contre le blanchiment et le financement du terrorisme"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196113"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CMFL561"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "French CGI Article 150 VH bis — capital gains on digital assets for individuals (occasional sales); taxation triggered on conversion to fiat or payment for goods/services; crypto/crypto exchange is tax-neutral; €305/year exemption"
+      title_original: "Code général des impôts, article 150 VH bis"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038612228"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CGI150VHBIS"
+
+    - title_hint: "French CGI Article 200 C — Prélèvement Forfaitaire Unique (PFU / flat tax) on capital gains; since 2026-01-01 the rate is 31.4% (12.8% IR + 18.6% prélèvements sociaux)"
+      title_original: "Code général des impôts, article 200 C"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037989332"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CGI200C"
+
+    - title_hint: "French CGI Article 92 (2, 1° bis) — since 2023-01-01, habitual/professional crypto trading is taxed as BNC (Bénéfices Non Commerciaux), not BIC; mining may also fall under this regime"
+      title_original: "Code général des impôts, article 92"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006307201"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CGI92"
+
+    - title_hint: "French CGI Article 1649 bis C — obligation to declare digital-asset accounts held abroad (foreign platforms) via form 3916-bis; French platforms exempted"
+      title_original: "Code général des impôts, article 1649 bis C"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037988040"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CGI1649BISC"
+
+    - title_hint: "French BOFiP tax doctrine on digital assets — official DGFiP commentary on plus-value calculation, global-portfolio method, declarations 2086 and 2042-C"
+      title_original: "Bulletin Officiel des Finances Publiques — Actifs numériques"
+      type: guidance
+      regulator: "DGFiP"
+      short_label: "BOFIPCRYPTO"
+
+    # ---------- Layer 6: Data / Consumer ----------
+    - title_hint: "French Law n° 78-17 of 6 January 1978 (Informatique et Libertés) — French data-protection complement to GDPR; CNIL supervision applies to PSCA KYC/onboarding"
+      title_original: "Loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006068624"
+      type: statute
+      regulator: "Parlement"
+      date: "1978-01-06"
+      short_label: "LOIINFLIB"
+
+    - title_hint: "French Code de la consommation — consumer-law rules applicable to PSCA-customer relations (commercial communication, démarchage, influence commerciale adjusted by Ord. 2024-936)"
+      title_original: "Code de la consommation"
+      url_hint: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006069565"
+      type: statute
+      regulator: "Parlement"
+      short_label: "CODECONSO"

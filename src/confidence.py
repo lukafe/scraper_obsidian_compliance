@@ -61,7 +61,11 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     # France
     ".gouv.fr", "legifrance.gouv.fr", "amf-france.org", "acpr.banque-france.fr",
     "banque-france.fr", "tracfin.economie.gouv.fr", "conseil-etat.fr",
-    "courdecassation.fr",
+    "courdecassation.fr", "bofip.impots.gouv.fr", "impots.gouv.fr",
+    "vie-publique.fr", "assemblee-nationale.fr", "senat.fr",
+    # Wayback Machine — treated as primary because it mirrors official sources
+    # (we only use it for Legifrance URLs that Cloudflare blocks our scraper from)
+    "web.archive.org",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
     "oecd.org", "worldbank.org", "un.org",
