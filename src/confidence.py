@@ -44,6 +44,8 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "japaneselawtranslation.go.jp", "fsa.go.jp", ".go.jp", "courts.go.jp",
     # Germany
     "bafin.de", "gesetze-im-internet.de", "bundestag.de",
+    "bundesfinanzministerium.de", "bundesfinanzhof.de", "recht.bund.de",
+    "buzer.de",  # third-party but reliably mirrors gesetze-im-internet
     # Switzerland
     "finma.ch", "fedlex.admin.ch", "parlament.ch",
     # Hong Kong

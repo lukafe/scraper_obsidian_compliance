@@ -5,8 +5,8 @@ cache_path: ./cache
 # Override via CLI: `python -m src.orchestrator --countries BR,TR`
 countries:
   - BR    # Phase 1 — Brazil (validation baseline) ✓
-  - TR    # Phase 2 — Türkiye
-  # - DE    # Phase 3 — Germany
+  - TR    # Phase 2 — Türkiye ✓
+  - DE    # Phase 3 — Germany
   # - FR    # Phase 4 — France
   # --- not yet active ---
   # - US    # United States
@@ -437,3 +437,234 @@ force_include:
       regulator: "MASAK (Financial Crimes Investigation Board)"
       date: "2021-05-01"
       short_label: "MASAK19"
+
+  DE:
+    # ==================================================================
+    # Aligned with the user's Crypto Regulatory Matrix for Germany.
+    # Architecture: EU regulation (MiCA/TFR/DORA) directly applicable,
+    # FinmadiG/KMAG implements at national level, KWG/WpHG/eWpG for
+    # securities-classified tokens, GwG for AML, EStG/BMF for tax.
+    # ==================================================================
+
+    # ---------- Layer 1: EU directly-applicable regulations ----------
+    # MiCA already present as EU-MICA-2023 (skipping to avoid duplicate)
+
+    - title_hint: "EU Transfer of Funds Regulation (TFR) 2023/1113 — extends Travel Rule to crypto-asset transfers; covers unhosted wallets"
+      url_hint: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R1113"
+      type: regulation
+      regulator: "European Parliament & Council"
+      date: "2023-05-31"
+      short_label: "TFR"
+
+    - title_hint: "EU Digital Operational Resilience Act (DORA) 2022/2554 — ICT risk management, third-party governance and incident reporting for financial entities including CASPs"
+      url_hint: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554"
+      type: regulation
+      regulator: "European Parliament & Council"
+      date: "2022-12-14"
+      short_label: "DORA"
+
+    - title_hint: "EU Prospectus Regulation 2017/1129 — public offerings and admissions to trading of securities (applies to security tokens)"
+      url_hint: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R1129"
+      type: regulation
+      regulator: "European Parliament & Council"
+      date: "2017-06-14"
+      short_label: "PROSPECTUSREG"
+
+    - title_hint: "EU DAC8 Directive 2023/2226 — implements OECD CARF in EU; automatic exchange of crypto-asset tax information"
+      url_hint: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023L2226"
+      type: regulation
+      regulator: "Council of the EU"
+      date: "2023-10-17"
+      short_label: "DAC8"
+
+    # ---------- Layer 2: German MiCA implementation ----------
+    - title_hint: "FinmadiG — Finanzmarktdigitalisierungsgesetz (Financial Market Digitalization Act, 27/12/2024) — umbrella law implementing MiCA, TFR and DORA in Germany; Article 1 creates the KMAG; subsequent articles amend KWG, WpHG, WpIG, KAGB, HGB, GwG, ZAG"
+      title_original: "Finanzmarktdigitalisierungsgesetz (FinmadiG), BGBl. 2024 I Nr. 438"
+      url_hint: "https://www.recht.bund.de/bgbl/1/2024/438/VO"
+      type: statute
+      regulator: "Bundestag"
+      date: "2024-12-27"
+      short_label: "FINMADIG"
+
+    - title_hint: "KMAG — Kryptomärkteaufsichtsgesetz (Crypto-Asset Markets Supervision Act) — designates BaFin as MiCA competent authority; defines supervisory powers (incl. public warnings §47); §50 grandfathering of national licenses until 2025-12-31"
+      title_original: "Kryptomärkteaufsichtsgesetz (KMAG)"
+      url_hint: "https://www.gesetze-im-internet.de/kmag/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2024-12-27"
+      short_label: "KMAG"
+
+    - title_hint: "KMZÜV / MiCAR-TransitV — Verordnung on the simplified procedure under MiCAR Art. 143(6) and KMAG §50(3)-(5) — fast-track conversion of existing licensed institutions into MiCA CASPs"
+      title_original: "Verordnung zur Durchführung des vereinfachten Verfahrens nach Art. 143(6) MiCAR (KMZÜV / MiCAR-TransitV)"
+      type: regulation
+      regulator: "BMF"
+      date: "2025-03-07"
+      short_label: "KMZUV"
+
+    - title_hint: "KMMV — Kryptomärktemitteilungs-Verordnung — BaFin regulation under KMAG §36 detailing inside-information disclosure duties under MiCA Art. 88"
+      title_original: "Kryptomärktemitteilungs-Verordnung (KMMV)"
+      type: regulation
+      regulator: "BaFin"
+      date: "2025-01-01"
+      short_label: "KMMV"
+
+    - title_hint: "BaFin MiCAR portal — official guidance, FAQs and CASP licensing forms"
+      type: guidance
+      regulator: "BaFin"
+      short_label: "BAFINMICAR"
+
+    # ---------- Layer 3: Pre-existing German national framework ----------
+    - title_hint: "KWG — Kreditwesengesetz (Banking Act) — defines Kryptowerte and kryptografische Instrumente (§1(11)); historical basis for crypto custody licensing (Kryptoverwahrgeschäft)"
+      title_original: "Kreditwesengesetz (KWG)"
+      url_hint: "https://www.gesetze-im-internet.de/kredwg/"
+      type: statute
+      regulator: "Bundestag"
+      date: "1961-07-10"
+      short_label: "KWG"
+
+    - title_hint: "WpHG — Wertpapierhandelsgesetz (Securities Trading Act) — German implementation of MiFID II; governs trading of security tokens, market conduct, market abuse"
+      title_original: "Wertpapierhandelsgesetz (WpHG)"
+      url_hint: "https://www.gesetze-im-internet.de/wphg/"
+      type: statute
+      regulator: "Bundestag"
+      date: "1994-07-26"
+      short_label: "WPHG"
+
+    - title_hint: "WpIG — Wertpapierinstitutsgesetz (Securities Institutions Act) — prudential regime for investment firms providing security-token services"
+      title_original: "Wertpapierinstitutsgesetz (WpIG)"
+      url_hint: "https://www.gesetze-im-internet.de/wpig/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2021-06-12"
+      short_label: "WPIG"
+
+    - title_hint: "ZAG — Zahlungsdiensteaufsichtsgesetz (Payment Services Supervision Act) — applies when crypto model touches payment services or e-money (interface with EMTs)"
+      title_original: "Zahlungsdiensteaufsichtsgesetz (ZAG)"
+      url_hint: "https://www.gesetze-im-internet.de/zag_2018/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2017-07-17"
+      short_label: "ZAG"
+
+    - title_hint: "KAGB — Kapitalanlagegesetzbuch (Capital Investment Code) — governs investment funds; relevant for crypto funds and Kryptofondsanteile"
+      title_original: "Kapitalanlagegesetzbuch (KAGB)"
+      url_hint: "https://www.gesetze-im-internet.de/kagb/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2013-07-04"
+      short_label: "KAGB"
+
+    # ---------- Layer 4: Electronic Securities + Crypto-Securities ----------
+    - title_hint: "eWpG — Gesetz über elektronische Wertpapiere (Electronic Securities Act, effective 2021-06-10) — allows issuance of securities without physical document, including Kryptowertpapiere registered on DLT/blockchain"
+      title_original: "Gesetz über elektronische Wertpapiere (eWpG)"
+      url_hint: "https://www.gesetze-im-internet.de/ewpg/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2021-06-03"
+      short_label: "EWPG"
+
+    - title_hint: "KryptoFAV — Kryptowertpapierregisterführungsverordnung — regulates crypto-securities register maintenance: technical, organizational and governance requirements"
+      title_original: "Kryptowertpapierregisterführungsverordnung (KryptoFAV)"
+      url_hint: "https://www.gesetze-im-internet.de/kryptofav/"
+      type: regulation
+      regulator: "BMF"
+      date: "2022-06-17"
+      short_label: "KRYPTOFAV"
+
+    - title_hint: "WpPG — Wertpapierprospektgesetz (German Securities Prospectus Act) — companion of EU Prospectus Regulation; applies to public offerings of security tokens"
+      title_original: "Wertpapierprospektgesetz (WpPG)"
+      url_hint: "https://www.gesetze-im-internet.de/wppg/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2018-06-08"
+      short_label: "WPPG"
+
+    - title_hint: "VermAnlG — Vermögensanlagengesetz (Capital Investments Act) — regime for non-securities investment products with prospectus/VIB duties (some investment tokens)"
+      title_original: "Vermögensanlagengesetz (VermAnlG)"
+      url_hint: "https://www.gesetze-im-internet.de/vermanlg/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2011-12-06"
+      short_label: "VERMANLG"
+
+    # ---------- Layer 5: AML + Travel Rule ----------
+    - title_hint: "GwG — Geldwäschegesetz (Anti-Money Laundering Act) — central AML/CFT law; after FinmadiG, CASPs and ART issuers are explicitly obliged entities (§2 GwG) with KYC, monitoring and FIU reporting duties"
+      title_original: "Geldwäschegesetz (GwG)"
+      url_hint: "https://www.gesetze-im-internet.de/gwg_2017/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2017-06-23"
+      short_label: "GWG"
+
+    - title_hint: "KryptoWTransferV — Kryptowertetransferverordnung (effective 2023-05-22) — national operationalization of Travel Rule and enhanced due diligence for crypto transfers including unhosted wallets; works with EU TFR 2023/1113"
+      title_original: "Kryptowertetransferverordnung (KryptoWTransferV)"
+      type: regulation
+      regulator: "BMF"
+      date: "2023-05-22"
+      short_label: "KRYPTOWTRANSFERV"
+
+    - title_hint: "StGB §261 — Strafgesetzbuch §261 (German Penal Code) — money laundering criminal offence"
+      title_original: "Strafgesetzbuch (StGB) §261 — Geldwäsche"
+      url_hint: "https://www.gesetze-im-internet.de/stgb/__261.html"
+      type: statute
+      regulator: "Bundestag"
+      date: "1992-09-15"
+      short_label: "STGB261"
+
+    # ---------- Layer 6: Taxation ----------
+    - title_hint: "EStG §22 — Einkommensteuergesetz §22 (Income Tax Act) — sonstige Einkünfte; covers staking/lending crypto income"
+      title_original: "Einkommensteuergesetz (EStG) §22"
+      url_hint: "https://www.gesetze-im-internet.de/estg/__22.html"
+      type: statute
+      regulator: "Bundestag"
+      date: "1934-10-16"
+      short_label: "ESTG22"
+
+    - title_hint: "EStG §23 — Einkommensteuergesetz §23 (Income Tax Act) — private sale transactions; key crypto rule: gains on crypto held <1 year taxable at marginal rate (0–45%); after 1-year holding period, fully tax-free; €1,000 annual exemption"
+      title_original: "Einkommensteuergesetz (EStG) §23 — Private Veräußerungsgeschäfte"
+      url_hint: "https://www.gesetze-im-internet.de/estg/__23.html"
+      type: statute
+      regulator: "Bundestag"
+      date: "1934-10-16"
+      short_label: "ESTG23"
+
+    - title_hint: "KStG — Körperschaftsteuergesetz (Corporate Income Tax Act) — companies are always taxed on crypto gains (no 1-year holding exemption); ~15% + Soli + Gewerbesteuer"
+      title_original: "Körperschaftsteuergesetz (KStG)"
+      url_hint: "https://www.gesetze-im-internet.de/kstg_1977/"
+      type: statute
+      regulator: "Bundestag"
+      date: "1977-08-31"
+      short_label: "KSTG"
+
+    - title_hint: "BMF-Schreiben on Individual Questions on the Income-Tax Treatment of Crypto Assets (06/03/2025) — consolidated Finance Ministry guidance on mining, staking, lending, airdrops, hard forks, FIFO; new cooperation and record-keeping duties; supersedes 2022-05-10 version"
+      title_original: "BMF-Schreiben vom 06.03.2025 — Einzelfragen zur ertragsteuerrechtlichen Behandlung von Kryptowerten"
+      type: guidance
+      regulator: "BMF"
+      date: "2025-03-06"
+      short_label: "BMFCRYPTO2025"
+
+    - title_hint: "BFH Decision IX R 3/22 (14/02/2023) — Federal Tax Court confirmed crypto assets are Wirtschaftsgüter and that gains within 1-year holding period are taxable under EStG §23; key precedent"
+      title_original: "BFH-Urteil IX R 3/22 vom 14.02.2023"
+      type: case_law
+      regulator: "Bundesfinanzhof (BFH)"
+      date: "2023-02-14"
+      short_label: "BFHIXR322"
+
+    # ---------- Layer 7: Resilience, Data, Consumer ----------
+    # GDPR + DORA already covered above
+
+    - title_hint: "BDSG — Bundesdatenschutzgesetz (German Federal Data Protection Act) — domestic GDPR complement; governs personal data in KYC/onboarding"
+      title_original: "Bundesdatenschutzgesetz (BDSG)"
+      url_hint: "https://www.gesetze-im-internet.de/bdsg_2018/"
+      type: statute
+      regulator: "Bundestag"
+      date: "2017-06-30"
+      short_label: "BDSG"
+
+    - title_hint: "BGB — Bürgerliches Gesetzbuch (German Civil Code) — general contract and consumer law applicable to CASP-customer relations"
+      title_original: "Bürgerliches Gesetzbuch (BGB)"
+      url_hint: "https://www.gesetze-im-internet.de/bgb/"
+      type: statute
+      regulator: "Bundestag"
+      date: "1896-08-18"
+      short_label: "BGB"
