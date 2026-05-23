@@ -8,7 +8,8 @@ countries:
   - TR    # Phase 2 — Türkiye ✓
   - DE    # Phase 3 — Germany ✓
   - FR    # Phase 4 — France ✓
-  - SG    # Phase 5 — Singapore
+  - SG    # Phase 5 — Singapore ✓
+  - GB    # Phase 6 — United Kingdom
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -918,3 +919,177 @@ force_include:
       regulator: "IRAS"
       date: "1993-04-01"
       short_label: "GSTACT"
+
+  GB:
+    # ==================================================================
+    # Aligned with the user's UK Crypto Regulatory Matrix.
+    # URL strategy: legislation.gov.uk has an AWS WAF challenge that blocks
+    # both httpx and playwright headless. Wayback Machine snapshots work
+    # (verified). FCA, GOV.UK, Bank of England all work with browser UA.
+    # ==================================================================
+
+    # ---------- Layer 1: Enabling + perimeter ----------
+    - title_hint: "UK Financial Services and Markets Act 2000 (FSMA 2000) — base statute defining the regulated-activities perimeter and the general prohibition; already covers security tokens and crypto derivatives"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/ukpga/2000/8/contents"
+      type: statute
+      regulator: "UK Parliament"
+      date: "2000-06-14"
+      short_label: "FSMA2000"
+
+    - title_hint: "UK Financial Services and Markets Act 2023 (FSMA 2023) — post-Brexit Act; defines 'cryptoasset' and empowers HM Treasury to bring crypto and stablecoins into the FSMA perimeter; designates Bank of England powers over systemic payment systems including stablecoins"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/ukpga/2023/29/contents"
+      type: statute
+      regulator: "UK Parliament"
+      date: "2023-06-29"
+      short_label: "FSMA2023"
+
+    - title_hint: "Financial Services and Markets Act 2000 (Cryptoassets) Regulations 2026 — the 'Crypto SI' (promulgated 2026-02-04); creates new regulated activities for crypto (trading platform, dealing, custody, arranging, qualified stablecoin issuance, lending/staking) inside the FSMA perimeter; go-live 2027-10-25"
+      url_hint: "https://web.archive.org/web/2026/https://www.legislation.gov.uk/uksi/2026"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2026-02-04"
+      short_label: "CRYPTOSI2026"
+
+    - title_hint: "UK Financial Services and Markets Act 2000 (Regulated Activities) Order 2001 (RAO) — defines each regulated activity in detail; will be amended by the Crypto SI to insert crypto activities"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2001/544/contents"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2001-02-26"
+      short_label: "RAO2001"
+
+    # ---------- Layer 2: AML/CTF + Travel Rule ----------
+    - title_hint: "UK Money Laundering, Terrorist Financing and Transfer of Funds (Information on the Payer) Regulations 2017 (MLRs 2017) — base AML regime; since Jan/2020 cryptoasset exchange providers and custodian wallet providers must register with FCA for AML/CTF; operating without registration is a criminal offence"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2017/692/contents"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2017-06-22"
+      short_label: "MLRS2017"
+
+    - title_hint: "UK MLRs 2017 Part 7A — Travel Rule for crypto transfers (in force 2023-09-01); inserted by 2022 amendment; obliges crypto firms to collect, transmit and store originator/beneficiary data with sanctions screening"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2017/692/part/7A"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2023-09-01"
+      short_label: "MLRS2017PART7A"
+
+    - title_hint: "FCA expectations for UK cryptoasset businesses complying with the Travel Rule — guidance including sunrise issue and transfers to non-equivalent jurisdictions"
+      url_hint: "https://www.fca.org.uk/news/statements/fca-sets-out-expectations-uk-cryptoasset-businesses-complying-travel-rule"
+      type: guidance
+      regulator: "FCA"
+      date: "2023-08-17"
+      short_label: "FCATRAVELRULE"
+
+    - title_hint: "UK Proceeds of Crime Act 2002 (POCA) — base money-laundering criminal law; underpins Suspicious Activity Reports to the NCA"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/ukpga/2002/29/contents"
+      type: statute
+      regulator: "UK Parliament"
+      date: "2002-07-24"
+      short_label: "POCA"
+
+    # ---------- Layer 3: Financial promotions regime ----------
+    - title_hint: "UK FSMA 2000 (Financial Promotion) Order 2005 (FPO) — amended in 2023 to bring qualifying cryptoassets into the financial-promotion regime (in force 2023-10-08); extraterritorial; covers any firm promoting crypto to UK consumers"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2005/1529/contents"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2005-06-09"
+      short_label: "FPO2005"
+
+    - title_hint: "FCA PS23/6 — Financial promotion rules for cryptoassets — classifies crypto as Restricted Mass Market Investment (RMMI): clear risk warnings, ban on incentives, 24h cooling-off (positive frictions), client categorisation and appropriateness assessment"
+      url_hint: "https://www.fca.org.uk/publications/policy-statements/ps23-6-financial-promotion-rules-cryptoassets"
+      type: regulation
+      regulator: "FCA"
+      date: "2023-06-08"
+      short_label: "FCAPS236"
+
+    - title_hint: "FCA FG23/3 — Finalised non-handbook guidance on cryptoasset financial promotions — practical application including store-of-value claims, rates of return, on/off-ramp"
+      url_hint: "https://www.fca.org.uk/publication/finalised-guidance/fg23-3.pdf"
+      type: guidance
+      regulator: "FCA"
+      date: "2023-06-08"
+      short_label: "FCAFG233"
+
+    - title_hint: "FCA Handbook PRIN 2A — Consumer Duty (PRIN 2A) — applies to crypto promotions and customer interactions"
+      url_hint: "https://www.handbook.fca.org.uk/handbook/PRIN/2A/"
+      type: regulation
+      regulator: "FCA"
+      date: "2023-07-31"
+      short_label: "CONSUMERDUTY"
+
+    # ---------- Layer 4: Stablecoins, E-Money, Securities overlap ----------
+    - title_hint: "UK Electronic Money Regulations 2011 (EMRs) — if a fiat-referenced token qualifies as e-money, EMRs/PSRs regime applies and the token is excluded from the 'qualifying cryptoasset' financial-promotion category"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2011/99/contents"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2011-02-09"
+      short_label: "EMRS2011"
+
+    - title_hint: "UK Payment Services Regulations 2017 (PSRs) — payment services associated with e-money tokens"
+      url_hint: "https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2017/752/contents"
+      type: regulation
+      regulator: "HM Treasury"
+      date: "2017-07-19"
+      short_label: "PSRS2017"
+
+    - title_hint: "Bank of England — Proposed regulatory regime for sterling-denominated systemic stablecoins (CP 2025) — systemic GBP stablecoins get dual supervision: prudential by BoE + conduct/AML by FCA; Special Administration Regime for orderly wind-down"
+      url_hint: "https://www.bankofengland.co.uk/paper/2025/cp/proposed-regulatory-regime-for-sterling-denominated-systemic-stablecoins"
+      type: guidance
+      regulator: "Bank of England"
+      date: "2025-11-01"
+      short_label: "BOESTABLECOINCP"
+
+    # ---------- Layer 5: Future FCA roadmap (CP/DP) ----------
+    - title_hint: "FCA new regime for cryptoasset regulation — landing page and crypto roadmap; indicative design and implementation timeline (go-live 2027-10-25)"
+      url_hint: "https://www.fca.org.uk/firms/new-regime-cryptoasset-regulation"
+      type: guidance
+      regulator: "FCA"
+      short_label: "FCACRYPTOREGIME"
+
+    - title_hint: "FCA DP25/1 — Discussion paper on the regulation of crypto activities (admission, intermediation, lending/staking)"
+      type: guidance
+      regulator: "FCA"
+      date: "2025-05-02"
+      short_label: "FCADP251"
+
+    - title_hint: "FCA CP25/14 — Stablecoin issuance and crypto custody (safeguarding) consultation"
+      type: regulation
+      regulator: "FCA"
+      date: "2025-05-28"
+      short_label: "FCACP2514"
+
+    - title_hint: "FCA CP25/15 — Prudential regime (capital, liquidity, risk management) for stablecoin issuers, custodians and other crypto firms"
+      type: regulation
+      regulator: "FCA"
+      date: "2025-05-28"
+      short_label: "FCACP2515"
+
+    - title_hint: "FCA DP24/4 — Admissions & Disclosures (A&D) and Market Abuse (MARC) regime for qualifying cryptoassets; inspired by IOSCO and UK MAR"
+      type: guidance
+      regulator: "FCA"
+      date: "2024-12-16"
+      short_label: "FCADP244"
+
+    # ---------- Layer 6: Taxation ----------
+    - title_hint: "HMRC Cryptoassets Manual — official HMRC doctrine: crypto is treated as property (not currency); no special tax regime — existing taxes apply"
+      url_hint: "https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual"
+      type: guidance
+      regulator: "HMRC"
+      short_label: "HMRCCRYPTOMANUAL"
+
+    - title_hint: "UK Capital Gains Tax on crypto — individuals pay CGT on disposal (sale, crypto/crypto swap, spending, donation); annual exemption reduced to GBP 3,000 (2024/25); main rates raised in Oct/2024 Budget to 18%/24%"
+      url_hint: "https://www.gov.uk/capital-gains-tax"
+      type: guidance
+      regulator: "HMRC"
+      short_label: "UKCGTCRYPTO"
+
+    - title_hint: "UK Income Tax on cryptoassets — mining, staking, airdrops and compensation in crypto generally taxed as income (Income Tax + National Insurance); habitual trading may be commercial income"
+      url_hint: "https://www.gov.uk/government/publications/tax-on-cryptoassets"
+      type: guidance
+      regulator: "HMRC"
+      short_label: "UKINCOMETAXCRYPTO"
+
+    - title_hint: "UK Cryptoasset Reporting Framework (CARF) — UK adopts OECD CARF: crypto firms collect user data from 2026-01-01, first HMRC report in 2027"
+      url_hint: "https://www.gov.uk/government/consultations/cryptoasset-reporting-framework-and-common-reporting-standard"
+      type: regulation
+      regulator: "HMRC"
+      date: "2026-01-01"
+      short_label: "UKCARF"
