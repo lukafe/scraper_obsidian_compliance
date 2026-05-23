@@ -19,6 +19,9 @@ countries:
   - LT    # Phase 13 — Lithuania
   - AR    # Phase 14 — Argentina
   - CH    # Phase 15 — Switzerland
+  - ZA    # Phase 16 — South Africa
+  - UY    # Phase 17 — Uruguay
+  - CA    # Phase 18 — Canada
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -2191,3 +2194,317 @@ force_include:
       regulator: "FTA / ESTV"
       date: "2026-01-01"
       short_label: "CHCARF"
+
+  ZA:
+    # ==================================================================
+    # Aligned with the user's South Africa Crypto Regulatory Matrix.
+    # South Africa integrated crypto into EXISTING financial laws (no
+    # dedicated crypto statute). FSCA leads conduct; FIC leads AML;
+    # SARB leads exchange control (2026 draft); SARS leads tax.
+    # Coordinated via the IFWG. The whole acceleration was driven by
+    # the FATF grey-list exit (24/10/2025).
+    # URL strategy: fsca.co.za + fic.gov.za + resbank.co.za + sars.gov.za
+    # + gov.za all work with browser UA. Specific FSCA crypto pages 404'd
+    # so we use the FAIS Act and homepage as anchors and let the semantic
+    # resolver find specific notices/declarations.
+    # ==================================================================
+
+    # ---------- Layer 1: Market conduct (FSCA / FAIS Act) ----------
+    - title_hint: "FSCA Declaration of 19 October 2022 — General Notice under the FAIS Act declaring CRYPTO ASSETS as a 'financial product' under section 1(1)(h); subjects anyone providing advice or intermediary services with crypto to FSP licensing by the FSCA"
+      url_hint: "https://www.fsca.co.za/"
+      type: regulation
+      regulator: "FSCA"
+      date: "2022-10-19"
+      short_label: "FSCACRYPTODECL"
+
+    - title_hint: "Financial Advisory and Intermediary Services Act 37 of 2002 (FAIS Act) — base statute governing financial service providers (FSP licensing, fit & proper, market conduct, consumer protection); the rail onto which crypto was bolted in 2022"
+      url_hint: "https://www.gov.za/documents/financial-advisory-and-intermediary-services-act"
+      type: statute
+      regulator: "Parliament of South Africa"
+      date: "2002-11-15"
+      short_label: "FAISACT"
+
+    - title_hint: "FSCA CASP licensing process — opened 2023-06-01, existing providers had to apply by 2023-11-30; FAIS Notice 25 of 2023 exempted KIs from certain exams until 2025-06-30; Board Notice 194 of 2017 defines the fit-and-proper criteria; 200+ CASPs licensed by 2025"
+      url_hint: "https://www.fsca.co.za/"
+      type: regulation
+      regulator: "FSCA"
+      date: "2023-06-01"
+      short_label: "FSCACASPLICENSE"
+
+    - title_hint: "FSCA Information Request 2 of 2025 (October 2025) — requires all licensed and provisional CASPs to submit operational and risk data (AML, custody, stablecoins, reserves, consumer protection, cross-border activity); basis for evolving the regulatory framework"
+      url_hint: "https://www.fsca.co.za/"
+      type: guidance
+      regulator: "FSCA"
+      date: "2025-10-01"
+      short_label: "FSCAIR22025"
+
+    # ---------- Layer 2: AML / Travel Rule (FIC) ----------
+    - title_hint: "Financial Intelligence Centre Act 38 of 2001 (FICA) — base AML/CFT law; since December 2022, CASPs are 'accountable institutions' under Schedule 1 Item 22, with CDD/KYC, monitoring, recordkeeping and suspicious/cash transaction reporting to the FIC; an FSP CASP providing advice/intermediation also registers under Item 12 (double registration possible)"
+      title_original: "Financial Intelligence Centre Act, 2001 (Act 38 of 2001)"
+      url_hint: "https://www.gov.za/documents/financial-intelligence-centre-act"
+      type: statute
+      regulator: "Parliament of South Africa"
+      date: "2001-12-03"
+      short_label: "FICA"
+
+    - title_hint: "FIC Directive 9 of 2024 (Travel Rule) — issued 2024-12-13, effective 2025-04-30; implements FATF Recommendation 16; CASPs must collect/transmit originator and beneficiary data; data collection from zero threshold (all transactions); full identity verification above ZAR 5,000; non-compliance triggers administrative sanctions (s.45C FICA)"
+      url_hint: "https://www.fic.gov.za/guidance-and-other-documents/directives/"
+      type: regulation
+      regulator: "FIC"
+      date: "2024-12-13"
+      short_label: "FICDIR9"
+
+    - title_hint: "FIC compliance guidance for CASPs (2023) — clarifies CASP definitions and AML/CFT obligations under FICA Item 22; companion document to Directive 9"
+      url_hint: "https://www.fic.gov.za/"
+      type: guidance
+      regulator: "FIC"
+      date: "2023-12-01"
+      short_label: "FICCASPGUIDE"
+
+    # ---------- Layer 3: Exchange control (SARB) ----------
+    - title_hint: "Currency and Exchanges Act 9 of 1933 + Exchange Control Regulations — base of South African exchange control administered by SARB FinSurv; a High Court ruling suggested crypto fell OUTSIDE exchange control, SARB appealed and is moving to close the loophole via 2026 draft regulations"
+      url_hint: "https://www.resbank.co.za/en/home/what-we-do/financial-surveillance"
+      type: statute
+      regulator: "SARB / National Treasury"
+      date: "1933-06-15"
+      short_label: "CEACT"
+
+    - title_hint: "SARB Draft Regulations 2026 — proposed amendments to bring crypto into the capital flow management regime under the Currency and Exchanges Act; signalled in the 2026 Budget Speech; movement to criminalize undeclared crypto at borders"
+      url_hint: "https://www.resbank.co.za/"
+      type: regulation
+      regulator: "SARB / National Treasury"
+      date: "2026-02-21"
+      short_label: "SARBCRYPTODRAFT2026"
+
+    # ---------- Layer 4: Taxation (SARS) ----------
+    - title_hint: "South African Income Tax Act 58 of 1962 — SARS treats crypto as 'asset of intangible nature'; framing depends on intention: (a) income tax 18%-45% if revenue (mining, staking, payment receipt, habitual trading); (b) Capital Gains Tax if investment (40% inclusion rate, ZAR 40,000 annual exclusion, effective max ~18%); crypto/crypto swap is taxable disposal"
+      url_hint: "https://www.sars.gov.za/"
+      type: statute
+      regulator: "Parliament of South Africa / SARS"
+      date: "1962-05-30"
+      short_label: "ITA"
+
+    - title_hint: "SARS specialized crypto audit unit + Voluntary Disclosure Programme (VDP) — SARS cross-references exchange data with tax returns, sends letters to non-declarants, offers VDP for late compliance"
+      url_hint: "https://www.sars.gov.za/"
+      type: guidance
+      regulator: "SARS"
+      short_label: "SARSCRYPTOUNIT"
+
+    - title_hint: "South African Crypto-Asset Reporting Framework (CARF) — active from 2026-03-01; exchanges/CASPs report granular transaction data to SARS, with automatic exchange to foreign tax authorities per OECD CARF"
+      url_hint: "https://www.sars.gov.za/"
+      type: regulation
+      regulator: "SARS"
+      date: "2026-03-01"
+      short_label: "ZACARF"
+
+    # ---------- Layer 5: Coordination ----------
+    - title_hint: "IFWG Crypto Assets Regulatory Working Group Position Paper (2021) — intergovernmental working group (FSCA, SARB, FIC, SARS, Prudential Authority, National Treasury) that coordinates crypto policy; the 2021 Position Paper is the foundation of the entire current framework"
+      url_hint: "https://www.ifwg.co.za/"
+      type: guidance
+      regulator: "IFWG"
+      date: "2021-06-11"
+      short_label: "IFWGPOSITION2021"
+
+  UY:
+    # ==================================================================
+    # Aligned with the user's Uruguay Crypto Regulatory Matrix.
+    # URL strategy: .uy DNS resolution fails from many endpoints (TLD
+    # connectivity issues from this region) — use Wayback Machine for
+    # impo.com.uy, bcu.gub.uy and dgi.gub.uy. Parlamento.gub.uy works
+    # directly with browser UA. SENACLAFT works (gub.uy subdomain).
+    # ==================================================================
+
+    # ---------- Layer 1: Legal framework + PSAV registry (BCU/SSF) ----------
+    - title_hint: "Uruguay Law No. 20,345 (Ley de Activos Virtuales — LAV, enacted 2024-09-10) — legal framework defining PSAV (Proveedores de Servicios de Activos Virtuales); modifies the BCU Organic Charter (Law 16,696) to include VASPs among Supervised Entities of the SSF/BCU; distinguishes 'activo virtual financiero' (financial VA, prudentially regulated) from 'no financiero' (outside prudential perimeter)"
+      title_original: "Ley N° 20.345 — Ley de Activos Virtuales (LAV)"
+      url_hint: "https://web.archive.org/web/2024/https://www.impo.com.uy/bases/leyes/20345-2024"
+      type: statute
+      regulator: "Parlamento de la República Oriental del Uruguay"
+      date: "2024-09-10"
+      short_label: "LAV20345"
+
+    - title_hint: "Uruguay Law No. 16,696 — BCU Organic Charter (Carta Orgánica del Banco Central del Uruguay) — modified by the LAV to include PSAV financieros (PSAVF) as Supervised Entities of the SSF, granting BCU authorization, regulation, supervision and sanction powers"
+      title_original: "Ley N° 16.696 — Carta Orgánica del BCU"
+      url_hint: "https://web.archive.org/web/2024/https://www.impo.com.uy/bases/leyes/16696-1995"
+      type: statute
+      regulator: "Parlamento / BCU"
+      date: "1995-03-30"
+      short_label: "BCUCARTA16696"
+
+    - title_hint: "BCU draft regulation of the RNMV for PSAVF (2025-08-21) — proposed modification of the Recopilación de Normas del Mercado de Valores: prior BCU authorization required, minimum equity of 1,500,000 UI, BCU sight deposit of 50,000 UI, regulator guarantee of at least 2,000,000 UI, cybersecurity/custody/AML requirements; transition period until 2026-06-30"
+      title_original: "Proyecto de regulación de la RNMV (PSAVF) — BCU"
+      url_hint: "https://web.archive.org/web/2025/https://www.bcu.gub.uy"
+      type: regulation
+      regulator: "BCU / SSF"
+      date: "2025-08-21"
+      short_label: "RNMVPSAVF"
+
+    # ---------- Layer 2: Securities (Mercado de Valores) ----------
+    - title_hint: "Uruguay Law No. 18,627 — Securities Market Law (Ley del Mercado de Valores) — updated by the LAV to cover securities issued and traded in DLT format; financial VAs are equated to book-entry securities (valores escriturales); public offering, registration and supervision by SSF/BCU"
+      title_original: "Ley N° 18.627 — Ley del Mercado de Valores"
+      url_hint: "https://web.archive.org/web/2024/https://www.impo.com.uy/bases/leyes/18627-2009"
+      type: statute
+      regulator: "Parlamento / SSF (BCU)"
+      date: "2009-12-02"
+      short_label: "LMV18627"
+
+    # ---------- Layer 3: AML / CFT ----------
+    - title_hint: "Uruguay Law No. 19,574 (Ley Integral contra el Lavado de Activos) — base AML/CFT law; defines obligated entities, CDD/KYC, monitoring and reporting duties; PSAVs are obligated entities (LAV reinforces AML focus for financial services)"
+      title_original: "Ley N° 19.574 — Ley Integral contra el Lavado de Activos"
+      url_hint: "https://web.archive.org/web/2024/https://www.impo.com.uy/bases/leyes/19574-2017"
+      type: statute
+      regulator: "Parlamento"
+      date: "2017-12-20"
+      short_label: "LEY19574"
+
+    - title_hint: "SENACLAFT — Secretaría Nacional para la Lucha contra el Lavado de Activos y el Financiamiento del Terrorismo (Uruguay) — national AML/CFT policy body; coordinates supervision and enforcement"
+      title_original: "SENACLAFT"
+      url_hint: "https://www.gub.uy/secretaria-nacional-lucha-contra-lavado-activos-financiamiento-terrorismo/"
+      type: guidance
+      regulator: "SENACLAFT (Presidencia)"
+      short_label: "SENACLAFT"
+
+    - title_hint: "UIAF — Unidad de Información y Análisis Financiero (Uruguay, inside BCU) — Uruguayan Financial Intelligence Unit; recipient of Suspicious Transaction Reports (ROS)"
+      title_original: "UIAF — Unidad de Información y Análisis Financiero"
+      url_hint: "https://web.archive.org/web/2024/https://www.bcu.gub.uy/Servicios-Financieros-SSF/Paginas/UIAF.aspx"
+      type: guidance
+      regulator: "UIAF / BCU"
+      short_label: "UIAFUY"
+
+    # ---------- Layer 4: Taxation (DGI) ----------
+    - title_hint: "Uruguay DGI — Dirección General Impositiva — tax authority; classifies crypto as 'bienes muebles incorporales' (incorporeal movable property); Uruguay adopts (partial) territoriality — taxes Uruguayan-source income; crypto in foreign wallets typically treated as foreign-located asset"
+      title_original: "DGI — Dirección General Impositiva"
+      url_hint: "https://web.archive.org/web/2025/https://www.dgi.gub.uy"
+      type: guidance
+      regulator: "DGI / Ministerio de Economía"
+      short_label: "DGIUY"
+
+    - title_hint: "Uruguay IRAE (Impuesto a las Rentas de las Actividades Económicas) — companies trading crypto habitually (sale/purchase, NFTs, mining, services, appreciation gains) pay IRAE at 25% nominal rate on Uruguayan-source income; software companies may receive export-service benefits"
+      title_original: "IRAE — Impuesto a las Rentas de las Actividades Económicas"
+      type: statute
+      regulator: "Parlamento / DGI"
+      short_label: "IRAE"
+
+    - title_hint: "Uruguay IRPF (Impuesto a la Renta de las Personas Físicas) — individuals earning regular crypto income are subject to IRPF; capital income (Category I) at fixed rates (~12% for movable-capital income from abroad for tax residents, subject to new-resident tax holiday)"
+      title_original: "IRPF — Impuesto a la Renta de las Personas Físicas"
+      type: statute
+      regulator: "Parlamento / DGI"
+      short_label: "IRPF"
+
+    - title_hint: "Uruguay IRNR (Impuesto a la Renta de los No Residentes) — non-residents are taxed ONLY on Uruguayan-source income; IRNR does not reach foreign-source income"
+      title_original: "IRNR — Impuesto a la Renta de los No Residentes"
+      type: statute
+      regulator: "Parlamento / DGI"
+      short_label: "IRNR"
+
+    - title_hint: "Uruguay Impuesto al Patrimonio (IP/IPPF) — wealth tax on holdings on 31/12 if the asset is considered Uruguayan-located and exceeds non-taxable minimum; crypto in foreign wallets in principle NOT reached (unless linked to local commercial activity); valued by qualified appraisal (DGI may challenge)"
+      title_original: "Impuesto al Patrimonio (IP / IPPF)"
+      type: statute
+      regulator: "Parlamento / DGI"
+      short_label: "IMPPATRIMONIO"
+
+  CA:
+    # ==================================================================
+    # Aligned with the user's Canada Crypto Regulatory Matrix.
+    # Multi-track regime: FINTRAC AML (base), CSA/CIRO securities (provincial-coordinated),
+    # Bank of Canada (stablecoins from 2027), CRA tax. No federal securities regulator.
+    # URL strategy: laws-lois.justice.gc.ca + bankofcanada.ca work directly.
+    # CSA, CIRO, CRA, FINTRAC need Wayback (Cloudflare or regional blocks).
+    # ==================================================================
+
+    # ---------- Layer 1: AML (FINTRAC) — the base ----------
+    - title_hint: "Canada Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA) — federal AML/CFT framework; since 2020-06 'dealers in virtual currency' are Money Services Businesses (MSBs) and must register with FINTRAC; KYC, monitoring, recordkeeping, suspicious/large reports"
+      url_hint: "https://laws-lois.justice.gc.ca/eng/acts/p-24.501/"
+      type: statute
+      regulator: "Parliament of Canada"
+      date: "2000-06-29"
+      short_label: "PCMLTFA"
+
+    - title_hint: "FINTRAC — Financial Transactions and Reports Analysis Centre of Canada — Canadian FIU; administers MSB registration and receives/analyzes reports; relevant penalties for non-compliance"
+      url_hint: "https://web.archive.org/web/2024/https://www.fintrac-canafe.canada.ca/"
+      type: guidance
+      regulator: "FINTRAC"
+      short_label: "FINTRAC"
+
+    - title_hint: "FINTRAC MSB guidance — registration and obligations for Money Services Businesses including dealers in virtual currency"
+      url_hint: "https://web.archive.org/web/2024/https://www.fintrac-canafe.canada.ca/msb-esm/intro-eng"
+      type: guidance
+      regulator: "FINTRAC"
+      short_label: "FINTRACMSB"
+
+    - title_hint: "FINTRAC Travel Rule guidance — transmission of originator/beneficiary information in crypto transfers (aligned with FATF R.15)"
+      type: guidance
+      regulator: "FINTRAC"
+      short_label: "FINTRACTRAVELRULE"
+
+    # ---------- Layer 2: Securities (CSA / CIRO) ----------
+    - title_hint: "CSA Staff Notice 21-327 — Guidance on the Application of Securities Legislation to Entities Facilitating the Trading of Crypto Assets (Canadian Securities Administrators) — establishes that many platforms operate 'crypto contracts' treated as securities or derivatives requiring registration; based on the investment-contract test (analog to Howey)"
+      type: guidance
+      regulator: "CSA"
+      date: "2020-01-16"
+      short_label: "CSASN21327"
+
+    - title_hint: "CSA Staff Notice 21-329 — Guidance for Crypto-Asset Trading Platforms — sets requirements for restricted dealer registration and Pre-Registration Undertakings (PRUs); PRUs discontinued 2024-08-06; new entrants must seek full investment-dealer registration + CIRO membership"
+      type: guidance
+      regulator: "CSA"
+      date: "2021-03-29"
+      short_label: "CSASN21329"
+
+    - title_hint: "CSA Staff Notice 21-332 — Crypto Asset Trading Platforms: Pre-Registration Undertakings — Changes to Enhance Canadian Investor Protection — codifies the PRU regime (governance, custody, liquidity, insurance, capital); precursor to full registration"
+      type: guidance
+      regulator: "CSA"
+      date: "2022-08-15"
+      short_label: "CSASN21332"
+
+    - title_hint: "CSA crypto-platforms regulation and enforcement actions hub — landing page tracking all registered Crypto Asset Trading Platforms (CTPs) and enforcement"
+      url_hint: "https://web.archive.org/web/2024/https://www.securities-administrators.ca/crypto-platforms-regulation-and-enforcement-actions/"
+      type: guidance
+      regulator: "CSA"
+      short_label: "CSACRYPTOHUB"
+
+    - title_hint: "CIRO — Canadian Investment Regulatory Organization (created 2023 from IIROC + MFDA merger) — national SRO supervising investment dealers including CTPs; requires minimum capital, client-asset protection, internal controls, audits (NI 31-103 + NI 21-101)"
+      type: regulation
+      regulator: "CIRO"
+      date: "2023-01-01"
+      short_label: "CIRO"
+
+    # ---------- Layer 3: Stablecoins (CSA VRCA + Bank of Canada) ----------
+    - title_hint: "CSA Staff Notice 21-333 — Crypto Asset Trading Platforms: Terms and Conditions for Trading Value-Referenced Crypto Assets with Clients (Value-Referenced Crypto Assets / VRCA) — interim regime for stablecoins; defines VRCA; fixes T&Cs so registered CTPs may offer VRCAs (e.g., USDC after Circle accepted CSA jurisdiction); new issuers tend to need prospectus"
+      type: regulation
+      regulator: "CSA"
+      date: "2023-10-05"
+      short_label: "CSASN21333VRCA"
+
+    - title_hint: "Bank of Canada — proposed supervision of fiat-backed stablecoin issuers (effective ~2027) — prudential standards converging with MiCA/EPI model (stablecoin as payment instrument)"
+      url_hint: "https://www.bankofcanada.ca/"
+      type: guidance
+      regulator: "Bank of Canada"
+      date: "2027-01-01"
+      short_label: "BOCSTABLECOIN2027"
+
+    - title_hint: "Canada Retail Payment Activities Act (RPAA) — registration and supervision of payment service providers (PSPs) including those performing retail payment functions with crypto/tokens; administered by Bank of Canada"
+      url_hint: "https://www.bankofcanada.ca/core-functions/retail-payments-supervision/"
+      type: statute
+      regulator: "Parliament of Canada / Bank of Canada"
+      date: "2021-06-29"
+      short_label: "RPAA"
+
+    # ---------- Layer 4: Taxation (CRA) ----------
+    - title_hint: "Canada Income Tax Act — federal income-tax framework; basis for crypto taxation as commodity"
+      url_hint: "https://laws-lois.justice.gc.ca/eng/acts/i-3.3/"
+      type: statute
+      regulator: "Parliament of Canada"
+      date: "1985-01-01"
+      short_label: "ITAACT"
+
+    - title_hint: "CRA cryptocurrency guide — Canada Revenue Agency treats crypto as commodity (not currency); disposals are barter transactions; gain is capital gain (50% inclusion) OR business income (100% taxable) depending on intention/frequency/volume; crypto/crypto swap, spending and sale are taxable events; ACB calculation; CAD valuation"
+      url_hint: "https://web.archive.org/web/2024/https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/compliance/digital-currency/cryptocurrency-guide.html"
+      type: guidance
+      regulator: "CRA"
+      short_label: "CRACRYPTOGUIDE"
+
+    - title_hint: "Canada CARF adoption — Crypto-Asset Reporting Framework (OECD): CASPs must report client and transaction data to CRA with international exchange; effective date in flux per sources (2026–2027 with first reports in 2027); confirm"
+      type: regulation
+      regulator: "CRA"
+      date: "2026-01-01"
+      short_label: "CACARF"
