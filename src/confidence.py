@@ -49,7 +49,9 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     # Switzerland
     "finma.ch", "fedlex.admin.ch", "parlament.ch",
     # Hong Kong
-    "sfc.hk", "hkma.gov.hk", "legislation.gov.hk",
+    "sfc.hk", "hkma.gov.hk", "legislation.gov.hk", "elegislation.gov.hk",
+    "ird.gov.hk", "fstb.gov.hk", "legco.gov.hk", "hklii.hk", "hklii.org",
+    "info.gov.hk", "gov.hk",
     # South Korea
     "fsc.go.kr", "law.go.kr", ".go.kr",
     # UAE
@@ -69,6 +71,9 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     # Wayback Machine — treated as primary because it mirrors official sources
     # (we only use it for Legifrance URLs that Cloudflare blocks our scraper from)
     "web.archive.org",
+    # Nigeria
+    "sec.gov.ng", "cbn.gov.ng", "firs.gov.ng", "nrs.gov.ng",
+    "nfiu.gov.ng", "efcc.gov.ng", "placng.org", "lawnigeria.com",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
     "oecd.org", "worldbank.org", "un.org",

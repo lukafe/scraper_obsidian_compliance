@@ -10,7 +10,9 @@ countries:
   - FR    # Phase 4 — France ✓
   - SG    # Phase 5 — Singapore ✓
   - GB    # Phase 6 — United Kingdom ✓
-  - AE    # Phase 7 — United Arab Emirates
+  - AE    # Phase 7 — United Arab Emirates ✓
+  - US    # Phase 8 — United States ✓
+  - NG    # Phase 9 — Nigeria
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -1235,3 +1237,417 @@ force_include:
       regulator: "FTA"
       date: "2024-11-15"
       short_label: "VATEXEMPTVA"
+
+  US:
+    # ==================================================================
+    # Aligned with the user's US Crypto Regulatory Matrix.
+    # URL strategy: congress.gov, sec.gov, justia.com are Cloudflare/WAF
+    # protected — use Wayback Machine and law.cornell.edu (LII) mirrors.
+    # CFTC, FinCEN, IRS, OCC, NY DFS, DFPI all work with browser UA.
+    # ==================================================================
+
+    # ---------- Layer 1: Federal 2025-2026 wave ----------
+    - title_hint: "GENIUS Act — Guiding and Establishing National Innovation for U.S. Stablecoins Act (Public Law 119-27, signed 2025-07-18) — FIRST FEDERAL CRYPTO LAW; creates Permitted Payment Stablecoin Issuer (PPSI) regime; 100% reserve, par redemption; treats PPSIs as BSA financial institutions; excludes payment stablecoins from the definition of 'security'"
+      url_hint: "https://web.archive.org/web/2025/https://www.congress.gov/bill/119th-congress/senate-bill/1582"
+      type: statute
+      regulator: "US Congress"
+      date: "2025-07-18"
+      short_label: "GENIUSACT"
+
+    - title_hint: "CLARITY Act — Digital Asset Market Clarity Act of 2025 (H.R. 3633) — BILL, NOT YET LAW; proposes market structure framework; would give CFTC exclusive jurisdiction over digital-commodity spot markets (BTC, ETH) and keep SEC over investment-contract assets; House-passed Jul/2025, Senate Banking markup expected 2026"
+      url_hint: "https://web.archive.org/web/2025/https://www.congress.gov/bill/119th-congress/house-bill/3633"
+      type: statute
+      regulator: "US Congress"
+      date: "2025-07-17"
+      short_label: "CLARITYACT"
+
+    - title_hint: "SEC-CFTC Joint Interpretation on the application of securities laws to crypto (2026-03-17) — historic joint interpretation; identifies 18 major cryptocurrencies as digital commodities (not securities); concludes covered stablecoins, certain protocol staking and wrapped tokens are not securities transactions"
+      url_hint: "https://web.archive.org/web/2026/https://www.sec.gov/about/crypto-task-force"
+      type: guidance
+      regulator: "SEC + CFTC"
+      date: "2026-03-17"
+      short_label: "SECCFTCINTERP2026"
+
+    # ---------- Layer 2: SEC (securities) ----------
+    - title_hint: "US Securities Act of 1933 (15 U.S.C. §77a et seq.) — regulates the offer and sale of securities (registration, prospectus, anti-fraud); basis for ICOs/token offerings classified as securities"
+      url_hint: "https://www.law.cornell.edu/uscode/text/15/chapter-2A"
+      type: statute
+      regulator: "US Congress"
+      date: "1933-05-27"
+      short_label: "SECACT1933"
+
+    - title_hint: "US Securities Exchange Act of 1934 (15 U.S.C. §78a et seq.) — regulates secondary markets, exchanges, brokers/dealers; created the SEC"
+      url_hint: "https://www.law.cornell.edu/uscode/text/15/chapter-2B"
+      type: statute
+      regulator: "US Congress"
+      date: "1934-06-06"
+      short_label: "EXCHACT1934"
+
+    - title_hint: "SEC v. W. J. Howey Co., 328 U.S. 293 (1946) — Supreme Court precedent defining 'investment contract': (i) money invested, (ii) common enterprise, (iii) expectation of profit, (iv) derived from efforts of others; master test for deciding if a token is a security"
+      url_hint: "https://www.law.cornell.edu/supremecourt/text/328/293"
+      type: case_law
+      regulator: "US Supreme Court"
+      date: "1946-05-27"
+      short_label: "HOWEY"
+
+    - title_hint: "SEC Crypto Task Force (Commissioner Hester Peirce, since 2025) — reorients the SEC: dismissed enforcement actions (Coinbase, etc.); runs Project Crypto / Regulation Crypto; studies innovation exemption / safe-harbor for fundraising"
+      url_hint: "https://web.archive.org/web/2025/https://www.sec.gov/about/crypto-task-force"
+      type: guidance
+      regulator: "SEC"
+      date: "2025-01-21"
+      short_label: "SECCRYPTOTASK"
+
+    - title_hint: "SEC Staff Accounting Bulletin 122 (SAB 122) — REVOKES SAB 121 (which burdened banks custodying crypto); removes the requirement to recognize custodied crypto assets on the balance sheet"
+      url_hint: "https://web.archive.org/web/2025/https://www.sec.gov/oca/staff-accounting-bulletin-122"
+      type: guidance
+      regulator: "SEC"
+      date: "2025-01-23"
+      short_label: "SAB122"
+
+    # ---------- Layer 3: CFTC (commodities + derivatives) ----------
+    - title_hint: "US Commodity Exchange Act (CEA, 7 U.S.C. §1 et seq.) — gives CFTC jurisdiction over commodities and derivatives; BTC and ETH treated as commodities; CFTC regulates futures/swaps and fights fraud/manipulation in spot via anti-fraud authority"
+      url_hint: "https://www.cftc.gov/LawRegulation/CommodityExchangeAct/index.htm"
+      type: statute
+      regulator: "US Congress"
+      date: "1936-06-15"
+      short_label: "CEA"
+
+    - title_hint: "CFTC 'crypto sprint' initiative (since 2025-08) — 12-month effort on spot crypto trading, tokenized collateral in derivatives, and regulatory adaptations; withdrew Staff Advisory 20-34 that limited FCMs from accepting crypto as collateral"
+      url_hint: "https://www.cftc.gov"
+      type: guidance
+      regulator: "CFTC"
+      date: "2025-08-01"
+      short_label: "CFTCCRYPTOSPRINT"
+
+    # ---------- Layer 4: Banking + Stablecoins (OCC / Fed / FDIC) ----------
+    - title_hint: "OCC Interpretive Letters on crypto — confirm that national banks may custody crypto, act as agents in execution/settlement of trades, and handle stablecoin reserves on a safe-and-sound basis"
+      url_hint: "https://www.occ.gov/topics/charters-and-licensing/interpretations-and-actions/index-interpretations-and-actions.html"
+      type: guidance
+      regulator: "OCC"
+      short_label: "OCCINTLETTERS"
+
+    - title_hint: "Federal Reserve — end of the Novel Activities Supervision Program (2025-08) — the Fed ended the special program and returned bank crypto activity to standard supervision, reducing regulatory friction"
+      url_hint: "https://www.federalreserve.gov"
+      type: guidance
+      regulator: "Federal Reserve"
+      date: "2025-08-01"
+      short_label: "FEDNOVELACTEND"
+
+    # ---------- Layer 5: AML / FinCEN ----------
+    - title_hint: "US Bank Secrecy Act (BSA, 31 U.S.C. §5311 et seq.) + 31 CFR Part 1022 — federal AML base; exchanges and custodians register with FinCEN as Money Services Business (MSB) via Form 107; written AML program, Compliance Officer, CIP/KYC, SARs, CTRs"
+      url_hint: "https://www.fincen.gov/resources/statutes-regulations"
+      type: statute
+      regulator: "US Congress / FinCEN"
+      date: "1970-10-26"
+      short_label: "BSA"
+
+    - title_hint: "FinCEN Guidance FIN-2019-G001 on Application of FinCEN's Regulations to Certain Business Models Involving Convertible Virtual Currencies (CVCs) — consolidates MSB rules for exchanges, administrators, wallets, mixers, P2P; Travel Rule applies to transfers ≥ USD 3,000"
+      url_hint: "https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-certain-business-models"
+      type: guidance
+      regulator: "FinCEN"
+      date: "2019-05-09"
+      short_label: "FIN2019G001"
+
+    - title_hint: "FinCEN/OFAC Joint Notice of Proposed Rulemaking (NPRM) under the GENIUS Act (2026-04-08) — 303-page rule classifying PPSIs as BSA financial institutions; AML/CFT + sanctions programs required (block/freeze sanctioned transactions); comments through 2026-06-09"
+      url_hint: "https://www.fincen.gov"
+      type: regulation
+      regulator: "FinCEN / OFAC"
+      date: "2026-04-08"
+      short_label: "FINCENNPRM2026"
+
+    - title_hint: "18 U.S.C. §1960 — criminalizes operating an unlicensed money-transmitting business; basis for federal prosecutions of unregistered crypto operations"
+      url_hint: "https://www.law.cornell.edu/uscode/text/18/1960"
+      type: statute
+      regulator: "US Congress"
+      date: "1992-10-28"
+      short_label: "USC1960"
+
+    # ---------- Layer 6: Taxation (IRS) ----------
+    - title_hint: "IRS Notice 2014-21 — treats cryptocurrency as property (not currency); each disposal (sale, crypto/crypto swap, payment) is a taxable capital gain/loss event; receipt as income is taxed at fair market value"
+      url_hint: "https://www.irs.gov/pub/irs-drop/n-14-21.pdf"
+      type: guidance
+      regulator: "IRS"
+      date: "2014-03-25"
+      short_label: "IRSNOTICE201421"
+
+    - title_hint: "IRS Revenue Ruling 2019-24 — tax treatment of hard forks and airdrops as ordinary income upon receipt"
+      url_hint: "https://www.irs.gov/pub/irs-drop/rr-19-24.pdf"
+      type: guidance
+      regulator: "IRS"
+      date: "2019-10-09"
+      short_label: "IRSREV201924"
+
+    - title_hint: "IRS Form 1099-DA — Digital Asset Broker Reporting — mandatory reporting by custodial brokers: gross proceeds from 2025-01-01; cost basis from 2026-01-01; replaces prior reporting gray zone"
+      url_hint: "https://www.irs.gov/forms-pubs/about-form-1099-da"
+      type: regulation
+      regulator: "IRS"
+      date: "2025-01-01"
+      short_label: "FORM1099DA"
+
+    - title_hint: "IRS Digital Assets — central guidance landing on cryptocurrency capital gains and income tax treatment (long-term 0/15/20%; short-term ordinary up to 37%)"
+      url_hint: "https://www.irs.gov/filing/digital-assets"
+      type: guidance
+      regulator: "IRS"
+      short_label: "IRSDIGITALASSETS"
+
+    # ---------- Layer 7: State level ----------
+    - title_hint: "NY BitLicense — 23 NYCRR Part 200 (NYDFS) — virtual currency business activity license for New York; one of the strictest crypto licenses in the US; NYDFS also grants limited-purpose trust charters as an alternative route"
+      url_hint: "https://www.dfs.ny.gov/virtual_currency_businesses"
+      type: regulation
+      regulator: "NY DFS"
+      date: "2015-06-24"
+      short_label: "BITLICENSE"
+
+    - title_hint: "Money Transmission Modernization Act (MTMA) — model law harmonizing the 49+ state money-transmitter regimes; most states require Money Transmitter License (MTL) for crypto transmission/custody; licensing via NMLS"
+      url_hint: "https://web.archive.org/web/2025/https://www.csbs.org/money-transmission-modernization-act"
+      type: regulation
+      regulator: "CSBS (model)"
+      date: "2021-08-19"
+      short_label: "MTMA"
+
+    - title_hint: "California Digital Financial Assets Law (DFAL) — California's crypto licensing regime; DFPI began accepting applications 2026-03-09"
+      url_hint: "https://dfpi.ca.gov/digital-financial-assets/"
+      type: regulation
+      regulator: "California DFPI"
+      date: "2026-03-09"
+      short_label: "CADFAL"
+
+  HK:
+    # ==================================================================
+    # Aligned with the user's Hong Kong Crypto Regulatory Matrix.
+    # URL strategy: elegislation.gov.hk + HKLII are both Angular SPAs
+    # (shell only). Use SFC, HKMA, IRD direct URLs where available;
+    # omit hints for ordinance texts and let semantic resolver find
+    # Wayback or Legco PDF alternatives.
+    # ==================================================================
+
+    # ---------- Layer 1: VATP regime (SFC / AMLO) ----------
+    - title_hint: "Hong Kong Anti-Money Laundering and Counter-Terrorist Financing Ordinance (AMLO) — Cap. 615 — base of the VATP licensing regime (in force 2023-06-01, 2023 amendment, FATF-aligned); ALL platforms trading VAs in HK or actively marketing to HK investors must have SFC licence; treated like traditional brokerages: minimum capital, strict AML, client-asset segregation, custody via wholly-owned subsidiary, ongoing supervision"
+      title_original: "Anti-Money Laundering and Counter-Terrorist Financing Ordinance (Cap. 615)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "2012-04-01"
+      short_label: "AMLO615"
+
+    - title_hint: "SFC Guidelines for Virtual Asset Trading Platform Operators + Terms & Conditions — detailed operational rules: fit-and-proper, Responsible Officers, governance, cybersecurity, custody, token due diligence, token-admission rules"
+      url_hint: "https://www.sfc.hk/en/Regulatory-functions/Intermediaries"
+      type: regulation
+      regulator: "SFC"
+      short_label: "SFCVATPGUIDE"
+
+    - title_hint: "SFC Circulars of 2025-11-03 — expansion of products and global liquidity — VATPs may distribute VA-exposure products, tokenised securities, stablecoins; conduct staking; trust/client accounts; integrate order books with global affiliates for shared liquidity; relax 12-month track-record for professional-only tokens"
+      url_hint: "https://www.sfc.hk/en/News-and-announcements/Policy-statements-and-announcements"
+      type: guidance
+      regulator: "SFC"
+      date: "2025-11-03"
+      short_label: "SFCCIRC2025"
+
+    # ---------- Layer 2: Security tokens (SFC / SFO) ----------
+    - title_hint: "Hong Kong Securities and Futures Ordinance (SFO) — Cap. 571 — when a VA is a 'security' (or tokenised security/digital security), the traditional SFO regime applies: offers, intermediation, licences by regulated-activity type (Type 1 dealing in securities; Type 7 ATS; Type 9 asset management)"
+      title_original: "Securities and Futures Ordinance (Cap. 571)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "2002-04-01"
+      short_label: "SFO571"
+
+    - title_hint: "SFC circulars on tokenised securities and VA investment products — addresses securities tokenisation, distribution of VA-exposure products, VA asset management; VA ETFs (futures and spot BTC/ETH) authorized for retail on SEHK"
+      url_hint: "https://www.sfc.hk/en/Rules-and-standards"
+      type: guidance
+      regulator: "SFC"
+      short_label: "SFCTOKENISED"
+
+    # ---------- Layer 3: Stablecoins (HKMA / Stablecoins Ordinance) ----------
+    - title_hint: "Hong Kong Stablecoins Ordinance — Cap. 656 (passed 2025-05-21, in force 2025-08-01) — licensing regime for fiat-referenced stablecoin (FRS) issuers under HKMA; licence required for issuing FRS in HK or HKD-pegged FRS anywhere; minimum HKD 25M paid-up capital; 100% high-quality liquid reserves; par redemption; governance; AML; marketing of stablecoins also regulated"
+      title_original: "Stablecoins Ordinance (Cap. 656)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "2025-08-01"
+      short_label: "STABLECOIN656"
+
+    - title_hint: "HKMA Regulatory regime for stablecoin issuers — guidelines and explanatory notes; licensing criteria, reserves, redemption, AML, conduct; HKMA-licensed stablecoins exempt from VATP track record (for professional and retail clients)"
+      url_hint: "https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/fintech/"
+      type: guidance
+      regulator: "HKMA"
+      date: "2025-08-01"
+      short_label: "HKMASTABLECOIN"
+
+    # ---------- Layer 4: Policy + new regimes (LEAP) ----------
+    - title_hint: "HK FSTB Policy Statement 2.0 on the Development of Digital Assets (2025-06-26) — updates the 2022 framework with the LEAP strategy: Legal/regulatory streamlining, Expanding tokenised products, Advancing use cases & cross-sectoral collaboration, People & partnership; roadmap to a comprehensive digital-assets regime"
+      type: guidance
+      regulator: "FSTB (Financial Services and Treasury Bureau)"
+      date: "2025-06-26"
+      short_label: "POLICY20LEAP"
+
+    - title_hint: "HK new licensing regime for VA dealing & VA custodian (2026, under AMLO) — standalone licensing for dealers (including OTC) and custodians, closing the gap beyond exchanges; opens path for broker-dealers, asset managers, banks and SVF providers to expand into VA"
+      type: regulation
+      regulator: "SFC / FSTB"
+      date: "2026-01-01"
+      short_label: "VADEALCUSTODY"
+
+    - title_hint: "HK consultation on VA advisers and managers (comments through 2026-01-23) — extends SFC supervision to VA advisers and managers"
+      type: guidance
+      regulator: "SFC"
+      date: "2026-01-23"
+      short_label: "VAADVISERS"
+
+    # ---------- Layer 5: AML / CFT ----------
+    - title_hint: "HK Organized and Serious Crimes Ordinance (OSCO) — Cap. 455 — criminal AML offences; basis for STR reporting to the JFIU (Joint Financial Intelligence Unit)"
+      title_original: "Organized and Serious Crimes Ordinance (Cap. 455)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "1994-11-25"
+      short_label: "OSCO455"
+
+    - title_hint: "HK Drug Trafficking (Recovery of Proceeds) Ordinance (DTPRO) — Cap. 405 — money laundering offence linked to drug trafficking proceeds"
+      title_original: "Drug Trafficking (Recovery of Proceeds) Ordinance (Cap. 405)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "1989-09-29"
+      short_label: "DTPRO405"
+
+    - title_hint: "HK United Nations (Anti-Terrorism Measures) Ordinance (UNATMO) — Cap. 575 — terrorism-financing offences; CFT pillar"
+      title_original: "United Nations (Anti-Terrorism Measures) Ordinance (Cap. 575)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "2002-07-23"
+      short_label: "UNATMO575"
+
+    # ---------- Layer 6: Taxation ----------
+    - title_hint: "HK Inland Revenue Ordinance (IRO) — Cap. 112 — Hong Kong has NO capital gains tax; taxes only profits tax on profits from trade/business with HK source (territorial principle); long-term investment crypto gains untaxed; habitual/business trading attracts profits tax; no VAT/GST"
+      title_original: "Inland Revenue Ordinance (Cap. 112)"
+      type: statute
+      regulator: "HK Legislative Council"
+      date: "1947-05-03"
+      short_label: "IRO112"
+
+    - title_hint: "HK IRD DIPN No. 39 — Profits Tax: Digital Economy, Electronic Commerce and Digital Assets (rev. 2023, updated 2025) — IRD guidance applying the 'badges of trade' test to distinguish capital (exempt) from business income (taxable); treats mining, staking, crypto payments and DeFi (often taxable activity)"
+      url_hint: "https://www.ird.gov.hk/eng/pdf/dipn39.pdf"
+      type: guidance
+      regulator: "IRD"
+      date: "2025-01-01"
+      short_label: "DIPN39"
+
+    - title_hint: "HK Profits Tax rates — Corporate: 8.25% on first HKD 2M, 16.5% above; unincorporated: up to 15-17%"
+      url_hint: "https://www.ird.gov.hk/eng/tax/bus_pft.htm"
+      type: guidance
+      regulator: "IRD"
+      short_label: "PROFITSTAX"
+
+    - title_hint: "HK budget proposal 2025/26 — extends profits-tax exemption to specified digital assets in privately-offered funds and family-owned investment holding vehicles (FIHV); stamp-duty exemption extended to tokenised ETFs; aligns with LEAP"
+      type: guidance
+      regulator: "FSTB / Government of HK"
+      date: "2025-02-26"
+      short_label: "BUDGET2526"
+
+  NG:
+    # ==================================================================
+    # Aligned with the user's Nigeria Crypto Regulatory Matrix.
+    # Nigeria is the largest African crypto market. ISA 2025 (Section
+    # 357) made digital assets = securities by statute, putting SEC as
+    # the apex regulator.
+    # URL strategy: sec.gov.ng + cbn.gov.ng homes work; specific PDFs
+    # blocked by Cloudflare. PLAC (placng.org) is the canonical Nigerian
+    # law mirror. Many norms left for semantic resolver to find.
+    # ==================================================================
+
+    # ---------- Layer 1: Market regulation (SEC) ----------
+    - title_hint: "Nigerian Investments and Securities Act (ISA) 2025 — landmark 226-page statute (March 2025) that rewrites securities law and in Section 357 classifies virtual/digital assets as securities; reaffirms SEC as apex regulator; VASPs, Digital Asset Operators (DAOPs) and Digital Asset Exchanges (DAEs) must register and be authorized by the SEC; criminalizes Ponzi and digital-asset fraud; repeals ISA 2007"
+      title_original: "Investments and Securities Act, 2025"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2025-03-01"
+      short_label: "ISA2025"
+
+    - title_hint: "Nigerian SEC Rules on Issuance, Offering Platforms and Custody of Digital Assets (2022) — first sectoral rules: registration of issuers, offering platforms, exchanges (DAX) and custodians of digital assets; capital, disclosure and conduct requirements; operational basis prior to ISA 2025"
+      url_hint: "https://sec.gov.ng/"
+      type: regulation
+      regulator: "SEC Nigeria"
+      date: "2022-05-13"
+      short_label: "SECRULES2022"
+
+    - title_hint: "Nigerian SEC New Digital Asset Rules / Rules on VASPs (2025) — post-ISA 2025 update: registration requirements, capital, AML/CFT, marketing restrictions and supervision of VASPs; NGN 30 million registration fee; foreign VASPs targeting Nigerian investors must meet conditions (home-country authorization + regulatory arrangement)"
+      url_hint: "https://sec.gov.ng/"
+      type: regulation
+      regulator: "SEC Nigeria"
+      date: "2025-06-30"
+      short_label: "SECVASPRULES2025"
+
+    - title_hint: "Nigerian Accelerated Regulatory Incubation Programme (ARIP) (2024) — sandbox-style accelerated onboarding; grants provisional licenses to crypto firms to operate under SEC supervision while the digital-asset rules are finalized; transitional gateway to market entry"
+      url_hint: "https://sec.gov.ng/"
+      type: guidance
+      regulator: "SEC Nigeria"
+      date: "2024-06-21"
+      short_label: "ARIP"
+
+    # ---------- Layer 2: Banking + Monetary Policy (CBN) ----------
+    - title_hint: "CBN Guidelines on Operations of Bank Accounts for Virtual Assets Service Providers (December 2023) — LIFTS the 2021 ban; allows banks to serve SEC-licensed VASPs under strict AML/CFT, due-diligence and monitoring conditions; key milestone in reintegrating crypto with the banking system"
+      url_hint: "https://www.cbn.gov.ng/"
+      type: guidance
+      regulator: "CBN"
+      date: "2023-12-22"
+      short_label: "CBNVASPGUIDE"
+
+    - title_hint: "CBN Circular of February 2021 (historical) — original ban preventing financial institutions from facilitating crypto transactions; SUPERSEDED by the 2023 VASP Guidelines; relevant for the 'ban -> regulation' evolution"
+      url_hint: "https://www.cbn.gov.ng/"
+      type: guidance
+      regulator: "CBN"
+      date: "2021-02-05"
+      short_label: "CBN2021BAN"
+
+    - title_hint: "Central Bank of Nigeria Act 2007 — foundational statute of the CBN; underpins its competence over financial institutions, payment systems and naira stability"
+      url_hint: "https://www.cbn.gov.ng/"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2007-05-25"
+      short_label: "CBNACT2007"
+
+    # ---------- Layer 3: AML / CFT ----------
+    - title_hint: "Nigerian Money Laundering (Prevention and Prohibition) Act 2022 — central AML statute; underpins CDD/KYC, monitoring, suspicious-transaction reporting and the obliged-entities regime — reaches VASPs as reporting institutions"
+      title_original: "Money Laundering (Prevention and Prohibition) Act, 2022"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2022-05-12"
+      short_label: "MLACT2022"
+
+    - title_hint: "Nigerian Financial Intelligence Unit (NFIU) Act 2018 — creates the NFIU as the FIU; VASPs must report large/suspicious transactions to NFIU (and, under NTAA, also to NRS)"
+      url_hint: "https://www.nfiu.gov.ng"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2018-07-26"
+      short_label: "NFIUACT"
+
+    - title_hint: "Nigerian Economic and Financial Crimes Commission (EFCC) Act 2004 — investigation and enforcement of financial crimes (fraud, laundering); acts on irregular crypto operations"
+      url_hint: "https://www.efcc.gov.ng"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2004-06-04"
+      short_label: "EFCCACT"
+
+    - title_hint: "Nigerian Terrorism (Prevention and Prohibition) Act 2022 — CFT pillar; criminalizes terrorism financing"
+      title_original: "Terrorism (Prevention and Prohibition) Act, 2022"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2022-05-12"
+      short_label: "TERRORISMACT2022"
+
+    # ---------- Layer 4: Taxation ----------
+    - title_hint: "Nigeria Tax Administration Act (NTAA) 2025 — signed 2025-06-26, in force 2026-01-01; creates the crypto tax regime; VASPs must register with NRS (ex-FIRS) and file MONTHLY returns (Section 25) with service type, customer data, TIN and NIN; report large/suspicious transactions to NRS and NFIU within 48h; KYC retention 7 years; penalties from NGN 10 million plus license suspension/revocation; ends crypto anonymity on registered platforms"
+      title_original: "Nigeria Tax Administration Act, 2025"
+      type: statute
+      regulator: "National Assembly of Nigeria / NRS"
+      date: "2025-06-26"
+      short_label: "NTAA2025"
+
+    - title_hint: "Nigeria Tax Act 2025 (tax reform) — treats digital-asset gains as 'chargeable gains' subject to income tax: up to 25% for individuals; VASPs pay 30% corporate income tax on operating profits; REPLACES the 10% CGT from the Finance Act 2022"
+      title_original: "Nigeria Tax Act, 2025"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2025-06-26"
+      short_label: "NTA2025"
+
+    - title_hint: "Nigerian Finance Act 2022 (historical context) — introduced 10% Capital Gains Tax on digital-asset gains; enforcement was weak (hard to link transactions to individuals); SUPERSEDED by the 2025 reform"
+      title_original: "Finance Act, 2022"
+      type: statute
+      regulator: "National Assembly of Nigeria"
+      date: "2022-12-31"
+      short_label: "FINANCEACT2022"
