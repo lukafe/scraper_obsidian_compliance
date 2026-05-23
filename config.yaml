@@ -7,7 +7,8 @@ countries:
   - BR    # Phase 1 — Brazil (validation baseline) ✓
   - TR    # Phase 2 — Türkiye ✓
   - DE    # Phase 3 — Germany ✓
-  - FR    # Phase 4 — France
+  - FR    # Phase 4 — France ✓
+  - SG    # Phase 5 — Singapore
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -39,7 +40,7 @@ translate: true
 target_language: en                 # only when translate=true; original is always preserved
 
 # HTTP scraping
-user_agent: "crypto-lawmap/0.1 (+research; contact: lucasfeka@gmail.com)"
+user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 crypto-lawmap/0.1 (+research; contact: lucasfeka@gmail.com)"
 http_timeout_seconds: 30
 rate_limit_per_host_seconds: 1.5
 respect_robots_txt: true
@@ -803,3 +804,117 @@ force_include:
       type: statute
       regulator: "Parlement"
       short_label: "CODECONSO"
+
+  SG:
+    # ==================================================================
+    # Aligned with the user's Singapore Crypto Regulatory Matrix.
+    # URL strategy: sso.agc.gov.sg works with browser UA (we updated the
+    # default UA above). MAS portal works. IRAS partially works.
+    # PSN02 notice + IRAS Income Tax Digital Tokens left for semantic resolver.
+    # ==================================================================
+
+    # ---------- Layer 1: Core licensing statutes ----------
+    - title_hint: "Singapore Payment Services Act 2019 (PSA) — base statute for Digital Payment Token (DPT) services (Activity F) and Stablecoin Issuance Service; MAS licensing required (Money-changing / SPI / MPI); amended in 2021 to broaden DPT scope"
+      url_hint: "https://sso.agc.gov.sg/Act/PSA2019"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "2019-01-14"
+      short_label: "PSA"
+
+    - title_hint: "Singapore Payment Services Regulations 2019 (PSR) — subsidiary legislation to the PSA: licensing conditions, capital, safeguards, operational duties"
+      url_hint: "https://sso.agc.gov.sg/SL/PSA2019-S810-2019"
+      type: regulation
+      regulator: "MAS"
+      date: "2019-12-05"
+      short_label: "PSR"
+
+    - title_hint: "Singapore Financial Services and Markets Act 2022 (FSMA) — Part 9 creates the Digital Token Service Provider (DTSP) regime (effective 2025-06-30, no transition); captures SG entities serving overseas-only clients; penalties up to SGD 250,000 and 3 years imprisonment"
+      url_hint: "https://sso.agc.gov.sg/Act/FSMA2022"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "2022-04-05"
+      short_label: "FSMA"
+
+    - title_hint: "Singapore Securities and Futures Act 2001 (SFA) — applies when a digital token is a capital markets product (tokenized securities, derivatives); governs offers, prospectus, intermediation, organized markets"
+      url_hint: "https://sso.agc.gov.sg/Act/SFA2001"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "2001-10-05"
+      short_label: "SFA"
+
+    - title_hint: "Singapore Financial Advisers Act 2001 (FAA) — financial advice on capital-markets-product digital tokens"
+      url_hint: "https://sso.agc.gov.sg/Act/FAA2001"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "2001-10-05"
+      short_label: "FAA"
+
+    # ---------- Layer 2: Stablecoins (SCS Framework) ----------
+    - title_hint: "MAS Stablecoin Regulatory Framework (SCS) — finalized 15 August 2023 — applies to single-currency stablecoins (SGD or G10) issued in Singapore; 100% high-quality reserves with monthly independent attestation + annual audit; segregation, par redemption, disclosures"
+      url_hint: "https://www.mas.gov.sg/news/media-releases/2023/mas-finalises-stablecoin-regulatory-framework"
+      type: guidance
+      regulator: "MAS"
+      date: "2023-08-15"
+      short_label: "SCSFRAMEWORK"
+
+    # ---------- Layer 3: AML / CFT / Travel Rule ----------
+    - title_hint: "MAS Notice PSN02 — Prevention of Money Laundering and Countering the Financing of Terrorism for Digital Payment Token Service providers; CDD from first dollar, ECDD for high-risk/PEPs, ongoing monitoring, sanctions screening, Travel Rule"
+      type: regulation
+      regulator: "MAS"
+      short_label: "PSN02"
+
+    - title_hint: "MAS Guidelines to Notice PSN02 (revised 30 June 2025) — practical guidance on PSN02: new products, ECDD, monitoring and value transfers (Travel Rule)"
+      type: guidance
+      regulator: "MAS"
+      date: "2025-06-30"
+      short_label: "PSN02GUIDE"
+
+    - title_hint: "MAS Notice PSN01 — sister AML/CFT notice for non-DPT payment services; read together with PSN02 for multi-service providers"
+      type: regulation
+      regulator: "MAS"
+      short_label: "PSN01"
+
+    - title_hint: "Singapore Corruption, Drug Trafficking and Other Serious Crimes (Confiscation of Benefits) Act 1992 (CDSA) — base penal AML law; criminalizes money laundering; basis for suspicious transaction reporting to STRO"
+      url_hint: "https://sso.agc.gov.sg/Act/CDTOSCCBA1992"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "1992-12-30"
+      short_label: "CDSA"
+
+    - title_hint: "Singapore Terrorism (Suppression of Financing) Act 2002 (TSOFA) — terrorism financing pillar of AML/CFT"
+      url_hint: "https://sso.agc.gov.sg/Act/TSFA2002"
+      type: statute
+      regulator: "Parliament of Singapore"
+      date: "2002-07-08"
+      short_label: "TSOFA"
+
+    # ---------- Layer 4: Consumer protection / Conduct ----------
+    - title_hint: "MAS Guidelines on Provision of Digital Payment Token Services to the Public (consumer-protection guidelines, phased through 2024) — bans retail incentives, credit/leverage, credit-card use; restrictions on staking/lending for retail; risk disclosures, knowledge assessment, customer-asset segregation"
+      type: guidance
+      regulator: "MAS"
+      date: "2024-04-02"
+      short_label: "DPTPUBLICGUIDE"
+
+    - title_hint: "MAS Notice FSM-N13 on Technology Risk Management (TRM) — ICT risk governance, system resilience, IT controls for regulated institutions (incl. DPTSPs)"
+      type: regulation
+      regulator: "MAS"
+      short_label: "FSMN13TRM"
+
+    - title_hint: "MAS Notice FSM-N14 on Cyber Hygiene — minimum cyber-hygiene requirements (access controls, patching, MFA) for regulated institutions"
+      type: regulation
+      regulator: "MAS"
+      short_label: "FSMN14CYBER"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "Singapore Income Tax Act 1947 + IRAS e-Tax Guide on Income Tax Treatment of Digital Tokens — Singapore has NO capital gains tax; long-term investment gains in crypto are generally untaxed; habitual/business trading is income (17% corporate or personal brackets); guide details payment, utility, security tokens, ICO, token compensation"
+      type: statute
+      regulator: "IRAS"
+      date: "1947-01-01"
+      short_label: "INCOMETAXACT"
+
+    - title_hint: "Singapore Goods and Services Tax Act 1993 + IRAS e-Tax Guide on GST treatment of Digital Payment Tokens — since 2020-01-01, DPT-for-fiat and DPT-for-DPT exchanges are EXEMPT from GST (no longer a taxable supply); using DPT as payment doesn't trigger GST on the token; NFTs and some utility tokens may not qualify and remain subject to GST (currently 9%)"
+      url_hint: "https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/specific-business-sectors/digital-payment-tokens"
+      type: statute
+      regulator: "IRAS"
+      date: "1993-04-01"
+      short_label: "GSTACT"
