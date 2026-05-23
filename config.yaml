@@ -13,10 +13,12 @@ countries:
   - AE    # Phase 7 — United Arab Emirates ✓
   - US    # Phase 8 — United States ✓
   - HK    # Phase 9 — Hong Kong ✓
-  - MX    # Phase 10 — Mexico
-  - NG    # Phase 11 — Nigeria
-  - LT    # Phase 12 — Lithuania
-  - AR    # Phase 13 — Argentina
+  - JP    # Phase 10 — Japan
+  - MX    # Phase 11 — Mexico
+  - NG    # Phase 12 — Nigeria
+  - LT    # Phase 13 — Lithuania
+  - AR    # Phase 14 — Argentina
+  - CH    # Phase 15 — Switzerland
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -1543,6 +1545,121 @@ force_include:
       date: "2025-02-26"
       short_label: "BUDGET2526"
 
+  JP:
+    # ==================================================================
+    # Aligned with the user's Japan Crypto Regulatory Matrix.
+    # Japan is the most MATURE crypto-regulation regime — first country
+    # to license exchanges (PSA, 2017, post-Mt.Gox); strong SRO
+    # (JVCEA) pre-approves token listings.
+    # URL strategy: japaneselawtranslation.go.jp works for PSA (id 3078);
+    # FIEA + APTCP IDs in the matrix were incorrect — let semantic
+    # resolver find them. FSA, NTA, JVCEA portals work; JAFIC (police)
+    # blocks bots.
+    # ==================================================================
+
+    # ---------- Layer 1: Core — PSA + FSA ----------
+    - title_hint: "Japan Payment Services Act (PSA / 資金決済法) — base framework defining 'Crypto Asset' (暗号資産) and licensing the Crypto Asset Exchange Service Providers (CAESP / 暗号資産交換業者) that must register with the FSA; client-asset segregation, governance, cybersecurity, fit-and-proper for officers; world-pioneering crypto-exchange regulation (2017, after Mt. Gox)"
+      title_original: "資金決済に関する法律 (Payment Services Act)"
+      url_hint: "https://www.japaneselawtranslation.go.jp/en/laws/view/3078"
+      type: statute
+      regulator: "Japanese Diet / FSA"
+      date: "2009-06-24"
+      short_label: "PSA"
+
+    - title_hint: "Japan PSA 2022 amendment (in force 2023-06-01) — creates Electronic Payment Instruments (EPI / 電子決済手段) — fiat-backed stablecoin category; only banks, fund-transfer agents and trust companies may issue; 100% reserves, segregated custody; creates EPIESP (intermediaries); algorithmic/crypto-backed stablecoins remain as regular Crypto Assets"
+      title_original: "資金決済に関する法律 改正 (2022年, 電子決済手段)"
+      type: regulation
+      regulator: "FSA"
+      date: "2023-06-01"
+      short_label: "PSAAMEND2022EPI"
+
+    - title_hint: "FSA Administrative Guidelines for CAESPs (2023-03-24) — administrative guidelines clarifying the definition of crypto asset, introducing a 'safe harbour' rule; basis of ongoing supervision of CAESPs"
+      url_hint: "https://www.fsa.go.jp/en/news/"
+      type: guidance
+      regulator: "FSA"
+      date: "2023-03-24"
+      short_label: "FSACAESPGUIDE"
+
+    - title_hint: "Japan PSA Electronic Crypto-Asset Intermediary Service Business (ECISB) — discussed/created intermediary category for brokers/agents that facilitate crypto trades without custodying assets; lighter licensing route"
+      type: regulation
+      regulator: "FSA"
+      short_label: "ECISB"
+
+    # ---------- Layer 2: Stablecoins (EPI) ----------
+    - title_hint: "Japan EPI market practice (2025) — SBI VC Trade operates USDC (Apr 2025) as first foreign EPI distributed in Japan; various fund-transfer providers (e.g. JPYC) issuing JPY-stablecoins under existing licences"
+      type: guidance
+      regulator: "FSA"
+      date: "2025-04-01"
+      short_label: "EPIPRACTICE2025"
+
+    # ---------- Layer 3: Securities + Derivatives (FIEA) ----------
+    - title_hint: "Japan Financial Instruments and Exchange Act (FIEA / 金融商品取引法) — when a token is a security — Electronically Recorded Transferable Right (ERTR / 電子記録移転権利, security tokens representing shares, debt or fund units) — FIEA applies: Type I financial-instruments licence, disclosure, prospectus; 2020 amendment also brought crypto derivatives under FIEA"
+      title_original: "金融商品取引法 (Financial Instruments and Exchange Act)"
+      type: statute
+      regulator: "Japanese Diet / FSA"
+      date: "1948-04-13"
+      short_label: "FIEA"
+
+    - title_hint: "FY2026 reform — reclassification of Crypto Assets under FIEA — landmark FSA reform (from Apr/2025 discussion paper 'Review of Systems Related to Crypto-Assets'): moves the crypto assets themselves (BTC, ETH and ~105 listed tokens) into the FIEA regime, with mandatory disclosure, insider trading and market-conduct rules, paving the way for crypto ETFs; Cabinet-level approval late 2025; phased implementation in FY2026"
+      type: regulation
+      regulator: "FSA"
+      date: "2026-04-01"
+      short_label: "FY2026FIEAREFORM"
+
+    # ---------- Layer 4: AML / Travel Rule ----------
+    - title_hint: "Japan Act on Prevention of Transfer of Criminal Proceeds (APTCP / 犯罪収益移転防止法) — base AML/CFT law; CAESPs, EPIESPs and financial institutions must perform KYC, keep records and report Suspicious Transaction Reports (STRs) to JAFIC; reinforced by FSA AML/CFT Guidelines (in force 2021-02-19)"
+      title_original: "犯罪による収益の移転防止に関する法律 (Act on Prevention of Transfer of Criminal Proceeds)"
+      type: statute
+      regulator: "Japanese Diet / NPA"
+      date: "2008-03-01"
+      short_label: "APTCP"
+
+    - title_hint: "Japan APTCP Travel Rule amendment (Dec/2022, in force 2023-06-01) — obliges CAESPs/EPIESPs to transmit originator and beneficiary data; for unhosted/non-regulated wallets, requires counterparty information collection and retention; JVCEA had introduced the Travel Rule in its self-regulatory rules in April 2022, ahead of the statute"
+      type: regulation
+      regulator: "NPA / FSA"
+      date: "2023-06-01"
+      short_label: "APTCPTRAVELRULE"
+
+    - title_hint: "JAFIC — Japan Financial Intelligence Center (under the National Police Agency) — Japan's FIU; receives, analyzes and disseminates Suspicious Transaction Reports"
+      type: guidance
+      regulator: "JAFIC (NPA)"
+      short_label: "JAFIC"
+
+    # ---------- Layer 5: Self-Regulation (JVCEA + JSTOA) ----------
+    - title_hint: "JVCEA — Japan Virtual and Crypto-assets Exchange Association — FSA-certified Self-Regulatory Organization for CAESPs; issues binding self-regulatory rules; PRE-APPROVES the listing of new tokens; sets AML, cybersecurity and user-protection standards; de-facto co-regulator alongside FSA"
+      url_hint: "https://jvcea.or.jp/en/"
+      type: regulation
+      regulator: "JVCEA (FSA-certified SRO)"
+      date: "2018-10-24"
+      short_label: "JVCEA"
+
+    - title_hint: "JSTOA — Japan Security Token Offering Association — Self-Regulatory Organization for security tokens under the FIEA (issuance and offering of STOs)"
+      url_hint: "https://jstoa.or.jp"
+      type: regulation
+      regulator: "JSTOA (FSA-certified SRO)"
+      short_label: "JSTOA"
+
+    # ---------- Layer 6: Taxation (NTA) ----------
+    - title_hint: "Japan current crypto taxation — miscellaneous income (雑所得) — individual crypto gains are 'miscellaneous income', added to total income and taxed at progressive rates up to ~55% (45% national + 10% local) — among the HIGHEST among developed economies; crypto/crypto swaps are taxable; spending crypto is taxable; administered by the NTA (National Tax Agency)"
+      title_original: "暗号資産の税制 (現行制度)"
+      url_hint: "https://www.nta.go.jp/english/"
+      type: guidance
+      regulator: "NTA (National Tax Agency)"
+      short_label: "JPCRYPTOTAX"
+
+    - title_hint: "Japan corporate tax reform (2023-2024) — companies are NO LONGER taxed on unrealized gains (mark-to-market) on long-term-held crypto; relief that stopped the Web3-project exodus from Japan"
+      url_hint: "https://www.nta.go.jp/english/"
+      type: regulation
+      regulator: "NTA / FSA"
+      date: "2024-04-01"
+      short_label: "JPCORPCRYPTORELIEF"
+
+    - title_hint: "Japan FY2026 tax reform — proposed flat 20% on crypto gains (proposal, tied to FIEA reclassification) — separate self-assessment at 20% (equal to stocks), 3-year loss carry-forward; conditional on reclassification of crypto assets under FIEA and new reporting mechanisms; in progress in the FY2026 cycle"
+      type: regulation
+      regulator: "NTA / FSA / Diet"
+      date: "2026-04-01"
+      short_label: "JPFY2026FLAT20"
+
   NG:
     # ==================================================================
     # Aligned with the user's Nigeria Crypto Regulatory Matrix.
@@ -1940,3 +2057,137 @@ force_include:
       regulator: "ARCA / Ministerio de Economía"
       date: "2024-10-21"
       short_label: "ARCA"
+
+  CH:
+    # ==================================================================
+    # Aligned with the user's Switzerland Crypto Regulatory Matrix.
+    # URL strategy: fedlex.admin.ch is a SPA returning the same shell
+    # for all law URLs — playwright fallback should resolve. FINMA,
+    # ESTV, ICTax work directly. Some FINMA news pages have 404'd
+    # specific dates; let semantic resolver handle those.
+    # ==================================================================
+
+    # ---------- Layer 1: FINMA taxonomy + guidance ----------
+    - title_hint: "FINMA ICO Guidelines (2018) — establishes the functional taxonomy of tokens: payment tokens (means of payment, e.g. BTC), utility tokens (service access), asset tokens (rights like equity/debt — treated as securities); recognizes hybrid forms; basis of all Swiss crypto regulatory analysis"
+      url_hint: "https://www.finma.ch/en/documentation/finma-guidance/"
+      type: guidance
+      regulator: "FINMA"
+      date: "2018-02-16"
+      short_label: "FINMAICOGUIDE"
+
+    - title_hint: "FINMA Guidance 06/2024 (26/07/2024) — clarifies that stablecoins are typically deposits under banking law or funds (CISA), depending on backing management; non-bank issuers promising par redemption need an irrevocable bank guarantee (default guarantee) to avoid being treated as banking activity; still need SRO membership under AMLA"
+      url_hint: "https://www.finma.ch/en/news/2024/07/20240726-mm-stablecoins/"
+      type: guidance
+      regulator: "FINMA"
+      date: "2024-07-26"
+      short_label: "FINMAGUIDE0624"
+
+    - title_hint: "FINMA Guidance 01/2026 — DLT custody guidance — segregation of crypto assets, insolvency protection, controls"
+      type: guidance
+      regulator: "FINMA"
+      date: "2026-01-01"
+      short_label: "FINMAGUIDE0126"
+
+    # ---------- Layer 2: DLT Act + financial laws ----------
+    - title_hint: "Swiss DLT Act (2021) — Federal Act on the Adaptation of Federal Law to Developments in DLT; umbrella law amending 10 statutes; creates ledger-based securities / register value rights (Registerwertrechte) in the Code of Obligations; creates DLT trading facilities in FinMIA; regulates crypto segregation in bankruptcy; in force Aug 2021"
+      title_original: "Bundesgesetz zur Anpassung des Bundesrechts an Entwicklungen der Technik verteilter elektronischer Register"
+      url_hint: "https://www.fedlex.admin.ch/eli/fga/2020/2210/de"
+      type: statute
+      regulator: "Federal Assembly"
+      date: "2020-09-25"
+      short_label: "DLTACT"
+
+    - title_hint: "Swiss FinMIA / FinfraG — Financial Market Infrastructure Act — creates the DLT trading facility license (token-security exchange) for trading/custody/settlement of DLT securities and utility/payment tokens; BX Digital was the first FINMA-authorised DLT trading facility"
+      title_original: "Finanzmarktinfrastrukturgesetz (FinfraG)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/2015/853/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "2015-06-19"
+      short_label: "FINMIA"
+
+    - title_hint: "Swiss Banking Act (BankG) — deposit-taking; relevant for stablecoins and for segregation of custodied crypto outside bankruptcy estate"
+      title_original: "Bundesgesetz über die Banken und Sparkassen (Bankengesetz)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/1935/117_121_129/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "1934-11-08"
+      short_label: "BANKG"
+
+    - title_hint: "Swiss FinSA / FIDLEG — Financial Services Act — conduct rules and prospectus requirements for the offering of securities (including asset tokens)"
+      title_original: "Finanzdienstleistungsgesetz (FIDLEG)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/2019/758/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "2018-06-15"
+      short_label: "FINSA"
+
+    - title_hint: "Swiss FinIA / FINIG — Financial Institutions Act — licensing of financial institutions; houses the FinTech license; reform consultation closed 2026-02-06 will replace FinTech license with two new FINMA categories (Payment Instrument Institution + Crypto-Institution) — projected in force 2027 (1-year transition)"
+      title_original: "Finanzinstitutsgesetz (FINIG)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/2018/801/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "2018-06-15"
+      short_label: "FINIA"
+
+    - title_hint: "Swiss CISA / KAG — Collective Investment Schemes Act — crypto funds; L-QIF (Limited Qualified Investor Fund, since Mar/2024) can be used in crypto context"
+      title_original: "Kollektivanlagengesetz (KAG)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/2006/822/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "2006-06-23"
+      short_label: "CISA"
+
+    # ---------- Layer 4: AML / Travel Rule ----------
+    - title_hint: "Swiss AMLA / GwG — Anti-Money Laundering Act — base AML/CFT law; exchanges, custodians and crypto platforms are financial intermediaries; must join an SRO recognised by FINMA (or get direct FINMA authorisation), with KYC, beneficial-owner identification, monitoring and reporting; issuing payment tokens/stablecoins = financial intermediation"
+      title_original: "Bundesgesetz über die Bekämpfung der Geldwäscherei und der Terrorismusfinanzierung (GwG)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/1998/892_892_892/en"
+      type: statute
+      regulator: "Federal Assembly / FINMA"
+      date: "1997-10-10"
+      short_label: "AMLA"
+
+    - title_hint: "AMLO-FINMA Article 10 (Travel Rule) — since 2019, requires transmission of originator/beneficiary information for crypto transfers; Switzerland applies one of the strictest Travel Rules (verification even for self-hosted wallets, with low threshold)"
+      title_original: "Verordnung der FINMA über die Bekämpfung von Geldwäscherei (GwV-FINMA)"
+      url_hint: "https://www.fedlex.admin.ch/eli/cc/2015/390/en"
+      type: regulation
+      regulator: "FINMA"
+      date: "2015-06-03"
+      short_label: "AMLOFINMA10"
+
+    - title_hint: "MROS — Money Laundering Reporting Office Switzerland (fedpol) — Swiss FIU; receives and analyses Suspicious Activity Reports"
+      type: guidance
+      regulator: "MROS / fedpol"
+      short_label: "MROS"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "Swiss general principle: private capital gains exempt — Switzerland does not tax private movable-asset capital gains; private investors pay 0% on crypto gains (BTC bought at 10k sold at 50k → gain fully exempt); crypto/crypto swaps also tax-neutral for individuals; private losses non-deductible"
+      url_hint: "https://www.estv.admin.ch"
+      type: guidance
+      regulator: "FTA / ESTV"
+      short_label: "CHCGTPRIV"
+
+    - title_hint: "Swiss Wealth Tax on crypto — cantonal — crypto holdings on Dec 31 are taxed as wealth (cantonal rates ~0.1% to 1%), valued using the FTA's official price list (ICTax); applies even when capital gain is exempt"
+      url_hint: "https://www.ictax.admin.ch"
+      type: guidance
+      regulator: "Cantonal tax authorities + FTA"
+      short_label: "CHWEALTHTAX"
+
+    - title_hint: "Swiss income tax on staking, mining, airdrops, DeFi, lending — these are taxable income at fair market value upon receipt"
+      url_hint: "https://www.estv.admin.ch"
+      type: guidance
+      regulator: "FTA / ESTV"
+      short_label: "CHINCOMECRYPTO"
+
+    - title_hint: "Swiss FTA Circular No. 36 (KS 36) — professional trader criteria — if activity qualifies as professional/commercial (volume, frequency, leverage, software/strategy use), gains become taxable income (losses become deductible); same securities/ETF criteria apply to crypto"
+      title_original: "Kreisschreiben Nr. 36 — Gewerbsmässiger Wertschriftenhandel"
+      type: guidance
+      regulator: "FTA / ESTV"
+      date: "2012-07-27"
+      short_label: "KS36"
+
+    - title_hint: "Swiss CARF / AEOI — effective 2026-01-01 — providers report data from 2026; first automatic international exchange in 2027 (some elements 2028); does not change private capital-gains exemption"
+      url_hint: "https://www.estv.admin.ch"
+      type: regulation
+      regulator: "FTA / ESTV"
+      date: "2026-01-01"
+      short_label: "CHCARF"
