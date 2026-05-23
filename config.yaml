@@ -9,7 +9,8 @@ countries:
   - DE    # Phase 3 — Germany ✓
   - FR    # Phase 4 — France ✓
   - SG    # Phase 5 — Singapore ✓
-  - GB    # Phase 6 — United Kingdom
+  - GB    # Phase 6 — United Kingdom ✓
+  - AE    # Phase 7 — United Arab Emirates
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -1093,3 +1094,144 @@ force_include:
       regulator: "HMRC"
       date: "2026-01-01"
       short_label: "UKCARF"
+
+  AE:
+    # ==================================================================
+    # Aligned with the user's UAE Crypto Regulatory Matrix.
+    # URL strategy: uaelegislation.gov.ae + centralbank.ae homepage are
+    # Cloudflare-blocked; use Wayback for federal Cabinet Decisions and
+    # u.ae portal. CBUAE rulebook.centralbank.ae works directly. VARA
+    # rulebooks.vara.ae works (rich content). ADGM via thomsonreuters
+    # mirror. DFSA + FTA work with browser UA.
+    # ==================================================================
+
+    # ---------- Layer 1: Federal "onshore" (SCA + CBUAE) ----------
+    - title_hint: "UAE Cabinet Decision No. 111 of 2022 on Regulating Virtual Assets and their Service Providers — federal foundation (in force 2023-01-14); designates SCA as competent federal authority; prohibits operating VASP activities (platform, exchange, transfer, custody, broker-dealer) without SCA or local-authority licence (e.g., VARA)"
+      title_original: "Cabinet Decision No. 111 of 2022"
+      url_hint: "https://web.archive.org/web/2024/https://u.ae/en/about-the-uae/digital-uae/regulatory-framework/regulation-of-digital-properties"
+      type: regulation
+      regulator: "UAE Cabinet"
+      date: "2022-12-15"
+      short_label: "CABDEC111"
+
+    - title_hint: "UAE Cabinet Decision No. 112 of 2022 — delegates certain virtual-asset regulation competences to VARA (Dubai); articulates VARA with the federal SCA regime"
+      title_original: "Cabinet Decision No. 112 of 2022"
+      type: regulation
+      regulator: "UAE Cabinet"
+      date: "2022-12-15"
+      short_label: "CABDEC112"
+
+    - title_hint: "UAE SCA Rulebook on Virtual Assets — Securities & Commodities Authority detailed rules for onshore VASPs (custody, exchange, broker-dealer, management); SCA expressly excludes NFTs and service tokens from its VA framework"
+      url_hint: "https://www.sca.gov.ae"
+      type: regulation
+      regulator: "SCA (Securities & Commodities Authority)"
+      short_label: "SCARULEBOOK"
+
+    - title_hint: "UAE Federal Decree-Law No. 6 of 2025 (CB Law 2025) — structural reform of the Central Bank Law (replaces Decree-Law 14/2018); consolidates banking, insurance and payments under CBUAE; expands perimeter to payment services using virtual assets, DeFi and Web3 infrastructure (Arts. 61-62); ends 'just code' defence; penalties up to AED 1 billion; transition until 2026-09-16"
+      title_original: "Federal Decree-Law No. 6 of 2025"
+      url_hint: "https://web.archive.org/web/2025/https://uaelegislation.gov.ae/en/legislations/3284"
+      type: statute
+      regulator: "CBUAE / UAE Federal"
+      date: "2025-09-08"
+      short_label: "CBLAW6"
+
+    - title_hint: "CBUAE Payment Token Services Regulation (PTSR) — Circular No. 2 of 2024 (effective Aug 2024) — stablecoin regime; distinguishes Dirham Payment Token (AED-backed, CBUAE-licensed issuer) from Foreign Payment Token (non-AED, CBUAE-registered issuer); licences issuance, custody/transfer, conversion; bans algorithmic stablecoins and privacy tokens as means of payment; 100% reserves; applies UAE-wide except DIFC/ADGM (but reaches VARA entities)"
+      url_hint: "https://rulebook.centralbank.ae/en/rulebook/payment-token-services-regulation"
+      type: regulation
+      regulator: "CBUAE"
+      date: "2024-08-01"
+      short_label: "PTSR2024"
+
+    # ---------- Layer 2: Dubai — VARA ----------
+    - title_hint: "Dubai Law No. 4 of 2022 — Regulating Virtual Assets in the Emirate of Dubai; creates VARA (Virtual Assets Regulatory Authority); first dedicated VA regulator in the world; covers Dubai and its economic free zones except DIFC"
+      title_original: "Dubai Law No. 4 of 2022"
+      url_hint: "https://rulebooks.vara.ae/entiresection/10"
+      type: statute
+      regulator: "Government of Dubai"
+      date: "2022-02-28"
+      short_label: "DUBAILAW4"
+
+    - title_hint: "VARA Custody Services Rulebook — licensable activity of custody for virtual assets (Dubai)"
+      url_hint: "https://rulebooks.vara.ae/rulebook/custody-services-rulebook"
+      type: regulation
+      regulator: "VARA"
+      short_label: "VARACUSTODY"
+
+    - title_hint: "VARA Compliance and Risk Management Rulebook — cross-activity compliance, governance, risk management for VARA-licensed entities"
+      url_hint: "https://rulebooks.vara.ae/rulebook/compliance-and-risk-management-rulebook"
+      type: regulation
+      regulator: "VARA"
+      short_label: "VARACOMP"
+
+    - title_hint: "VARA Marketing Regulations 2024 — applies to ALL entities (domestic and foreign, licensed or not) promoting VAs in Dubai; utility-token issuers must register white paper with VARA ≥ 7 business days in advance"
+      url_hint: "https://rulebooks.vara.ae/rulebook/marketing-regulations"
+      type: regulation
+      regulator: "VARA"
+      date: "2024-01-01"
+      short_label: "VARAMARKETING"
+
+    # ---------- Layer 3: Free zones (ADGM/FSRA + DIFC/DFSA) ----------
+    - title_hint: "ADGM Financial Services and Markets Regulations 2015 (FSMR) — amended in 2018 to include virtual assets; FSRA was the FIRST regulator in the region (2018) with a complete VA framework; treats VAs as commodities (only Accepted VAs may be used in regulated activities); digital securities, VA derivatives and fiat tokens covered"
+      title_original: "Financial Services and Markets Regulations 2015 (FSMR)"
+      url_hint: "https://en.adgm.thomsonreuters.com/rulebook/financial-services-and-markets-regulations-2015"
+      type: regulation
+      regulator: "ADGM / FSRA"
+      date: "2015-01-01"
+      short_label: "ADGMFSMR"
+
+    - title_hint: "ADGM FSRA Guiding Principles on Regulation of Virtual Assets Activities (September 2022) — risk and supervision principles; PLD/FT applicable to all VA activities; VASPs have same regulatory status as any licensed entity"
+      type: guidance
+      regulator: "FSRA / ADGM"
+      date: "2022-09-01"
+      short_label: "ADGMFSRA22"
+
+    - title_hint: "DIFC DFSA Crypto Token regime (Rulebook 2022/2023) — extends DFSA financial regime to Crypto Tokens; maintains list of Recognised Crypto Tokens (only listed tokens may be used in DIFC); recognition with transparency, security and AML criteria"
+      url_hint: "https://www.dfsa.ae"
+      type: regulation
+      regulator: "DFSA / DIFC"
+      date: "2022-11-01"
+      short_label: "DFSACRYPTO"
+
+    - title_hint: "DIFC DFSA Investment Token regime (2021) — regulates investment tokens (security/derivative tokens) under traditional financial-instruments legislation"
+      type: regulation
+      regulator: "DFSA / DIFC"
+      date: "2021-10-25"
+      short_label: "DFSAINVTOKEN"
+
+    # ---------- Layer 4: AML / CFT / Counter-Proliferation Financing ----------
+    - title_hint: "UAE Federal Decree-Law No. 10 of 2025 — AML/CFT/CPF (effective 2025-10-14); REPLACES Federal Decree-Law 20/2018; directly regulates VAs and VASPs; creates Proliferation Financing offence; expands the FIU; reinforces beneficial-ownership; penalties up to AED 100 million plus possible dissolution"
+      title_original: "Federal Decree-Law No. 10 of 2025"
+      type: statute
+      regulator: "UAE Federal"
+      date: "2025-10-14"
+      short_label: "AMLCFT10"
+
+    - title_hint: "UAE Cabinet Resolution No. 134 of 2025 — Executive Regulations of the AML/CFT Law 10/2025 (effective 2025-12-14); details due diligence, STR, sanctions, crypto-technology checks"
+      title_original: "Cabinet Resolution No. 134 of 2025"
+      type: regulation
+      regulator: "UAE Cabinet"
+      date: "2025-12-14"
+      short_label: "CABRES134"
+
+    - title_hint: "UAE Federal Decree-Law No. 20 of 2018 — predecessor AML law (REPLACED by Decree-Law 10/2025); first law to bring VASPs into scope; relevant for acts and precedents until 2025"
+      title_original: "Federal Decree-Law No. 20 of 2018"
+      type: statute
+      regulator: "UAE Federal"
+      date: "2018-10-23"
+      short_label: "AMLCFT20"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "UAE Federal Decree-Law No. 47 of 2022 on Corporate Tax (effective June 2023, amended by Decree-Law 28/2025) — 9% corporate tax on taxable profit above AED 375,000; crypto companies taxed like any business; free-zone entities (e.g. ADGM) may pay 0% on qualifying income if they meet Qualifying Free Zone Person conditions"
+      title_original: "Federal Decree-Law No. 47 of 2022"
+      url_hint: "https://tax.gov.ae/en/taxes/corporate.tax.aspx"
+      type: statute
+      regulator: "FTA / Ministry of Finance"
+      date: "2022-12-09"
+      short_label: "CORPTAX47"
+
+    - title_hint: "UAE VAT exemption for virtual assets (Cabinet Decision of 2024, effective 2024-11-15, RETROACTIVE to 2018-01-01) — transfer and conversion of virtual assets exempt from VAT (previously 5%); amendment to VAT Executive Regulation under Federal Decree-Law 8/2017; NFTs and some utility tokens may not qualify; mining for UAE-based third parties may attract VAT"
+      url_hint: "https://tax.gov.ae/en/taxes/vat.aspx"
+      type: regulation
+      regulator: "FTA"
+      date: "2024-11-15"
+      short_label: "VATEXEMPTVA"

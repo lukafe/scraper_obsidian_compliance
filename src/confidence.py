@@ -53,7 +53,10 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     # South Korea
     "fsc.go.kr", "law.go.kr", ".go.kr",
     # UAE
-    "centralbank.ae", "vara.ae", "sca.gov.ae",
+    "centralbank.ae", "vara.ae", "sca.gov.ae", "rulebook.centralbank.ae",
+    "rulebooks.vara.ae", "tax.gov.ae", "uaelegislation.gov.ae",
+    "u.ae", "adgm.com", "dfsa.ae", "difc.ae",
+    "en.adgm.thomsonreuters.com", "dfsaen.thomsonreuters.com",
     # Turkey
     ".gov.tr", ".org.tr", "mevzuat.gov.tr", "resmigazete.gov.tr",
     "spk.gov.tr", "bddk.org.tr", "tcmb.gov.tr", "masak.hmb.gov.tr",
