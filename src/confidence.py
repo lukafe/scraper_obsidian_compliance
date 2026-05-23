@@ -40,10 +40,16 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "uscourts.gov",
     # UK
     "legislation.gov.uk", "fca.org.uk", "bankofengland.co.uk", "parliament.uk",
+    # Canada
+    "laws-lois.justice.gc.ca", "canada.ca", "fintrac-canafe.canada.ca",
+    "bankofcanada.ca", "securities-administrators.ca", "ciro.ca",
+    "osc.ca", "bcsc.bc.ca", "lautorite.qc.ca", "asc.ca",
+    "gc.ca",  # generic Canadian federal
     # Singapore
     "mas.gov.sg", "sso.agc.gov.sg", "supremecourt.gov.sg",
     # Japan
     "japaneselawtranslation.go.jp", "fsa.go.jp", ".go.jp", "courts.go.jp",
+    "jvcea.or.jp", "jstoa.or.jp", "nta.go.jp", "npa.go.jp",
     # Germany
     "bafin.de", "gesetze-im-internet.de", "bundestag.de",
     "bundesfinanzministerium.de", "bundesfinanzhof.de", "recht.bund.de",
@@ -83,6 +89,12 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     ".gob.ar", "argentina.gob.ar", "boletinoficial.gob.ar",
     "infoleg.gob.ar", "servicios.infoleg.gob.ar", "cnv.gob.ar",
     "bcra.gob.ar", "arca.gob.ar", "afip.gob.ar", "saij.gob.ar",
+    # Uruguay
+    ".gub.uy", ".uy", "impo.com.uy", "parlamento.gub.uy",
+    "bcu.gub.uy", "dgi.gub.uy", "gub.uy",
+    # South Africa
+    "fsca.co.za", "fic.gov.za", "resbank.co.za", "sars.gov.za",
+    "ifwg.co.za", "treasury.gov.za", "justice.gov.za", "saflii.org",
     # Supranational standard-setters
     "fatf-gafi.org", "bis.org", "fsb.org", "iosco.org", "imf.org",
     "oecd.org", "worldbank.org", "un.org",
