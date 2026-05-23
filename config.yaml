@@ -1820,3 +1820,123 @@ force_include:
       type: guidance
       regulator: "UIF / SHCP"
       short_label: "UIFMX"
+
+  AR:
+    # ==================================================================
+    # Aligned with the user's Argentina Crypto Regulatory Matrix.
+    # URL strategy: argentina.gob.ar/normativa serves generic redirects;
+    # use InfoLEG (servicios.infoleg.gob.ar/verNorma.do?id=NNN) for laws,
+    # Boletín Oficial detail URLs for CNV resolutions, BCRA PDF directly,
+    # and Wayback for arca.gob.ar (JS-rendered).
+    # ==================================================================
+
+    # ---------- Layer 1: Legal framework + PSAV registry (CNV) ----------
+    - title_hint: "Argentine Law No. 27,739 of 2024 — reforms AML Law 25,246 to introduce the PSAV definition (Proveedores de Servicios de Activos Virtuales); designates CNV as the supervisory authority for VASPs; amends the Criminal Code; aligns Argentina with FATF Recommendation 15"
+      title_original: "Ley N° 27.739, promulgada 15 de marzo de 2024"
+      url_hint: "http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=395933"
+      type: statute
+      regulator: "Congreso de la Nación"
+      date: "2024-03-15"
+      short_label: "LEY27739"
+
+    - title_hint: "CNV General Resolution No. 994/2024 — creates the Argentine PSAV Registry; mandatory registration BEFORE operating for natural and legal persons providing crypto services (exchange crypto/fiat, crypto/crypto, transfer, custody, administration, financial-service offerings on VAs)"
+      title_original: "Resolución General CNV N° 994/2024"
+      url_hint: "https://www.boletinoficial.gob.ar/detalleAviso/primera/305110/20240325"
+      type: regulation
+      regulator: "CNV"
+      date: "2024-03-25"
+      short_label: "RGCNV994"
+
+    - title_hint: "CNV General Resolution No. 1025/2024 (public consultation) — draft of the comprehensive PSAV regulation; basis for RG 1058/2025"
+      title_original: "Resolución General CNV N° 1025/2024"
+      type: regulation
+      regulator: "CNV"
+      date: "2024-10-01"
+      short_label: "RGCNV1025"
+
+    - title_hint: "CNV General Resolution No. 1058/2025 — FULL PSAV REGULATION; imposes registration, cybersecurity, asset custody, AML, and risk-disclosure duties; requires ANNUAL SYSTEMS AUDIT; sets adequacy deadlines; CNV may suspend/revoke registrations; unregistered PSAVs may be judicially blocked"
+      title_original: "Resolución General CNV N° 1058/2025"
+      url_hint: "https://www.boletinoficial.gob.ar/detalleAviso/primera/322539/20250314"
+      type: regulation
+      regulator: "CNV"
+      date: "2025-03-14"
+      short_label: "RGCNV1058"
+
+    - title_hint: "CNV General Resolution No. 1040/2024 — supervision and control fee for PSAVs (with transitional suspension until Sep/2025)"
+      title_original: "Resolución General CNV N° 1040/2024"
+      type: regulation
+      regulator: "CNV"
+      date: "2024-09-01"
+      short_label: "RGCNV1040"
+
+    - title_hint: "CNV General Resolution No. 1108/2026 — 2026 adjustments to the PSAV regime and regularization mechanisms"
+      title_original: "Resolución General CNV N° 1108/2026"
+      type: regulation
+      regulator: "CNV"
+      date: "2026-01-01"
+      short_label: "RGCNV1108"
+
+    # ---------- Layer 2: Securities (when VA = public security) ----------
+    - title_hint: "Argentine Capital Markets Law No. 26,831 — applies when the virtual asset is a security publicly offered (security/equity tokens); registration, prospectus, full CNV supervision; PSAV registration is INSUFFICIENT when the token is a public security"
+      title_original: "Ley N° 26.831 — Ley de Mercado de Capitales"
+      url_hint: "http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=210625"
+      type: statute
+      regulator: "Congreso de la Nación"
+      date: "2012-11-29"
+      short_label: "LEY26831"
+
+    # ---------- Layer 3: AML / CFT (UIF) ----------
+    - title_hint: "Argentine Law No. 25,246 — base AML/CFT law (Encubrimiento y Lavado de Activos); created the UIF (Unidad de Información Financiera); reformed by Law 27,739 in 2024 to include PSAVs as obligated entities"
+      title_original: "Ley N° 25.246"
+      url_hint: "http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=62977"
+      type: statute
+      regulator: "Congreso de la Nación"
+      date: "2000-04-13"
+      short_label: "LEY25246"
+
+    - title_hint: "UIF Resolution No. 49/2024 — mandatory registration of PSAVs as obligated entities; details KYC, monitoring, suspicious-transaction reporting (ROS), and AML prevention policies"
+      title_original: "Resolución UIF N° 49/2024"
+      type: regulation
+      regulator: "UIF (Unidad de Información Financiera)"
+      date: "2024-01-01"
+      short_label: "RESUIF49"
+
+    # ---------- Layer 4: Central Bank (BCRA) ----------
+    - title_hint: "BCRA Communication 'A' 7506 of 2022 — BANS financial institutions from offering or facilitating cryptocurrency operations to their clients; banks may not intermediate crypto; BCRA does not regulate the virtual asset itself, only the banking interface"
+      title_original: "BCRA — Comunicación 'A' 7506"
+      url_hint: "https://www.bcra.gob.ar/Pdfs/comytexord/A7506.pdf"
+      type: regulation
+      regulator: "BCRA (Banco Central de la República Argentina)"
+      date: "2022-05-05"
+      short_label: "BCRACOMM7506"
+
+    # ---------- Layer 5: Taxation (ARCA, ex-AFIP) ----------
+    - title_hint: "Argentine Income Tax Law (Ley 20,628 — Impuesto a las Ganancias) — no tax on mere holding; sale with profit taxable at 15% rate above non-taxable minimum; cost of acquisition and commissions deductible; losses offsettable against future crypto gains for 5 years; administered by ARCA (ex-AFIP)"
+      title_original: "Ley N° 20.628 — Impuesto a las Ganancias"
+      url_hint: "http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=44911"
+      type: statute
+      regulator: "Congreso de la Nación / ARCA"
+      date: "1973-12-27"
+      short_label: "LEYGANANCIAS"
+
+    - title_hint: "Argentine Personal Assets Tax Law (Ley 23,966 — Impuesto sobre los Bienes Personales) — holding of cryptoassets on 31/12 taxed as financial asset (Dictamen N° 2/2022 DI ALIR); valued at acquisition cost; rates 0.5%-1.25% above non-taxable minimum; applies to NON-CUSTODIAL wallets (self-custody) as well"
+      title_original: "Ley N° 23.966 — Impuesto sobre los Bienes Personales"
+      type: statute
+      regulator: "Congreso de la Nación / ARCA"
+      date: "1991-08-15"
+      short_label: "LEYBIENESPERS"
+
+    - title_hint: "Argentine Asset Regularization Regime 2024 (Ley 27,743, 'Blanqueo') — allows declaration of holdings (including cryptoassets) without additional taxes under conditions; formalization instrument"
+      title_original: "Ley N° 27.743 — Régimen de Regularización de Activos"
+      type: statute
+      regulator: "Congreso de la Nación"
+      date: "2024-07-08"
+      short_label: "LEY27743"
+
+    - title_hint: "ARCA (Agencia de Recaudación y Control Aduanero, ex-AFIP) — Argentine tax authority (AFIP dissolved and replaced by ARCA in late 2024); requires declaration of crypto operations in Income Tax and Personal Assets Tax; informational reporting regimes"
+      title_original: "ARCA — Agencia de Recaudación y Control Aduanero (ex-AFIP)"
+      url_hint: "https://web.archive.org/web/2025/https://www.arca.gob.ar"
+      type: guidance
+      regulator: "ARCA / Ministerio de Economía"
+      date: "2024-10-21"
+      short_label: "ARCA"
