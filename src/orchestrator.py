@@ -276,6 +276,11 @@ class Orchestrator:
             moc_mod.write_global_moc(self.vault, countries)
         except Exception as e:
             log.warning("Global MOC write failed err=%s", e)
+        try:
+            from . import moc_axis
+            moc_axis.write_axis_mocs(self.vault)
+        except Exception as e:
+            log.warning("Axis MOC write failed err=%s", e)
 
         self._write_run_log()
         self.scraper.close()
