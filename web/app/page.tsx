@@ -13,17 +13,29 @@ export default function HomePage() {
   const ranked = rankJurisdictions(juris);
 
   const upcoming30 = juris.filter(
-    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 30,
+    (j) =>
+      j.urgencia_deadline_dias !== null &&
+      j.urgencia_deadline_dias >= 0 &&
+      j.urgencia_deadline_dias <= 30,
   ).length;
   const upcoming180 = juris.filter(
-    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 180,
+    (j) =>
+      j.urgencia_deadline_dias !== null &&
+      j.urgencia_deadline_dias >= 0 &&
+      j.urgencia_deadline_dias <= 180,
   ).length;
   const matureMarkets = juris.filter((j) => j.maturidade_mercado === "alta").length;
 
+  // Aggregate service demand
   const serviceCount = new Map<string, number>();
   for (const j of juris) {
     for (const s of j.servicos) serviceCount.set(s, (serviceCount.get(s) ?? 0) + 1);
   }
+  const topServices = [...serviceCount.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+  const top3 = ranked.slice(0, 3);
 
   return (
     <div className="space-y-10">
@@ -32,12 +44,117 @@ export default function HomePage() {
           Where to expand. What to sell first.
         </h1>
         <p className="mt-3 text-certik-muted max-w-3xl leading-relaxed">
-          {juris.length} jurisdictions ranked by a composite opportunity score combining regulatory
-          urgency, the intensity of CertiK services triggered by local rules, and market maturity.
-          Click any row to open the full country profile.
+          {juris.length} jurisdictions ranked by a composite opportunity score combining
+          regulatory urgency, the intensity of CertiK services triggered by local rules, and
+          market maturity. Top three picks below — click any card for the full country profile.
         </p>
       </header>
 
+      {/* ---------- Hero: top 3 picks ---------- */}
+      <section>
+        <div className="flex items-baseline justify-between mb-4">
+          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">
+            Recommended next moves
+          </h2>
+          <Link
+            href="/jurisdictions"
+            className="text-xs text-certik-muted hover:text-certik-red"
+          >
+            See all {juris.length} jurisdictions →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {top3.map((j, i) => (
+            <Link key={j.iso} href={`/jurisdictions/${j.iso}`} className="group">
+              <article className="h-full bg-certik-panel border border-certik-border rounded-lg p-5 hover:border-certik-red/70 transition-colors">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-mono text-certik-muted uppercase tracking-widest">
+                      Pick #{i + 1}
+                    </div>
+                    <h3 className="mt-1 text-xl font-semibold text-white group-hover:text-certik-red transition-colors truncate">
+                      {j.pais}
+                    </h3>
+                    <div className="text-xs text-certik-muted mt-0.5">
+                      {j.iso} · {j.regiao}
+                    </div>
+                  </div>
+                  <ScoreChip score={j.score} size="md" />
+                </div>
+
+                <dl className="mt-4 space-y-1.5 text-xs">
+                  <Row label="Lead regulator" value={j.regulador_principal ?? "—"} />
+                  <Row
+                    label="Next deadline"
+                    value={
+                      <span style={{ color: urgencyColor(j.urgencia_deadline_dias) }}>
+                        {j.deadline_principal ?? "—"}
+                        {j.urgencia_deadline_dias !== null && (
+                          <span className="text-certik-muted ml-1">
+                            ({j.urgencia_deadline_dias}d)
+                          </span>
+                        )}
+                      </span>
+                    }
+                  />
+                  <Row
+                    label="Services triggered"
+                    value={
+                      <span>
+                        <span className="text-white font-mono">{j.n_servicos}</span>
+                        <span className="text-certik-muted"> / 14</span>
+                      </span>
+                    }
+                  />
+                  <Row
+                    label="Maturity"
+                    value={
+                      <span style={{ color: maturityColor(j.maturidade_mercado) }}>
+                        {label.maturity(j.maturidade_mercado)}
+                        <span className="text-certik-muted ml-1">
+                          ({j.n_cobertura}/6)
+                        </span>
+                      </span>
+                    }
+                  />
+                </dl>
+
+                {j.servicos.length > 0 && (
+                  <div className="mt-4 pt-3 border-t border-certik-border/60">
+                    <div className="text-[10px] text-certik-muted uppercase tracking-wide mb-1.5">
+                      Top services to sell
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {j.servicos.slice(0, 4).map((s) => (
+                        <span
+                          key={s}
+                          className="inline-block px-2 py-0.5 rounded text-[10px] bg-certik-red/15 border border-certik-red/30 text-certik-red"
+                        >
+                          {SERVICE_LABELS[s] ?? s}
+                        </span>
+                      ))}
+                      {j.servicos.length > 4 && (
+                        <span className="text-[10px] text-certik-muted self-center">
+                          +{j.servicos.length - 4} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-4 flex items-center justify-between">
+                  <ConfidenceBadge confidence={j.data_confidence} />
+                  <span className="text-xs text-certik-muted group-hover:text-certik-red transition-colors">
+                    Country profile →
+                  </span>
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Quick stats strip ---------- */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Kpi label="Jurisdictions tracked" value={juris.length} accent />
         <Kpi
@@ -46,9 +163,56 @@ export default function HomePage() {
           hint={upcoming30 > 0 ? "Immediate sales window" : undefined}
         />
         <Kpi label="Deadlines within 180 days" value={upcoming180} />
-        <Kpi label="High-maturity markets" value={matureMarkets} hint="5+ of 6 regulatory dimensions covered" />
+        <Kpi
+          label="High-maturity markets"
+          value={matureMarkets}
+          hint="5+ of 6 regulatory dimensions covered"
+        />
       </div>
 
+      {/* ---------- Top 3 services ---------- */}
+      <Card
+        title="Top services in demand"
+        subtitle="The three CertiK services triggered by the largest share of jurisdictions — start the portfolio here."
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {topServices.map(([service, count], i) => {
+            const pct = (count / juris.length) * 100;
+            return (
+              <Link
+                key={service}
+                href={`/services?focus=${service}`}
+                className="group block border border-certik-border rounded-lg p-4 hover:border-certik-red/60 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-mono text-certik-muted uppercase tracking-widest">
+                      #{i + 1} in demand
+                    </div>
+                    <div className="text-base font-semibold text-white mt-1 truncate">
+                      {SERVICE_LABELS[service] ?? service}
+                    </div>
+                  </div>
+                  <div className="text-2xl font-mono text-certik-red shrink-0">
+                    {count}
+                  </div>
+                </div>
+                <div className="mt-3 bg-certik-border/30 rounded h-1.5 overflow-hidden">
+                  <div className="h-full bg-certik-red" style={{ width: `${pct}%` }} />
+                </div>
+                <div className="mt-1 flex justify-between text-[11px] text-certik-muted">
+                  <span>{count} of {juris.length} jurisdictions</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                    breakdown →
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </Card>
+
+      {/* ---------- Opportunity matrix ---------- */}
       <Card
         title="Opportunity matrix"
         subtitle="X axis: CertiK services triggered. Y axis: days to the next regulatory deadline (lower is more urgent). Bubble size: total norms tracked. Colour: market maturity."
@@ -56,9 +220,10 @@ export default function HomePage() {
         <OpportunityBubble data={juris} />
       </Card>
 
+      {/* ---------- Full ranking table ---------- */}
       <Card
-        title="Top opportunities"
-        subtitle="Top 12 markets ranked by composite opportunity score (0 to 100)."
+        title="Top opportunities — full ranking"
+        subtitle="Top 12 markets by composite opportunity score (0 to 100). Click a row for the full country profile."
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -118,9 +283,10 @@ export default function HomePage() {
         </div>
       </Card>
 
+      {/* ---------- All service demand ---------- */}
       <Card
-        title="Aggregated service demand"
-        subtitle="Share of jurisdictions whose rules trigger each CertiK service."
+        title="All services — demand breakdown"
+        subtitle="Share of jurisdictions whose rules trigger each CertiK service, grouped by category."
       >
         <div className="space-y-5">
           {Object.entries(SERVICE_CATEGORIES).map(([cat, services]) => (
@@ -162,6 +328,15 @@ export default function HomePage() {
           ))}
         </div>
       </Card>
+    </div>
+  );
+}
+
+function Row({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3">
+      <dt className="text-certik-muted shrink-0">{label}</dt>
+      <dd className="text-right truncate text-zinc-200">{value}</dd>
     </div>
   );
 }
