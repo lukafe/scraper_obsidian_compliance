@@ -1,70 +1,76 @@
 import Link from "next/link";
 import { loadJurisdictions } from "@/lib/data";
-import { rankJurisdictions, opportunityScore, maturityColor, urgencyColor } from "@/lib/scoring";
+import { rankJurisdictions, maturityColor, urgencyColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { OpportunityBubble } from "@/components/charts/opportunity-bubble";
 import { SERVICE_LABELS, SERVICE_CATEGORIES } from "@/lib/types";
+import { label } from "@/lib/labels";
 
 export default function HomePage() {
   const juris = loadJurisdictions();
   const ranked = rankJurisdictions(juris);
 
   const upcoming30 = juris.filter(
-    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 30
+    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 30,
   ).length;
   const upcoming180 = juris.filter(
-    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 180
+    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0 && j.urgencia_deadline_dias <= 180,
   ).length;
   const matureMarkets = juris.filter((j) => j.maturidade_mercado === "alta").length;
 
-  // Aggregate service demand
   const serviceCount = new Map<string, number>();
   for (const j of juris) {
     for (const s of j.servicos) serviceCount.set(s, (serviceCount.get(s) ?? 0) + 1);
   }
-  const sortedServices = Array.from(serviceCount.entries()).sort((a, b) => b[1] - a[1]);
 
   return (
-    <div className="space-y-8">
-      <header>
-        <h1 className="text-3xl font-bold text-white">Where to expand. What to sell first.</h1>
-        <p className="mt-2 text-certik-muted max-w-3xl">
-          {juris.length} jurisdictions ranked by opportunity score — a composite of regulatory urgency,
-          intensity of CertiK services triggered, and market maturity. Click any row to drill down.
+    <div className="space-y-10">
+      <header className="border-b border-certik-border pb-6">
+        <h1 className="text-3xl font-semibold text-white tracking-tight">
+          Where to expand. What to sell first.
+        </h1>
+        <p className="mt-3 text-certik-muted max-w-3xl leading-relaxed">
+          {juris.length} jurisdictions ranked by a composite opportunity score combining regulatory
+          urgency, the intensity of CertiK services triggered by local rules, and market maturity.
+          Click any row to open the full country profile.
         </p>
       </header>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Kpi label="Jurisdictions tracked" value={juris.length} accent />
-        <Kpi label="Deadlines ≤ 30 days" value={upcoming30}
-             hint={upcoming30 > 0 ? "Sell now" : undefined} />
-        <Kpi label="Deadlines ≤ 180 days" value={upcoming180} />
-        <Kpi label="Mature markets" value={matureMarkets}
-             hint="`maturidade: alta`" />
+        <Kpi
+          label="Deadlines within 30 days"
+          value={upcoming30}
+          hint={upcoming30 > 0 ? "Immediate sales window" : undefined}
+        />
+        <Kpi label="Deadlines within 180 days" value={upcoming180} />
+        <Kpi label="High-maturity markets" value={matureMarkets} hint="Heuristic — see methodology" />
       </div>
 
       <Card
-        title="🎯 The Money Chart — Urgency × Service Intensity"
-        subtitle="Bubble = jurisdiction. Size = # of norms tracked. Color = market maturity (green/amber/red = alta/media/baixa)."
+        title="Opportunity matrix"
+        subtitle="X axis: CertiK services triggered. Y axis: days to the next regulatory deadline (lower is more urgent). Bubble size: total norms tracked. Colour: market maturity."
       >
         <OpportunityBubble data={juris} />
       </Card>
 
-      <Card title="🏆 Top opportunities" subtitle="Ranked by composite opportunity score (0–100).">
+      <Card
+        title="Top opportunities"
+        subtitle="Top 12 markets ranked by composite opportunity score (0 to 100)."
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-certik-muted border-b border-certik-border">
-                <th className="py-2 px-3">#</th>
-                <th className="py-2 px-3">Country</th>
-                <th className="py-2 px-3">Region</th>
-                <th className="py-2 px-3">Lead Regulator</th>
-                <th className="py-2 px-3">Next Deadline</th>
-                <th className="py-2 px-3 text-right">Days</th>
-                <th className="py-2 px-3 text-right"># Services</th>
-                <th className="py-2 px-3">Maturity</th>
-                <th className="py-2 px-3 text-right">Score</th>
+                <th className="py-2 px-3 font-medium">#</th>
+                <th className="py-2 px-3 font-medium">Country</th>
+                <th className="py-2 px-3 font-medium">Region</th>
+                <th className="py-2 px-3 font-medium">Lead regulator</th>
+                <th className="py-2 px-3 font-medium">Next deadline</th>
+                <th className="py-2 px-3 text-right font-medium">Days</th>
+                <th className="py-2 px-3 text-right font-medium">Services</th>
+                <th className="py-2 px-3 font-medium">Maturity</th>
+                <th className="py-2 px-3 text-right font-medium">Score</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +81,10 @@ export default function HomePage() {
                 >
                   <td className="py-2 px-3 text-certik-muted">{i + 1}</td>
                   <td className="py-2 px-3">
-                    <Link href={`/jurisdictions/${j.iso}`} className="text-white hover:text-certik-red font-medium">
+                    <Link
+                      href={`/jurisdictions/${j.iso}`}
+                      className="text-white hover:text-certik-red font-medium"
+                    >
                       {j.iso} — {j.pais}
                     </Link>
                   </td>
@@ -90,7 +99,7 @@ export default function HomePage() {
                   <td className="py-2 px-3 text-right">{j.n_servicos}</td>
                   <td className="py-2 px-3">
                     <span style={{ color: maturityColor(j.maturidade_mercado) }}>
-                      {j.maturidade_mercado}
+                      {label.maturity(j.maturidade_mercado)}
                     </span>
                   </td>
                   <td className="py-2 px-3 text-right">
@@ -112,10 +121,10 @@ export default function HomePage() {
       </Card>
 
       <Card
-        title="🛠 Aggregated service demand"
-        subtitle="How many jurisdictions trigger each security service."
+        title="Aggregated service demand"
+        subtitle="Share of jurisdictions whose rules trigger each CertiK service."
       >
-        <div className="space-y-4">
+        <div className="space-y-5">
           {Object.entries(SERVICE_CATEGORIES).map(([cat, services]) => (
             <div key={cat}>
               <h4 className="text-sm font-semibold text-white mb-2">{cat}</h4>

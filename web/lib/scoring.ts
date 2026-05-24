@@ -1,14 +1,14 @@
 import { Jurisdiction } from "./types";
-
-const MAT_RANK: Record<string, number> = {
-  alta: 3, media: 2, baixa: 1, desconhecido: 0,
-};
+import { MATURITY_RANK } from "./labels";
 
 /**
- * Composite opportunity score (0–100). Same formula as the Streamlit MVP:
- *   40% urgency, 40% service intensity, 20% market maturity.
+ * Composite opportunity score (0-100).
+ *   40% urgency  - days to the next regulatory deadline
+ *   40% service intensity - share of CertiK services triggered
+ *   20% market maturity - heuristic (regulators x analyzed norms x age)
  *
- * Higher = better. Past-due deadlines get 100 on urgency (still visible).
+ * Past-due deadlines saturate at 100 on the urgency axis; missing deadlines
+ * receive a neutral 20 to avoid masking otherwise strong markets.
  */
 export function opportunityScore(j: Jurisdiction): number {
   const days = j.urgencia_deadline_dias;
@@ -18,7 +18,7 @@ export function opportunityScore(j: Jurisdiction): number {
   else urgency = Math.max(0, 100 - (days / 730) * 100);
 
   const intensity = (j.n_servicos / 14) * 100;
-  const maturity = ((MAT_RANK[j.maturidade_mercado ?? "desconhecido"] ?? 0) / 3) * 100;
+  const maturity = ((MATURITY_RANK[j.maturidade_mercado ?? "desconhecido"] ?? 0) / 3) * 100;
   return Math.round((0.4 * urgency + 0.4 * intensity + 0.2 * maturity) * 10) / 10;
 }
 
@@ -28,11 +28,13 @@ export function rankJurisdictions(juris: Jurisdiction[]): (Jurisdiction & { scor
     .sort((a, b) => b.score - a.score);
 }
 
-export function urgencyBucket(days: number | null): "past" | "≤ 90 days" | "≤ 1 year" | "> 1 year" | "no deadline" {
+export function urgencyBucket(
+  days: number | null,
+): "past" | "<= 90 days" | "<= 1 year" | "> 1 year" | "no deadline" {
   if (days === null) return "no deadline";
   if (days < 0) return "past";
-  if (days <= 90) return "≤ 90 days";
-  if (days <= 365) return "≤ 1 year";
+  if (days <= 90) return "<= 90 days";
+  if (days <= 365) return "<= 1 year";
   return "> 1 year";
 }
 

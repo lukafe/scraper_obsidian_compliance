@@ -3,6 +3,7 @@ import { opportunityScore, urgencyColor, maturityColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SERVICE_CATEGORIES, SERVICE_LABELS } from "@/lib/types";
+import { label } from "@/lib/labels";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -73,7 +74,14 @@ export default async function JurisdictionPage({ params }: Props) {
         <Kpi label="Norms tracked" value={juris.n_normas_total} />
         <Kpi label="LLM-analyzed" value={juris.n_normas_analyzed} hint={`${(juris.n_normas_analyzed / Math.max(1, juris.n_normas_total) * 100).toFixed(0)}% coverage`} />
         <Kpi label="CertiK services" value={`${juris.n_servicos}/14`} accent />
-        <Kpi label="Maturity" value={<span style={{ color: maturityColor(juris.maturidade_mercado) }}>{juris.maturidade_mercado}</span>} />
+        <Kpi
+          label="Maturity"
+          value={
+            <span style={{ color: maturityColor(juris.maturidade_mercado) }}>
+              {label.maturity(juris.maturidade_mercado)}
+            </span>
+          }
+        />
         <Kpi
           label="Next deadline"
           value={juris.deadline_principal ?? "—"}
@@ -134,8 +142,10 @@ export default async function JurisdictionPage({ params }: Props) {
                   </div>
                 </div>
                 <div className="flex gap-1 shrink-0">
-                  {n.regime && <Badge variant="red">{n.regime}</Badge>}
-                  {n.status_regulatorio && <Badge variant="amber">{n.status_regulatorio}</Badge>}
+                  {n.regime && <Badge variant="red">{label.regime(n.regime)}</Badge>}
+                  {n.status_regulatorio && (
+                    <Badge variant="amber">{label.status(n.status_regulatorio)}</Badge>
+                  )}
                   {n.deadline_principal && (
                     <Badge variant="default" className="font-mono">{n.deadline_principal}</Badge>
                   )}
@@ -148,7 +158,8 @@ export default async function JurisdictionPage({ params }: Props) {
               )}
               {n.gap_ou_ambiguidade && (
                 <p className="text-sm text-amber-200/80 mt-1">
-                  <span className="text-amber-400 font-semibold">⚠ Gap:</span> {n.gap_ou_ambiguidade}
+                  <span className="text-amber-400 font-semibold">Gap or ambiguity:</span>{" "}
+                  {n.gap_ou_ambiguidade}
                 </p>
               )}
               {n.servicos.length > 0 && (
@@ -179,12 +190,12 @@ export default async function JurisdictionPage({ params }: Props) {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <RelationGroup
-            title="Direct implementation (derivado_de)"
+            title="Direct implementation"
             description="Binding transposition of a supranational anchor."
             edges={derivado}
           />
           <RelationGroup
-            title="Soft inspiration (inspirado_em)"
+            title="Soft inspiration"
             description="Non-binding alignment with standards or foreign law."
             edges={inspirado}
           />

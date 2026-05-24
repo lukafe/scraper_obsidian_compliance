@@ -28,10 +28,11 @@ export default function TimelinePage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-3xl font-bold text-white">Deadline Timeline</h1>
-        <p className="text-certik-muted mt-1">
-          Every regulatory deadline mapped in the vault. The shorter the bar from today, the more urgent.
+      <header className="border-b border-certik-border pb-6">
+        <h1 className="text-3xl font-semibold text-white tracking-tight">Deadline timeline</h1>
+        <p className="text-certik-muted mt-2 max-w-3xl leading-relaxed">
+          Every regulatory deadline extracted from the source norms. Grouped by country and ordered
+          by urgency — the smaller the day count, the closer the deadline.
         </p>
       </header>
 
@@ -42,7 +43,7 @@ export default function TimelinePage() {
         <Kpi label="Within 1 year" value={nextYear} />
       </div>
 
-      <Card title="By country (ordered by urgency)">
+      <Card title="By country" subtitle="Ordered by the most urgent deadline in each jurisdiction.">
         <div className="space-y-4">
           {countries.map(([country, list]) => (
             <div key={country} className="border-b border-certik-border/30 pb-3 last:border-0">
@@ -60,8 +61,8 @@ export default function TimelinePage() {
                   const bucket = urgencyBucket(n.urgencia_deadline_dias);
                   const variant =
                     bucket === "past" ? "gray" :
-                    bucket === "≤ 90 days" ? "red" :
-                    bucket === "≤ 1 year" ? "amber" :
+                    bucket === "<= 90 days" ? "red" :
+                    bucket === "<= 1 year" ? "amber" :
                     bucket === "> 1 year" ? "green" : "gray";
                   return (
                     <div key={n.id} className="flex items-start gap-3 text-xs py-1">
@@ -80,7 +81,7 @@ export default function TimelinePage() {
                       </span>
                       {n.servicos.length > 0 && (
                         <span className="text-certik-muted text-[10px] shrink-0">
-                          {n.servicos.length} svc
+                          {n.servicos.length} services
                         </span>
                       )}
                     </div>

@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import {
   ComposableMap, Geographies, Geography, ZoomableGroup,
 } from "react-simple-maps";
-import { Jurisdiction, ISO2_TO_ISO3, ISO3_TO_ISO2 } from "@/lib/types";
+import { Jurisdiction, ISO2_TO_ISO3 } from "@/lib/types";
 import { opportunityScore } from "@/lib/scoring";
+import { label } from "@/lib/labels";
 
 const TOPO_URL =
   "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json";
@@ -47,11 +48,11 @@ export function WorldMap({ data }: Props) {
       {/* Metric selector */}
       <div className="flex gap-2 mb-4 flex-wrap">
         {[
-          ["score", "Opportunity Score"],
-          ["services", "# Services Triggered"],
-          ["urgency", "Deadline Urgency"],
-          ["norms", "# Norms Tracked"],
-        ].map(([key, label]) => (
+          ["score", "Opportunity score"],
+          ["services", "Services triggered"],
+          ["urgency", "Deadline urgency"],
+          ["norms", "Norms tracked"],
+        ].map(([key, btnLabel]) => (
           <button
             key={key}
             onClick={() => setMetric(key as Metric)}
@@ -61,7 +62,7 @@ export function WorldMap({ data }: Props) {
                 : "bg-certik-panel text-zinc-300 border-certik-border hover:border-certik-red/50"
             }`}
           >
-            {label}
+            {btnLabel}
           </button>
         ))}
       </div>
@@ -123,8 +124,8 @@ export function WorldMap({ data }: Props) {
                   : "—"}
               </div>
               <div className="text-certik-muted">Maturity:</div>
-              <div className="text-right">{hovered.maturidade_mercado}</div>
-              <div className="text-certik-muted">Lead reg:</div>
+              <div className="text-right">{label.maturity(hovered.maturidade_mercado)}</div>
+              <div className="text-certik-muted">Lead regulator:</div>
               <div className="text-right">{hovered.regulador_principal ?? "—"}</div>
             </div>
           </div>

@@ -6,6 +6,7 @@ import {
 } from "recharts";
 import { Jurisdiction } from "@/lib/types";
 import { maturityColor, opportunityScore } from "@/lib/scoring";
+import { label } from "@/lib/labels";
 
 interface Point {
   iso: string; pais: string; x: number; y: number;
@@ -60,7 +61,7 @@ export function OpportunityBubble({ data }: { data: Jurisdiction[] }) {
                   <div className="font-semibold text-white">{p.iso} — {p.pais}</div>
                   <div className="text-certik-muted mt-1">Services: {p.x}/14</div>
                   <div className="text-certik-muted">Days to deadline: {p.y === 900 ? "n/a" : Math.round(p.y)}</div>
-                  <div className="text-certik-muted">Maturity: {p.maturity}</div>
+                  <div className="text-certik-muted">Maturity: {label.maturity(p.maturity)}</div>
                   <div className="text-certik-red font-mono mt-1">Score: {p.score.toFixed(1)}</div>
                 </div>
               );
@@ -74,17 +75,17 @@ export function OpportunityBubble({ data }: { data: Jurisdiction[] }) {
           </Scatter>
 
           {/* Quadrant labels */}
-          <text x="78%" y="14%" fill="#E83C32" fontSize="14" fontWeight="bold">
-            🔥 HOT — sell now
+          <text x="78%" y="14%" fill="#E83C32" fontSize="13" fontWeight="600">
+            Act now — broad and urgent
           </text>
           <text x="20%" y="14%" fill="#FFB300" fontSize="12">
-            ⚡ urgent but narrow
+            Urgent — narrow scope
           </text>
           <text x="75%" y="92%" fill="#FFE066" fontSize="12">
-            📅 strategic pipeline
+            Strategic pipeline
           </text>
           <text x="22%" y="92%" fill="#888" fontSize="12">
-            🌱 watch — not now
+            Monitor — low priority
           </text>
         </ScatterChart>
       </ResponsiveContainer>

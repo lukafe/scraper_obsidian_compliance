@@ -1,8 +1,8 @@
 import { loadJurisdictions, loadNorms } from "@/lib/data";
 import { Card, Kpi } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { rankJurisdictions, opportunityScore, urgencyColor, maturityColor } from "@/lib/scoring";
+import { rankJurisdictions, urgencyColor, maturityColor } from "@/lib/scoring";
 import { SERVICE_CATEGORIES, SERVICE_LABELS } from "@/lib/types";
+import { label } from "@/lib/labels";
 import Link from "next/link";
 
 interface Props {
@@ -59,7 +59,7 @@ export default async function ServicesPage({ searchParams }: Props) {
 
       {/* Focus view */}
       {focus && (() => {
-        const label = SERVICE_LABELS[focus] ?? focus;
+        const serviceName = SERVICE_LABELS[focus] ?? focus;
         const inScope = juris.filter((j) => j.servicos.includes(focus));
         const ranked = rankJurisdictions(inScope);
         const normsWith = norms.filter((n) => n.servicos.includes(focus));
@@ -67,7 +67,7 @@ export default async function ServicesPage({ searchParams }: Props) {
         return (
           <div className="space-y-5">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">{label}</h2>
+              <h2 className="text-2xl font-semibold text-white">{serviceName}</h2>
               <Link href="/services" className="text-sm text-certik-muted hover:text-certik-red">
                 ← back to all services
               </Link>
@@ -77,22 +77,22 @@ export default async function ServicesPage({ searchParams }: Props) {
               <Kpi label="Jurisdictions triggering" value={inScope.length} accent />
               <Kpi label="Norms triggering" value={normsWith.length} />
               <Kpi
-                label="Mature markets"
+                label="High-maturity markets"
                 value={inScope.filter((j) => j.maturidade_mercado === "alta").length}
               />
             </div>
 
-            <Card title={`Top markets for ${label}`}>
+            <Card title={`Top markets for ${serviceName}`}>
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left text-certik-muted border-b border-certik-border">
-                    <th className="py-2 px-3">Country</th>
-                    <th className="py-2 px-3">Region</th>
-                    <th className="py-2 px-3">Lead Regulator</th>
-                    <th className="py-2 px-3">Maturity</th>
-                    <th className="py-2 px-3">Next Deadline</th>
-                    <th className="py-2 px-3 text-right">Days</th>
-                    <th className="py-2 px-3 text-right">Score</th>
+                    <th className="py-2 px-3 font-medium">Country</th>
+                    <th className="py-2 px-3 font-medium">Region</th>
+                    <th className="py-2 px-3 font-medium">Lead regulator</th>
+                    <th className="py-2 px-3 font-medium">Maturity</th>
+                    <th className="py-2 px-3 font-medium">Next deadline</th>
+                    <th className="py-2 px-3 text-right font-medium">Days</th>
+                    <th className="py-2 px-3 text-right font-medium">Score</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,7 +107,7 @@ export default async function ServicesPage({ searchParams }: Props) {
                       <td className="py-2 px-3 text-zinc-400">{j.regulador_principal ?? "—"}</td>
                       <td className="py-2 px-3">
                         <span style={{ color: maturityColor(j.maturidade_mercado) }}>
-                          {j.maturidade_mercado}
+                          {label.maturity(j.maturidade_mercado)}
                         </span>
                       </td>
                       <td className="py-2 px-3 text-zinc-400">{j.deadline_principal ?? "—"}</td>
@@ -121,7 +121,7 @@ export default async function ServicesPage({ searchParams }: Props) {
               </table>
             </Card>
 
-            <Card title={`Norms that trigger ${label}`}>
+            <Card title={`Norms that trigger ${serviceName}`}>
               <div className="space-y-2 max-h-[500px] overflow-y-auto">
                 {normsWith.map((n) => (
                   <div key={n.id} className="border-b border-certik-border/30 pb-2 last:border-0">

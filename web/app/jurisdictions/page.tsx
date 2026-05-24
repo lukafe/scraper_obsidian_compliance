@@ -1,6 +1,7 @@
 import { loadJurisdictions } from "@/lib/data";
 import { rankJurisdictions, urgencyColor, maturityColor } from "@/lib/scoring";
 import { Card } from "@/components/ui/card";
+import { label } from "@/lib/labels";
 import Link from "next/link";
 
 export default function JurisdictionsList() {
@@ -58,7 +59,7 @@ export default function JurisdictionsList() {
                     <div>
                       <div className="text-certik-muted">Maturity</div>
                       <div style={{ color: maturityColor(j.maturidade_mercado) }}>
-                        {j.maturidade_mercado}
+                        {label.maturity(j.maturidade_mercado)}
                       </div>
                     </div>
                   </div>
