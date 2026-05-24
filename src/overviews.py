@@ -43,6 +43,26 @@ def _overview_path(vault: Vault, country: str) -> Path:
     return vault.root / _BUSINESS_DIR / _JUR_DIR / f"{country.upper()}.md"
 
 
+def _infer_maturidade_mercado(
+    n_total: int, n_analyzed: int, n_distinct_regulators: int,
+    earliest_anchor_year: Optional[int],
+) -> str:
+    """Heuristic — no LLM call.
+
+    alta  : >=40 norms analyzed AND >=3 distinct regulators AND anchor before 2020
+    media : >=15 norms analyzed AND >=2 regulators (or anchor 2020-2023)
+    baixa : everything else (newly-regulated or sparse coverage)
+    """
+    has_old_anchor = earliest_anchor_year is not None and earliest_anchor_year < 2020
+    has_mid_anchor = earliest_anchor_year is not None and earliest_anchor_year <= 2023
+
+    if n_analyzed >= 40 and n_distinct_regulators >= 3 and has_old_anchor:
+        return "alta"
+    if n_analyzed >= 15 and (n_distinct_regulators >= 2 or has_mid_anchor):
+        return "media"
+    return "baixa"
+
+
 def _aggregate_country(vault: Vault, country: str) -> dict:
     """Compute aggregates from all non-quarantine norms of `country`."""
     norms = [n for n in vault.iter_notes()
@@ -102,6 +122,24 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
     reguladores_secundarios = [r for r, _ in regulators_seen.most_common(6)[1:]
                                if r != regulador_principal]
 
+    # Earliest anchor year (oldest analyzed-status norm) — heuristic for
+    # market maturity.
+    earliest_anchor_year = None
+    for n in norms:
+        if n.status != "analyzed":
+            continue
+        if isinstance(n.date, str) and len(n.date) >= 4:
+            try:
+                y = int(n.date[:4])
+                if earliest_anchor_year is None or y < earliest_anchor_year:
+                    earliest_anchor_year = y
+            except Exception:
+                pass
+
+    maturidade = _infer_maturidade_mercado(
+        n_total, n_analyzed, len(regulators_seen), earliest_anchor_year,
+    )
+
     return {
         "n_total": n_total,
         "n_analyzed": n_analyzed,
@@ -112,6 +150,8 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
         "reguladores_secundarios": reguladores_secundarios,
         "earliest_deadline": earliest_deadline,
         "top_frameworks": top_frameworks,
+        "maturidade_inferred": maturidade,
+        "earliest_anchor_year": earliest_anchor_year,
     }
 
 
@@ -145,13 +185,15 @@ def upsert_overview(vault: Vault, country: str) -> Path:
     ensure("regiao", bs.REGIONS.get(country, "desconhecido"))
     ensure("regime", "desconhecido")
     ensure("status_regulatorio", "desconhecido")
-    ensure("maturidade_mercado", "desconhecido")
     ensure("forca_relacionamento_certik", "desconhecido")
     ensure("oportunidade_score", None)
     ensure("confianca_dados", "media")
     ensure("fontes", [])
     ensure("competidores_ativos", [])
     ensure("tipo_deadline", None)
+    # maturidade is heuristically inferred; overwrite only if "desconhecido"
+    if fm.get("maturidade_mercado") in (None, "", "desconhecido"):
+        fm["maturidade_mercado"] = agg["maturidade_inferred"]
 
     # Always refresh aggregates (they're computed, not human-edited).
     fm["regulador_principal"] = agg["regulador_principal"]

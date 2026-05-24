@@ -11,3 +11,8 @@ langdetect>=1.0.9
 rapidfuzz>=3.9.0
 python-slugify>=8.0.4
 tenacity>=9.0.0
+# Dashboard
+streamlit>=1.40.0
+plotly>=5.24.0
+pandas>=2.2.0
+pycountry>=24.0.0
