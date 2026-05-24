@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    name: Python tests (Phases 1, 3, 4, 5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install minimal test deps
+        # The test suites are stdlib-only except for PyYAML (gold set
+        # reads YAML files). They never touch anthropic / gemini / playwright,
+        # so we deliberately avoid the full requirements.txt for speed.
+        run: pip install --upgrade pip && pip install "PyYAML>=6"
+
+      - name: Phase 1 — evidence-trail tests
+        run: python3 tests/test_gap_analyzer_evidence.py
+
+      - name: Phase 3 — validator tests
+        run: python3 tests/test_validators.py
+
+      - name: Phase 4 — coverage tests
+        run: python3 tests/test_coverage.py
+
+      - name: Phase 5 — data-confidence tests
+        run: python3 tests/test_data_confidence.py
+
+  gold-drift:
+    name: Gold-set F1 drift gate
+    runs-on: ubuntu-latest
+    needs: python
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        run: pip install --upgrade pip && pip install "PyYAML>=6"
+
+      - name: F1 vs gold baseline (--from-json reads the committed dashboard JSON)
+        # Drift gate fails the build if any field's F1 regresses more than 5pp
+        # from vault/_export/ground_truth/_baseline.json. Update the baseline
+        # intentionally with `python3 scripts/gold.py report --save-baseline`.
+        run: |
+          python3 scripts/gold.py report \
+            --from-json web/public/data/normas.json \
+            --check-drift --drift-tolerance 0.05
+
+  dashboard:
+    name: Dashboard build (Next.js 15)
+    runs-on: ubuntu-latest
+    needs: python
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install
+        # --legacy-peer-deps is required because react-simple-maps lags
+        # behind on its React 19 peer declaration.
+        run: npm install --legacy-peer-deps
+
+      - name: Scoring assertions (Phase 4)
+        run: node scripts/test-scoring.mjs
+
+      - name: Build (prepare-data runs as the prebuild hook)
+        run: npm run build

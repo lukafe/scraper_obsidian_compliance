@@ -54,7 +54,13 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src import business_schema as bs  # noqa: E402
 from src import gold_set as gs  # noqa: E402
-from src.vault import Vault  # noqa: E402
+
+# Vault is only needed when seeding or reporting from the live vault.
+# CI uses --from-json to read the committed dashboard JSON instead.
+try:
+    from src.vault import Vault  # noqa: E402
+except Exception:  # missing python-frontmatter / etc — CI mode
+    Vault = None  # type: ignore[assignment]
 
 DEFAULT_GOLD_DIR = REPO_ROOT / "vault" / "_export" / "ground_truth"
 
@@ -133,7 +139,7 @@ def cmd_seed(args: argparse.Namespace) -> int:
     return 0
 
 
-def _load_predictions_from_vault(vault: Vault, note_ids: set[str]) -> dict[str, dict]:
+def _load_predictions_from_vault(vault, note_ids: set[str]) -> dict[str, dict]:
     """Current LLM extraction for the given note ids (read straight from
     the vault — bypasses CSV round-trip noise)."""
     out: dict[str, dict] = {}
@@ -145,14 +151,36 @@ def _load_predictions_from_vault(vault: Vault, note_ids: set[str]) -> dict[str, 
     return out
 
 
+def _load_predictions_from_json(path: Path, note_ids: set[str]) -> dict[str, dict]:
+    """Read predictions from the committed dashboard JSON (web/public/data/
+    normas.json). Same shape as the vault-extracted rows for the comparator.
+    Used by CI where the vault is not checked in.
+    """
+    import json
+    data = json.loads(path.read_text(encoding="utf-8"))
+    out: dict[str, dict] = {}
+    for row in data:
+        if row.get("id") not in note_ids:
+            continue
+        out[row["id"]] = {f: row.get(f) for f in gs.GOLD_FIELDS}
+    return out
+
+
 def cmd_report(args: argparse.Namespace) -> int:
     gold_dir = Path(args.gold_dir)
     gold = gs.load_gold_dir(gold_dir)
     if not gold:
         print(f"No reviewed gold rows under {gold_dir} — nothing to score.")
         return 0
-    vault = Vault(args.vault)
-    pred = _load_predictions_from_vault(vault, set(gold))
+
+    if args.from_json:
+        pred = _load_predictions_from_json(Path(args.from_json), set(gold))
+    else:
+        if Vault is None:
+            print("Vault module unavailable; pass --from-json <normas.json>.")
+            return 2
+        vault = Vault(args.vault)
+        pred = _load_predictions_from_vault(vault, set(gold))
 
     metrics = gs.compare(gold, pred)
     print(f"Reviewed gold rows: {len(gold)}  Predictions matched: {len(pred)}\n")
@@ -180,6 +208,7 @@ def cmd_report(args: argparse.Namespace) -> int:
             print(f"    {nid}: gold={g!r}  pred={p!r}")
 
     baseline = gs.load_baseline(gold_dir)
+    drift_regressions: list[tuple[str, float, float]] = []
     if baseline:
         print("\nDrift vs baseline:")
         for f in gs.GOLD_FIELDS:
@@ -189,10 +218,21 @@ def cmd_report(args: argparse.Namespace) -> int:
             delta = metrics[f].f1 - b["f1"]
             marker = "↑" if delta > 0 else "↓" if delta < 0 else "·"
             print(f"  {f:38s} {marker} {delta:+.3f}  (baseline {b['f1']:.2f})")
+            if delta < -args.drift_tolerance:
+                drift_regressions.append((f, b["f1"], metrics[f].f1))
 
     if args.save_baseline:
         gs.save_baseline(gold_dir, metrics)
         print(f"\nBaseline saved to {gs.baseline_path(gold_dir)}")
+
+    if args.check_drift and drift_regressions:
+        print(
+            f"\nDrift gate FAILED — {len(drift_regressions)} field(s) regressed "
+            f"more than {args.drift_tolerance:.2f} from baseline:"
+        )
+        for f, old, new in drift_regressions:
+            print(f"  {f}: {old:.2f} -> {new:.2f}")
+        return 1
     return 0
 
 
@@ -215,6 +255,14 @@ def main() -> int:
     r = sub.add_parser("report", help="Compare LLM extraction to reviewed gold rows")
     r.add_argument("--save-baseline", action="store_true",
                    help="Save current metrics as the baseline for drift checks")
+    r.add_argument("--from-json", default=None,
+                   help="Load predictions from a normas.json file instead of "
+                        "the vault (use in CI where the vault is not checked in)")
+    r.add_argument("--check-drift", action="store_true",
+                   help="Exit non-zero if any field's F1 regressed more than "
+                        "--drift-tolerance from the saved baseline.")
+    r.add_argument("--drift-tolerance", type=float, default=0.05,
+                   help="Maximum allowed F1 regression per field (default: 0.05)")
     r.set_defaults(func=cmd_report)
 
     args = p.parse_args()
