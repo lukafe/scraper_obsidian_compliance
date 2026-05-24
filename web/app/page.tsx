@@ -3,6 +3,7 @@ import { loadJurisdictions } from "@/lib/data";
 import { rankJurisdictions, maturityColor, urgencyColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
 import { OpportunityBubble } from "@/components/charts/opportunity-bubble";
+import { ConfidenceBadge } from "@/components/ui/confidence-badge";
 import { SERVICE_LABELS, SERVICE_CATEGORIES } from "@/lib/types";
 import { label } from "@/lib/labels";
 
@@ -71,6 +72,7 @@ export default function HomePage() {
                 <th className="py-2 px-3 text-right font-medium">Services</th>
                 <th className="py-2 px-3 font-medium">Maturity</th>
                 <th className="py-2 px-3 text-right font-medium">Score</th>
+                <th className="py-2 px-3 font-medium">Confidence</th>
               </tr>
             </thead>
             <tbody>
@@ -112,6 +114,9 @@ export default function HomePage() {
                     >
                       {j.score.toFixed(1)}
                     </span>
+                  </td>
+                  <td className="py-2 px-3">
+                    <ConfidenceBadge confidence={j.data_confidence} />
                   </td>
                 </tr>
               ))}

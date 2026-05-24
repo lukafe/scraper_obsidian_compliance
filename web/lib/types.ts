@@ -34,6 +34,18 @@ export interface Jurisdiction {
   outlinks_grafo: number;
   confianca_dados: string | null;
   ultima_revisao: string | null;
+  /** Phase 5 — orthogonal to opportunity score: how much should the
+   *  decision-maker trust the underlying data? See src/data_confidence.py. */
+  data_confidence: {
+    score: number;
+    tier: "high" | "medium" | "low";
+    components: {
+      analysis_coverage: number;
+      coverage_breadth: number;
+      regulator_diversity: number;
+      evidence_density: number;
+    };
+  };
 }
 
 export const COVERAGE_DIMENSION_LABELS: Record<string, string> = {

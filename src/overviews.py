@@ -30,6 +30,7 @@ import frontmatter
 
 from . import business_schema as bs
 from . import coverage as cov
+from . import data_confidence as dc
 from .vault import Note, Vault, wikilink
 
 log = logging.getLogger(__name__)
@@ -128,6 +129,15 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
     covered = cov.aggregate_coverage(n.extra for n in norms)
     maturidade = _infer_maturidade_mercado(covered)
 
+    # Phase 5 — per-jurisdiction data confidence (orthogonal to opportunity).
+    confidence = dc.compute_jurisdiction_confidence(
+        norms_extras=[n.extra for n in norms],
+        n_total=n_total,
+        n_analyzed=n_analyzed,
+        n_cobertura=len(covered),
+        n_distinct_regulators=len(regulators_seen),
+    )
+
     return {
         "n_total": n_total,
         "n_analyzed": n_analyzed,
@@ -141,6 +151,7 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
         "maturidade_inferred": maturidade,
         "earliest_anchor_year": earliest_anchor_year,
         "cobertura": sorted(covered),
+        "confidence": confidence,
     }
 
 
@@ -186,6 +197,10 @@ def upsert_overview(vault: Vault, country: str) -> Path:
     # is dropped — the field is now algorithmic, not editorial.
     fm["maturidade_mercado"] = agg["maturidade_inferred"]
     fm["cobertura_regulatoria"] = agg["cobertura"]
+    # Phase 5 — confidence in the data backing the score (not the score itself).
+    fm["data_confidence_score"] = agg["confidence"]["score"]
+    fm["data_confidence_tier"] = agg["confidence"]["tier"]
+    fm["data_confidence_components"] = agg["confidence"]["components"]
 
     # Always refresh aggregates (they're computed, not human-edited).
     fm["regulador_principal"] = agg["regulador_principal"]

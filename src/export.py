@@ -109,6 +109,11 @@ JURISDICAO_COLUMNS = [
     "frameworks_aplicaveis_csv",
     "inlinks_grafo", "outlinks_grafo",
     "confianca_dados", "ultima_revisao",
+    "data_confidence_score", "data_confidence_tier",
+    "data_confidence_analysis_coverage",
+    "data_confidence_coverage_breadth",
+    "data_confidence_regulator_diversity",
+    "data_confidence_evidence_density",
 ]
 
 
@@ -154,6 +159,17 @@ def export_jurisdicoes_csv(vault: Vault, path: Path,
                 "outlinks_grafo": outlinks.get(iso, 0),
                 "confianca_dados": fm.get("confianca_dados"),
                 "ultima_revisao": fm.get("ultima_revisao"),
+                "data_confidence_score": fm.get("data_confidence_score"),
+                "data_confidence_tier": fm.get("data_confidence_tier"),
+                **{
+                    f"data_confidence_{k}": (fm.get("data_confidence_components") or {}).get(k)
+                    for k in (
+                        "analysis_coverage",
+                        "coverage_breadth",
+                        "regulator_diversity",
+                        "evidence_density",
+                    )
+                },
             }
             w.writerow(row)
             n_written += 1
@@ -291,6 +307,8 @@ def export_grafo_json(vault: Vault, path: Path, inlinks: Counter) -> tuple[int, 
             "maturidade_mercado": fm.get("maturidade_mercado"),
             "cobertura_regulatoria": fm.get("cobertura_regulatoria"),
             "confianca_dados": fm.get("confianca_dados"),
+            "data_confidence_score": fm.get("data_confidence_score"),
+            "data_confidence_tier": fm.get("data_confidence_tier"),
         }
         nodes.append(node)
         node_ids_seen.add(iso)

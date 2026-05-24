@@ -149,6 +149,69 @@ export default function MethodologyPage() {
         </p>
       </Card>
 
+      <Card title="Data confidence (Phase 5)">
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          The opportunity score answers "how attractive?". A separate confidence indicator
+          answers "how much should I trust this?". It combines four orthogonal signals,
+          weighted to add up to one:
+        </p>
+        <ul className="mt-3 text-sm text-zinc-300 space-y-1.5">
+          <li>
+            <span className="text-white font-medium">35% Analysis coverage.</span> Share of
+            tracked norms that have been LLM-analyzed.
+          </li>
+          <li>
+            <span className="text-white font-medium">25% Coverage breadth.</span> How many of
+            the six regulatory dimensions this jurisdiction's norms address.
+          </li>
+          <li>
+            <span className="text-white font-medium">15% Regulator diversity.</span> A
+            saturating curve over the count of distinct regulators contributing norms.
+          </li>
+          <li>
+            <span className="text-white font-medium">25% Evidence density.</span> Share of
+            extracted fields backed by a verbatim source quote (Phase 1). Lights up as the
+            gap analyzer is rerun.
+          </li>
+        </ul>
+        <p className="mt-3 text-xs text-certik-muted">
+          Confidence is shown as a coloured badge next to every country's score; the
+          country page expands the four components. It is never used to gate the ranking —
+          a low-confidence country can still be a real opportunity, just a noisier one.
+        </p>
+      </Card>
+
+      <Card title="Weight sensitivity (Phase 5)">
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          The opportunity score's 40/40/20 weights are operator choices. To surface which
+          rankings actually depend on those choices,
+          <code> scripts/calibrate.py</code> sweeps every triplet in (0.1 to 0.7) that sums
+          to 1.0 — 33 combinations — and counts how often each country lands in the top-12.
+        </p>
+        <ul className="mt-3 text-sm text-zinc-300 space-y-1.5">
+          <li>
+            <span className="text-emerald-400 font-medium">Robust (top-12 in all 33 combos):</span>{" "}
+            <span className="font-mono">BR, US, DE, IT, HK, SG, GB, AE, AR</span>. Brazil
+            holds rank 1 in every single combination — the strongest defensible call.
+          </li>
+          <li>
+            <span className="text-amber-400 font-medium">Weight-sensitive:</span>{" "}
+            <span className="font-mono">CA, FR, UY</span> (each appears in ~85-88% of
+            combinations), <span className="font-mono">TR</span> (only 39%). Treat these as
+            "depends on operator emphasis".
+          </li>
+          <li>
+            <span className="text-certik-muted">Never top-12:</span>{" "}
+            <span className="font-mono">BM, CH, IN, JP, KR, LT, MX, NG, SE, ZA</span> — not
+            in scope regardless of weight choice.
+          </li>
+        </ul>
+        <p className="mt-3 text-xs text-certik-muted">
+          With an expert ranking from BD, the same script can do supervised tuning
+          (Pearson against the expert column) and propose the best-correlated weights.
+        </p>
+      </Card>
+
       <Card title="Known limitations">
         <ul className="list-disc pl-5 text-sm text-zinc-300 space-y-1.5 leading-relaxed">
           <li>

@@ -8,6 +8,7 @@ import {
   COVERAGE_DIMENSIONS,
   COVERAGE_DIMENSION_LABELS,
 } from "@/lib/types";
+import { ConfidenceBadge } from "@/components/ui/confidence-badge";
 import { label } from "@/lib/labels";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -72,6 +73,9 @@ export default async function JurisdictionPage({ params }: Props) {
           >
             {score.toFixed(1)}
           </div>
+          <div className="mt-2">
+            <ConfidenceBadge confidence={juris.data_confidence} />
+          </div>
         </div>
       </header>
 
@@ -120,6 +124,28 @@ export default async function JurisdictionPage({ params }: Props) {
               </div>
             );
           })}
+        </div>
+      </Card>
+
+      <Card
+        title="Data confidence"
+        subtitle="How much the underlying data supports the opportunity score. Orthogonal to the score itself."
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+          {([
+            ["Analysis coverage", juris.data_confidence?.components.analysis_coverage ?? 0, "Share of tracked norms that have been LLM-analyzed."],
+            ["Coverage breadth", juris.data_confidence?.components.coverage_breadth ?? 0, "Share of the six regulatory dimensions that this jurisdiction's norms address."],
+            ["Regulator diversity", juris.data_confidence?.components.regulator_diversity ?? 0, "How many distinct regulators contribute to the tracked norms."],
+            ["Evidence density", juris.data_confidence?.components.evidence_density ?? 0, "Share of LLM-extracted fields backed by a verbatim source quote (Phase 1)."],
+          ] as const).map(([title, value, hint]) => (
+            <div key={title} className="bg-certik-border/20 rounded p-3">
+              <div className="text-certik-muted text-xs uppercase tracking-wide">{title}</div>
+              <div className="text-2xl text-white font-mono mt-1">
+                {(value * 100).toFixed(0)}<span className="text-base text-certik-muted">%</span>
+              </div>
+              <div className="text-[11px] text-zinc-400 mt-1 leading-snug">{hint}</div>
+            </div>
+          ))}
         </div>
       </Card>
 

@@ -99,6 +99,16 @@ if (jurRows) {
     outlinks_grafo: num(r.outlinks_grafo) ?? 0,
     confianca_dados: r.confianca_dados || null,
     ultima_revisao: r.ultima_revisao || null,
+    data_confidence: {
+      score: num(r.data_confidence_score) ?? 0,
+      tier: r.data_confidence_tier || "low",
+      components: {
+        analysis_coverage: num(r.data_confidence_analysis_coverage) ?? 0,
+        coverage_breadth: num(r.data_confidence_coverage_breadth) ?? 0,
+        regulator_diversity: num(r.data_confidence_regulator_diversity) ?? 0,
+        evidence_density: num(r.data_confidence_evidence_density) ?? 0,
+      },
+    },
   }));
   fs.writeFileSync(
     path.join(outDir, "jurisdicoes.json"),
