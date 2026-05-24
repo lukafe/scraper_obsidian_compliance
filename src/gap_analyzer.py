@@ -26,6 +26,7 @@ import logging
 from typing import Any, Optional
 
 from . import business_schema as bs
+from . import validators as v
 
 log = logging.getLogger(__name__)
 
@@ -262,9 +263,10 @@ def _enforce_evidence(
     body: str,
     note_id: str,
 ) -> None:
-    """For each field requiring evidence, verify the quote is verbatim. If not,
-    demote the field back to None and log the offense — caller treats the
-    result identically to a 'model wasn't confident' answer.
+    """For each field requiring evidence, verify the quote is verbatim AND
+    that the semantic validator (Phase 3) signs off. Any failure demotes
+    both the value and its evidence to None — keeping the audit trail
+    honest.
     """
     for field in _EVIDENCE_REQUIRED_FIELDS:
         evidence_key = f"{field}_evidence"
@@ -276,36 +278,60 @@ def _enforce_evidence(
             continue
 
         if not isinstance(quote, str) or not quote.strip():
-            log.info(
-                "gap_analyzer: missing evidence for %s/%s — demoting to null",
-                note_id, field,
-            )
-            out[field] = None
-            out[evidence_key] = None
+            _demote(out, field, evidence_key, note_id, "missing evidence")
             continue
 
         cleaned = quote.strip()
         if len(cleaned) < _EVIDENCE_MIN:
-            log.info(
-                "gap_analyzer: evidence too short for %s/%s (%d chars) — demoting",
-                note_id, field, len(cleaned),
-            )
-            out[field] = None
-            out[evidence_key] = None
+            _demote(out, field, evidence_key, note_id,
+                    f"evidence too short ({len(cleaned)} chars)")
             continue
         if len(cleaned) > _EVIDENCE_MAX:
             cleaned = cleaned[:_EVIDENCE_MAX]
 
         if not _quote_in_body(cleaned, body):
-            log.info(
-                "gap_analyzer: evidence not verbatim for %s/%s — demoting",
-                note_id, field,
-            )
-            out[field] = None
-            out[evidence_key] = None
+            _demote(out, field, evidence_key, note_id, "evidence not verbatim")
+            continue
+
+        # Phase 3 — semantic validators on top of the verbatim check.
+        if not _semantic_validator(field, value, cleaned):
+            _demote(out, field, evidence_key, note_id,
+                    "evidence fails semantic validator")
             continue
 
         out[evidence_key] = cleaned
+
+
+def _demote(
+    out: dict[str, Any],
+    field: str,
+    evidence_key: str,
+    note_id: str,
+    reason: str,
+) -> None:
+    log.info("gap_analyzer: %s for %s/%s — demoting to null",
+             reason, note_id, field)
+    out[field] = None
+    out[evidence_key] = None
+
+
+def _semantic_validator(field: str, value: Any, evidence: str) -> bool:
+    """Return True if the evidence quote semantically supports the field's
+    value. Phase 3 covers three families:
+
+      - regime    -> regime-keyword consistency
+      - deadline  -> temporal-anchor + date presence
+      - exige_*   -> imperative-verb presence
+    """
+    if field == "regime":
+        return v.supports_regime(value, evidence)
+    if field == "deadline_principal":
+        return v.supports_deadline(value, evidence)
+    if field.startswith("exige_") and value is True:
+        return v.supports_obligation(evidence)
+    # status_regulatorio, tipo_deadline, exige_*=False — verbatim check
+    # alone is enough; no semantic gate.
+    return True
 
 
 def _quote_in_body(quote: str, body: str) -> bool:

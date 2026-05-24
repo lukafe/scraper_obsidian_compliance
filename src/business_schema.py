@@ -261,26 +261,31 @@ def derive_services_from_triggers(fm: dict[str, Any]) -> list[str]:
     """Materialize `servicos_certik_aplicaveis` from the `exige_*` flags
     PLUS keyword scans on `escopo` / `gap_ou_ambiguidade` fields.
 
+    Phase 3: keyword scans use proper word boundaries and drop risky
+    short tokens (anything < 4 chars unless whitelisted as a known
+    acronym like AML/KYT). See `validators.keyword_hits`.
+
     Returns a sorted unique list of service short labels.
     """
+    from . import validators  # local import to avoid cycle at module load
+
     out: set[str] = set()
     # 1) Boolean triggers
     for trigger_key, services in SERVICE_TRIGGERS.items():
         if fm.get(trigger_key) is True:
             for s in services:
                 out.add(s)
-    # 2) Keyword scans on extracted text
+    # 2) Keyword scans on extracted text (escopo + gap_ou_ambiguidade only —
+    #    never the raw body, which would re-introduce false positives).
     text = (
         (fm.get("escopo") or "")
         + " "
         + (fm.get("gap_ou_ambiguidade") or "")
-    ).lower()
+    )
     if text.strip():
         for service, kws in KEYWORD_TRIGGERS.items():
-            for kw in kws:
-                if kw in text:
-                    out.add(service)
-                    break
+            if validators.keyword_hits(text, kws):
+                out.add(service)
     return sorted(out)
 
 

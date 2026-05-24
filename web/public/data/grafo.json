@@ -3236,8 +3236,7 @@
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
       "servicos_certik_aplicaveis": [
-        "regulatory_compliance_support",
-        "skyinsights_aml_kyt"
+        "regulatory_compliance_support"
       ],
       "n_inlinks": 2,
       "in_quarantine": false,
@@ -9685,9 +9684,7 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [
-        "proof_of_reserves"
-      ],
+      "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
