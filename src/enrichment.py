@@ -39,11 +39,22 @@ def apply_llm_findings(note: Note, findings: dict[str, Any]) -> bool:
     `findings` is a dict with keys like `regime`, `status_regulatorio`,
     `deadline_principal`, `exige_*`, `gap_ou_ambiguidade`, `escopo`, etc.
     Only writes values that are non-null and pass schema validation.
+
+    Evidence quotes (`<field>_evidence`) are written atomically with their
+    parent field — either both land or neither does — so a value in the
+    vault always traces back to a quoted span of the legal text.
     """
     extra = note.extra
     changed = False
+    evidence_set = set(bs.EVIDENCE_FIELDS)
 
-    def assign(key: str, value: Any, allowed_set: Optional[set] = None) -> None:
+    def assign(
+        key: str,
+        value: Any,
+        allowed_set: Optional[set] = None,
+        *,
+        evidence: Optional[str] = None,
+    ) -> None:
         nonlocal changed
         if value is None:
             return
@@ -53,21 +64,39 @@ def apply_llm_findings(note: Note, findings: dict[str, Any]) -> bool:
         cur = extra.get(key)
         if cur in (None, "", []):
             extra[key] = value
+            if key in evidence_set:
+                extra[f"{key}_evidence"] = evidence
             changed = True
 
-    assign("regime", findings.get("regime"), bs.REGIME_VALUES)
-    assign("status_regulatorio", findings.get("status_regulatorio"), bs.STATUS_REG_VALUES)
-    assign("deadline_principal", findings.get("deadline_principal"))
-    assign("tipo_deadline", findings.get("tipo_deadline"), bs.TIPO_DEADLINE_VALUES)
+    assign(
+        "regime", findings.get("regime"), bs.REGIME_VALUES,
+        evidence=findings.get("regime_evidence"),
+    )
+    assign(
+        "status_regulatorio", findings.get("status_regulatorio"),
+        bs.STATUS_REG_VALUES,
+        evidence=findings.get("status_regulatorio_evidence"),
+    )
+    assign(
+        "deadline_principal", findings.get("deadline_principal"),
+        evidence=findings.get("deadline_principal_evidence"),
+    )
+    assign(
+        "tipo_deadline", findings.get("tipo_deadline"),
+        bs.TIPO_DEADLINE_VALUES,
+        evidence=findings.get("tipo_deadline_evidence"),
+    )
     assign("escopo", findings.get("escopo"))
     assign("gap_ou_ambiguidade", findings.get("gap_ou_ambiguidade"))
 
-    # Boolean triggers
+    # Boolean triggers (atomic with their evidence quote)
     for trigger in bs.SERVICE_TRIGGERS:
         v = findings.get(trigger)
         if v is True or v is False:
             if extra.get(trigger) is None:
                 extra[trigger] = v
+                if trigger in evidence_set:
+                    extra[f"{trigger}_evidence"] = findings.get(f"{trigger}_evidence")
                 changed = True
 
     # Derive services from triggers (always re-derive — cheap)

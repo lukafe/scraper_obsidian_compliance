@@ -107,43 +107,65 @@ if (jurRows) {
 
 /* ---------- norms ---------- */
 
+const EVIDENCE_FIELDS = [
+  "regime",
+  "status_regulatorio",
+  "deadline_principal",
+  "tipo_deadline",
+  "exige_auditoria_tecnica",
+  "exige_proof_of_reserves",
+  "exige_pentest",
+  "exige_kyt_aml",
+  "exige_seguranca_custodia",
+  "exige_formal_verification",
+  "exige_certificacao_independente",
+];
+
 const normRows = parseCsv("normas.csv");
 if (normRows) {
-  const norms = normRows.map((r) => ({
-    id: r.id,
-    country: r.country,
-    jurisdiction: r.jurisdiction,
-    type: r.type,
-    title: r.title,
-    title_original: r.title_original || null,
-    regulator: r.regulator || null,
-    date: r.date || null,
-    status: r.status,
-    discovered_via: r.discovered_via,
-    source_url: r.source_url || null,
-    source_authority: r.source_authority || null,
-    confidence: num(r.confidence),
-    regime: r.regime || null,
-    status_regulatorio: r.status_regulatorio || null,
-    deadline_principal: r.deadline_principal || null,
-    tipo_deadline: r.tipo_deadline || null,
-    urgencia_deadline_dias: num(r.urgencia_deadline_dias),
-    exige_auditoria_tecnica: bool(r.exige_auditoria_tecnica),
-    exige_proof_of_reserves: bool(r.exige_proof_of_reserves),
-    exige_pentest: bool(r.exige_pentest),
-    exige_kyt_aml: bool(r.exige_kyt_aml),
-    exige_seguranca_custodia: bool(r.exige_seguranca_custodia),
-    exige_formal_verification: bool(r.exige_formal_verification),
-    exige_certificacao_independente: bool(r.exige_certificacao_independente),
-    servicos: listFromPipe(r.servicos_certik_aplicaveis_csv),
-    n_servicos: num(r.n_servicos) ?? 0,
-    escopo: r.escopo || null,
-    gap_ou_ambiguidade: r.gap_ou_ambiguidade || null,
-    n_inlinks: num(r.n_inlinks) ?? 0,
-    n_outlinks: num(r.n_outlinks) ?? 0,
-    confianca_dados: r.confianca_dados || null,
-    in_quarantine: r.in_quarantine === "True" || r.in_quarantine === "true",
-  }));
+  const norms = normRows.map((r) => {
+    const evidence = {};
+    for (const f of EVIDENCE_FIELDS) {
+      const v = r[`${f}_evidence`];
+      if (v) evidence[f] = v;
+    }
+    return {
+      id: r.id,
+      country: r.country,
+      jurisdiction: r.jurisdiction,
+      type: r.type,
+      title: r.title,
+      title_original: r.title_original || null,
+      regulator: r.regulator || null,
+      date: r.date || null,
+      status: r.status,
+      discovered_via: r.discovered_via,
+      source_url: r.source_url || null,
+      source_authority: r.source_authority || null,
+      confidence: num(r.confidence),
+      regime: r.regime || null,
+      status_regulatorio: r.status_regulatorio || null,
+      deadline_principal: r.deadline_principal || null,
+      tipo_deadline: r.tipo_deadline || null,
+      urgencia_deadline_dias: num(r.urgencia_deadline_dias),
+      exige_auditoria_tecnica: bool(r.exige_auditoria_tecnica),
+      exige_proof_of_reserves: bool(r.exige_proof_of_reserves),
+      exige_pentest: bool(r.exige_pentest),
+      exige_kyt_aml: bool(r.exige_kyt_aml),
+      exige_seguranca_custodia: bool(r.exige_seguranca_custodia),
+      exige_formal_verification: bool(r.exige_formal_verification),
+      exige_certificacao_independente: bool(r.exige_certificacao_independente),
+      servicos: listFromPipe(r.servicos_certik_aplicaveis_csv),
+      n_servicos: num(r.n_servicos) ?? 0,
+      escopo: r.escopo || null,
+      gap_ou_ambiguidade: r.gap_ou_ambiguidade || null,
+      evidence,
+      n_inlinks: num(r.n_inlinks) ?? 0,
+      n_outlinks: num(r.n_outlinks) ?? 0,
+      confianca_dados: r.confianca_dados || null,
+      in_quarantine: r.in_quarantine === "True" || r.in_quarantine === "true",
+    };
+  });
   fs.writeFileSync(
     path.join(outDir, "normas.json"),
     JSON.stringify(norms, null, 0),

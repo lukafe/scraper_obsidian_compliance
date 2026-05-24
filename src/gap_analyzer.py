@@ -12,6 +12,11 @@ extract structured business signals from the body:
 - escopo: 1-2 sentences summary of what the norm regulates
 - gap_ou_ambiguidade: 1-2 sentences on regulatory ambiguity / certifier opportunity
 
+Phase 1 — evidence trail: every non-null structured field must come with a
+verbatim quote (`<field>_evidence`) copied straight from the body. Quotes
+that are not exact substrings of the input body are stripped, demoting the
+field back to null. That makes every claim traceable to the legal text.
+
 Strict JSON output, with explicit null for unknowns. NEVER invent.
 """
 
@@ -23,6 +28,24 @@ from typing import Any, Optional
 from . import business_schema as bs
 
 log = logging.getLogger(__name__)
+
+
+# Fields that MUST carry an `<field>_evidence` quote when non-null. Free-form
+# fields (escopo / gap_ou_ambiguidade) are themselves the evidence so they
+# are exempt.
+_EVIDENCE_REQUIRED_FIELDS = (
+    "regime",
+    "status_regulatorio",
+    "deadline_principal",
+    "tipo_deadline",
+    "exige_auditoria_tecnica",
+    "exige_proof_of_reserves",
+    "exige_pentest",
+    "exige_kyt_aml",
+    "exige_seguranca_custodia",
+    "exige_formal_verification",
+    "exige_certificacao_independente",
+)
 
 
 _SYSTEM = """You analyze legal texts about crypto-asset regulation to extract STRUCTURED
@@ -38,7 +61,13 @@ CRITICAL RULES:
   if the text explicitly excludes it; null if the text is silent.
 - Dates: ISO YYYY-MM-DD only. If only a year or month is known, use null.
 - Free-form fields (`escopo`, `gap_ou_ambiguidade`) must be ≤ 2 short sentences
-  in English."""
+  in English.
+- For every non-null structured field you MUST also return a companion
+  `<field>_evidence` key whose value is a 30-400 character substring copied
+  VERBATIM from the body — the smallest fragment that justifies the call.
+  The reviewer must be able to ctrl-F that exact string in the source.
+  If you cannot quote the text, return null for both the field and its
+  evidence. Substitutions, summaries or paraphrases are forbidden."""
 
 
 _USER_TEMPLATE = """Norm metadata:
@@ -54,16 +83,38 @@ Return ONE JSON object with EXACTLY these keys (use null for unknown):
 
 {{
   "regime": "licenciamento | registro | proibicao | em_consulta | sem_regra | null",
+  "regime_evidence": "verbatim quote from the body (30-400 chars) or null",
+
   "status_regulatorio": "vigente | em_implementacao | em_consulta | proposto | null",
+  "status_regulatorio_evidence": "verbatim quote or null",
+
   "deadline_principal": "YYYY-MM-DD or null",
+  "deadline_principal_evidence": "verbatim quote or null",
+
   "tipo_deadline": "licenciamento | transicao | sunset | consulta_publica | go_live | reporte_periodico | null",
+  "tipo_deadline_evidence": "verbatim quote or null",
+
   "exige_auditoria_tecnica": "true | false | null",
+  "exige_auditoria_tecnica_evidence": "verbatim quote or null",
+
   "exige_proof_of_reserves": "true | false | null",
+  "exige_proof_of_reserves_evidence": "verbatim quote or null",
+
   "exige_pentest": "true | false | null",
+  "exige_pentest_evidence": "verbatim quote or null",
+
   "exige_kyt_aml": "true | false | null",
+  "exige_kyt_aml_evidence": "verbatim quote or null",
+
   "exige_seguranca_custodia": "true | false | null",
+  "exige_seguranca_custodia_evidence": "verbatim quote or null",
+
   "exige_formal_verification": "true | false | null",
+  "exige_formal_verification_evidence": "verbatim quote or null",
+
   "exige_certificacao_independente": "true | false | null",
+  "exige_certificacao_independente_evidence": "verbatim quote or null",
+
   "escopo": "1-2 short sentences in English on what the norm regulates, or null",
   "gap_ou_ambiguidade": "1-2 sentences in English on regulatory ambiguity or certifier opportunity, or null"
 }}
@@ -88,6 +139,9 @@ Guidance:
 - 'gap_ou_ambiguidade' = where is the rule unclear, missing a technical
   standard, or open to interpretation that an independent certifier could
   fill? Concrete and short. Null if no clear gap.
+- EVIDENCE QUOTES: pick the shortest sentence (or single clause) from the
+  body that, on its own, supports the call. If the source is non-English,
+  quote the original language — do not translate.
 
 --- BEGIN BODY ---
 {body}
@@ -95,6 +149,8 @@ Guidance:
 
 
 _BODY_LIMIT = 60_000  # chars
+_EVIDENCE_MIN = 20    # chars — guards against single-word "evidence"
+_EVIDENCE_MAX = 600   # chars — generous ceiling, prompt asks for 30-400
 
 
 def analyze_norm_body(
@@ -110,12 +166,13 @@ def analyze_norm_body(
     title: str,
     body: str,
     thinking_budget: int = 4000,
-    max_output_tokens: int = 4000,
+    max_output_tokens: int = 6000,
 ) -> Optional[dict[str, Any]]:
     """Run the LLM analyzer on one norm body. Returns the parsed JSON or None."""
     if not body or not body.strip():
         return None
 
+    truncated_body = body[:_BODY_LIMIT]
     user = _USER_TEMPLATE.format(
         note_id=note_id,
         country=country,
@@ -124,7 +181,7 @@ def analyze_norm_body(
         regulator=regulator or "unknown",
         date=date_str or "unknown",
         title=title,
-        body=body[:_BODY_LIMIT],
+        body=truncated_body,
     )
 
     is_gemini = (
@@ -150,13 +207,20 @@ def analyze_norm_body(
         log.warning("gap_analyzer returned non-dict for %s", note_id)
         return None
 
-    return _normalize_findings(data)
+    return _normalize_findings(data, body=truncated_body, note_id=note_id)
 
 
-def _normalize_findings(d: dict[str, Any]) -> dict[str, Any]:
+def _normalize_findings(
+    d: dict[str, Any],
+    *,
+    body: str = "",
+    note_id: str = "",
+) -> dict[str, Any]:
     """Normalize the JSON output:
     - string 'true'/'false'/'null' -> python types
     - drop unknown keys
+    - validate every <field>_evidence is a verbatim substring of `body`;
+      if not, demote the matching field back to null.
     """
     allowed = {
         "regime", "status_regulatorio", "deadline_principal", "tipo_deadline",
@@ -165,21 +229,92 @@ def _normalize_findings(d: dict[str, Any]) -> dict[str, Any]:
         "exige_formal_verification", "exige_certificacao_independente",
         "escopo", "gap_ou_ambiguidade",
     }
+    evidence_keys = {f"{f}_evidence" for f in _EVIDENCE_REQUIRED_FIELDS}
+
     out: dict[str, Any] = {}
     for k, v in d.items():
-        if k not in allowed:
+        if k not in allowed and k not in evidence_keys:
             continue
-        # Normalize string-encoded values
         if isinstance(v, str):
-            sv = v.strip().lower()
-            if sv in ("null", "none", "n/a", "unknown", "", "desconhecido"):
+            sv = v.strip()
+            low = sv.lower()
+            if low in ("null", "none", "n/a", "unknown", "", "desconhecido"):
                 out[k] = None
                 continue
-            if sv == "true":
+            if k in allowed and low == "true":
                 out[k] = True
                 continue
-            if sv == "false":
+            if k in allowed and low == "false":
                 out[k] = False
                 continue
+            out[k] = sv
+            continue
         out[k] = v
+
+    if body:
+        _enforce_evidence(out, body=body, note_id=note_id)
     return out
+
+
+def _enforce_evidence(
+    out: dict[str, Any],
+    *,
+    body: str,
+    note_id: str,
+) -> None:
+    """For each field requiring evidence, verify the quote is verbatim. If not,
+    demote the field back to None and log the offense — caller treats the
+    result identically to a 'model wasn't confident' answer.
+    """
+    for field in _EVIDENCE_REQUIRED_FIELDS:
+        evidence_key = f"{field}_evidence"
+        value = out.get(field)
+        quote = out.get(evidence_key)
+
+        if value is None:
+            out[evidence_key] = None
+            continue
+
+        if not isinstance(quote, str) or not quote.strip():
+            log.info(
+                "gap_analyzer: missing evidence for %s/%s — demoting to null",
+                note_id, field,
+            )
+            out[field] = None
+            out[evidence_key] = None
+            continue
+
+        cleaned = quote.strip()
+        if len(cleaned) < _EVIDENCE_MIN:
+            log.info(
+                "gap_analyzer: evidence too short for %s/%s (%d chars) — demoting",
+                note_id, field, len(cleaned),
+            )
+            out[field] = None
+            out[evidence_key] = None
+            continue
+        if len(cleaned) > _EVIDENCE_MAX:
+            cleaned = cleaned[:_EVIDENCE_MAX]
+
+        if not _quote_in_body(cleaned, body):
+            log.info(
+                "gap_analyzer: evidence not verbatim for %s/%s — demoting",
+                note_id, field,
+            )
+            out[field] = None
+            out[evidence_key] = None
+            continue
+
+        out[evidence_key] = cleaned
+
+
+def _quote_in_body(quote: str, body: str) -> bool:
+    """Forgiving substring check: collapses internal whitespace so a model
+    that joined two lines with a single space still validates against a body
+    that contained the original newline. Case-sensitive — legal text is.
+    """
+    norm_body = " ".join(body.split())
+    norm_quote = " ".join(quote.split())
+    if not norm_quote:
+        return False
+    return norm_quote in norm_body

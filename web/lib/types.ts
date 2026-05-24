@@ -61,11 +61,27 @@ export interface Norm {
   n_servicos: number;
   escopo: string | null;
   gap_ou_ambiguidade: string | null;
+  /** Verbatim quotes from the source body backing each structured field.
+   *  Empty for fields the analyzer could not support with a quote. */
+  evidence?: Partial<Record<EvidenceField, string>>;
   n_inlinks: number;
   n_outlinks: number;
   confianca_dados: string | null;
   in_quarantine: boolean;
 }
+
+export type EvidenceField =
+  | "regime"
+  | "status_regulatorio"
+  | "deadline_principal"
+  | "tipo_deadline"
+  | "exige_auditoria_tecnica"
+  | "exige_proof_of_reserves"
+  | "exige_pentest"
+  | "exige_kyt_aml"
+  | "exige_seguranca_custodia"
+  | "exige_formal_verification"
+  | "exige_certificacao_independente";
 
 export interface GraphNode {
   id: string;

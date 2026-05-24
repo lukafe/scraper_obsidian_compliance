@@ -129,58 +129,84 @@ export default async function JurisdictionPage({ params }: Props) {
 
       <Card
         title="Underlying norms"
-        subtitle={`${norms.length} norms with full LLM-extracted regime, scope and gaps.`}
+        subtitle={`${norms.length} norms with regime, scope, gaps and verbatim evidence quotes.`}
       >
         <div className="space-y-3 max-h-[700px] overflow-y-auto">
-          {norms.map((n) => (
-            <article key={n.id} className="border-b border-certik-border/30 pb-3 last:border-0">
-              <div className="flex items-start justify-between gap-3 flex-wrap">
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-white">{n.title}</div>
-                  <div className="text-xs text-certik-muted mt-0.5">
-                    {n.type} · {n.regulator ?? "—"} · {n.date ?? "—"}
+          {norms.map((n) => {
+            const evidenceEntries = Object.entries(n.evidence ?? {}).filter(
+              ([, quote]) => !!quote,
+            );
+            return (
+              <article key={n.id} className="border-b border-certik-border/30 pb-3 last:border-0">
+                <div className="flex items-start justify-between gap-3 flex-wrap">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-white">{n.title}</div>
+                    <div className="text-xs text-certik-muted mt-0.5">
+                      {n.type} · {n.regulator ?? "—"} · {n.date ?? "—"}
+                    </div>
+                  </div>
+                  <div className="flex gap-1 shrink-0">
+                    {n.regime && <Badge variant="red">{label.regime(n.regime)}</Badge>}
+                    {n.status_regulatorio && (
+                      <Badge variant="amber">{label.status(n.status_regulatorio)}</Badge>
+                    )}
+                    {n.deadline_principal && (
+                      <Badge variant="default" className="font-mono">{n.deadline_principal}</Badge>
+                    )}
                   </div>
                 </div>
-                <div className="flex gap-1 shrink-0">
-                  {n.regime && <Badge variant="red">{label.regime(n.regime)}</Badge>}
-                  {n.status_regulatorio && (
-                    <Badge variant="amber">{label.status(n.status_regulatorio)}</Badge>
-                  )}
-                  {n.deadline_principal && (
-                    <Badge variant="default" className="font-mono">{n.deadline_principal}</Badge>
-                  )}
-                </div>
-              </div>
-              {n.escopo && (
-                <p className="text-sm text-zinc-300 mt-2">
-                  <span className="text-certik-muted">Scope:</span> {n.escopo}
-                </p>
-              )}
-              {n.gap_ou_ambiguidade && (
-                <p className="text-sm text-amber-200/80 mt-1">
-                  <span className="text-amber-400 font-semibold">Gap or ambiguity:</span>{" "}
-                  {n.gap_ou_ambiguidade}
-                </p>
-              )}
-              {n.servicos.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-1">
-                  {n.servicos.map((s) => (
-                    <Badge key={s} variant="default" className="text-[10px]">
-                      {SERVICE_LABELS[s] ?? s}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-              {n.source_url && (
-                <a
-                  href={n.source_url} target="_blank" rel="noopener noreferrer"
-                  className="text-xs text-certik-muted hover:text-certik-red mt-2 inline-block"
-                >
-                  source ↗
-                </a>
-              )}
-            </article>
-          ))}
+                {n.escopo && (
+                  <p className="text-sm text-zinc-300 mt-2">
+                    <span className="text-certik-muted">Scope:</span> {n.escopo}
+                  </p>
+                )}
+                {n.gap_ou_ambiguidade && (
+                  <p className="text-sm text-amber-200/80 mt-1">
+                    <span className="text-amber-400 font-semibold">Gap or ambiguity:</span>{" "}
+                    {n.gap_ou_ambiguidade}
+                  </p>
+                )}
+                {n.servicos.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {n.servicos.map((s) => (
+                      <Badge key={s} variant="default" className="text-[10px]">
+                        {SERVICE_LABELS[s] ?? s}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                {evidenceEntries.length > 0 && (
+                  <details className="mt-2 group">
+                    <summary className="text-xs text-certik-muted hover:text-certik-red cursor-pointer select-none">
+                      Evidence ({evidenceEntries.length}) — verbatim quotes from the source
+                    </summary>
+                    <ul className="mt-2 space-y-2 pl-3 border-l-2 border-certik-border">
+                      {evidenceEntries.map(([field, quote]) => (
+                        <li key={field} className="text-xs">
+                          <div className="text-certik-muted font-mono text-[10px] uppercase tracking-wide">
+                            {humanField(field)}
+                          </div>
+                          <blockquote className="text-zinc-300 italic mt-0.5">
+                            &ldquo;{quote}&rdquo;
+                          </blockquote>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {n.source_url && (
+                  <a
+                    href={n.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-certik-muted hover:text-certik-red mt-2 inline-block"
+                  >
+                    source ↗
+                  </a>
+                )}
+              </article>
+            );
+          })}
         </div>
       </Card>
 
@@ -208,6 +234,24 @@ export default async function JurisdictionPage({ params }: Props) {
       </Card>
     </div>
   );
+}
+
+const EVIDENCE_FIELD_LABELS: Record<string, string> = {
+  regime: "Regime",
+  status_regulatorio: "Status",
+  deadline_principal: "Principal deadline",
+  tipo_deadline: "Deadline type",
+  exige_auditoria_tecnica: "Requires technical audit",
+  exige_proof_of_reserves: "Requires proof of reserves",
+  exige_pentest: "Requires penetration test",
+  exige_kyt_aml: "Requires AML / KYT",
+  exige_seguranca_custodia: "Requires custody security",
+  exige_formal_verification: "Requires formal verification",
+  exige_certificacao_independente: "Requires independent certification",
+};
+
+function humanField(field: string): string {
+  return EVIDENCE_FIELD_LABELS[field] ?? field;
 }
 
 function RelationGroup({ title, description, edges }: {

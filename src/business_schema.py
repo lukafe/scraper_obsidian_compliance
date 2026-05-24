@@ -197,31 +197,56 @@ TIPO_DEADLINE_VALUES = {
 
 # ---------- Norm-level enrichment baseline --------------------------------
 
-NORM_BUSINESS_FIELDS = {
-    # Regime/status (mostly inferred from LLM analysis)
-    "regime": None,
-    "status_regulatorio": None,
-    "deadline_principal": None,
-    "tipo_deadline": None,
-    # Service triggers (boolean — null = unknown)
-    "exige_auditoria_tecnica": None,
-    "exige_proof_of_reserves": None,
-    "exige_pentest": None,
-    "exige_kyt_aml": None,
-    "exige_seguranca_custodia": None,
-    "exige_formal_verification": None,
-    "exige_certificacao_independente": None,
-    # Derived from triggers
-    "servicos_certik_aplicaveis": [],
-    "gatilho_servico_certik": [],
-    # Free-form (LLM-extracted)
-    "gap_ou_ambiguidade": None,
-    "escopo": None,  # plain-language summary of what the norm covers
-    # Provenance
-    "confianca_dados": "media",  # default for auto-enriched
-    "fontes": [],
-    "ultima_revisao": None,  # set on write
-}
+# Fields that should carry an `<name>_evidence` quote — verbatim substring
+# of the source body copied by the LLM analyzer. Used by gap_analyzer to
+# enforce traceability and by enrichment / export / dashboard to surface it.
+EVIDENCE_FIELDS = (
+    "regime",
+    "status_regulatorio",
+    "deadline_principal",
+    "tipo_deadline",
+    "exige_auditoria_tecnica",
+    "exige_proof_of_reserves",
+    "exige_pentest",
+    "exige_kyt_aml",
+    "exige_seguranca_custodia",
+    "exige_formal_verification",
+    "exige_certificacao_independente",
+)
+
+
+def _baseline_norm_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
+        # Regime/status (mostly inferred from LLM analysis)
+        "regime": None,
+        "status_regulatorio": None,
+        "deadline_principal": None,
+        "tipo_deadline": None,
+        # Service triggers (boolean — null = unknown)
+        "exige_auditoria_tecnica": None,
+        "exige_proof_of_reserves": None,
+        "exige_pentest": None,
+        "exige_kyt_aml": None,
+        "exige_seguranca_custodia": None,
+        "exige_formal_verification": None,
+        "exige_certificacao_independente": None,
+        # Derived from triggers
+        "servicos_certik_aplicaveis": [],
+        "gatilho_servico_certik": [],
+        # Free-form (LLM-extracted)
+        "gap_ou_ambiguidade": None,
+        "escopo": None,  # plain-language summary of what the norm covers
+        # Provenance
+        "confianca_dados": "media",  # default for auto-enriched
+        "fontes": [],
+        "ultima_revisao": None,  # set on write
+    }
+    for field in EVIDENCE_FIELDS:
+        fields[f"{field}_evidence"] = None
+    return fields
+
+
+NORM_BUSINESS_FIELDS = _baseline_norm_fields()
 
 
 def baseline_business_fields() -> dict[str, Any]:

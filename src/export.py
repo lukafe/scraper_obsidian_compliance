@@ -170,6 +170,8 @@ NORMA_COLUMNS = [
     "exige_formal_verification", "exige_certificacao_independente",
     "servicos_certik_aplicaveis_csv", "n_servicos",
     "escopo", "gap_ou_ambiguidade",
+    # Phase 1 — evidence trail: verbatim quotes from the source body.
+    *[f"{f}_evidence" for f in bs.EVIDENCE_FIELDS],
     "n_inlinks", "n_outlinks",
     "confianca_dados", "ultima_revisao", "in_quarantine",
 ]
@@ -209,6 +211,10 @@ def export_normas_csv(vault: Vault, path: Path, inlinks: Counter) -> int:
                 "n_servicos": len(services),
                 "escopo": extra.get("escopo"),
                 "gap_ou_ambiguidade": extra.get("gap_ou_ambiguidade"),
+                **{
+                    f"{f}_evidence": extra.get(f"{f}_evidence")
+                    for f in bs.EVIDENCE_FIELDS
+                },
                 "n_inlinks": inlinks.get(n.id, 0),
                 "n_outlinks": len(n.references),
                 "confianca_dados": extra.get("confianca_dados"),
