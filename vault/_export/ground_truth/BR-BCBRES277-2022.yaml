@@ -1,0 +1,43 @@
+id: BR-BCBRES277-2022
+note_id: BR-BCBRES277-2022
+country: BR
+source_url: https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=277
+reviewed: true
+reviewer: phase2-starter
+reviewed_at: '2026-05-24'
+regime: licenciamento
+regime_evidence: the institution authorized to operate in the foreign exchange market
+  must be able to prove that the parties consent to the agreed conditions
+status_regulatorio: em_implementacao
+status_regulatorio_evidence: (Included, as of 02/02/2026, by BCB Resolution No. 521,
+  of 11/10/2025.)
+deadline_principal: '2026-02-02'
+deadline_principal_evidence: VI - the provision of virtual asset services provided
+  for in this Resolution. (Included, as of 02/02/2026, by BCB Resolution No. 521,
+  of 11/10/2025.)
+tipo_deadline: go_live
+tipo_deadline_evidence: (Included, as of 02/02/2026, by BCB Resolution No. 521, of
+  11/10/2025.)
+exige_auditoria_tecnica: true
+exige_auditoria_tecnica_evidence: the Central Bank of Brazil may request technical
+  certification or evaluation issued by an independent qualified company
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: the criteria to be adopted in relation to information and
+  supporting documents for the purposes of preventing money laundering and combating
+  the financing of terrorism
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: true
+exige_certificacao_independente_evidence: the Central Bank of Brazil may request technical
+  certification or evaluation issued by an independent qualified company
+escopo: present
+gap_ou_ambiguidade: present
+notes: 'Resolution 277/2022 (FX market) amended by Res. 521/2025 to include virtual
+  asset services from 02/02/2026. Licensing + AML + independent certification all
+  anchored in the body. POR/pentest/custody/formal-verif: not surfaced in body.'

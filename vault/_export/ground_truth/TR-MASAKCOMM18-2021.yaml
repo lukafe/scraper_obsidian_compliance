@@ -1,0 +1,36 @@
+id: TR-MASAKCOMM18-2021
+note_id: TR-MASAKCOMM18-2021
+country: TR
+source_url: https://www.masak.gov.tr/duyurular/kripto-varlik-hizmet-saglayicilarinin-yukumlu-sayilmasina-dair-genel-teblig-sira-no-18
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance designates Crypto Asset Service Providers (CASPs) as obligated
+  parties under Turkey's AML/CFT framework. It requires them to implement customer
+  identification, transaction monitoring, and Travel Rule compliance.
+gap_ou_ambiguidade: The guidance mentions 'technological risks' but does not specify
+  technical standards for IT security or custody. This leaves a gap that could be
+  filled by independent audits against industry best practices.
+notes: ''

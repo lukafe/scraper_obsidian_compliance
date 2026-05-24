@@ -1,0 +1,35 @@
+id: BR-CVMPO40-2022
+note_id: BR-CVMPO40-2022
+country: BR
+source_url: https://conteudo.cvm.gov.br/legislacao/pareceres-orientacao/pare040.html
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance consolidates the CVM's position on when crypto-assets are considered
+  securities. It applies a functional, substance-over-form test to make this determination.
+gap_ou_ambiguidade: The application of a principles-based functional test creates
+  legal uncertainty for specific crypto-assets. This creates a need for independent
+  expert analysis to assess if a token qualifies as a security.
+notes: ''

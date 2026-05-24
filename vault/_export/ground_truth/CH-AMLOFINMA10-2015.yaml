@@ -1,0 +1,35 @@
+id: CH-AMLOFINMA10-2015
+note_id: CH-AMLOFINMA10-2015
+country: CH
+source_url: https://www.fedlex.admin.ch/eli/cc/2015/390/en
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This rule implements the FATF Travel Rule for crypto-asset transfers. It requires
+  financial intermediaries to transmit originator and beneficiary information.
+gap_ou_ambiguidade: The strict requirement to verify information for transfers involving
+  self-hosted wallets presents a significant technical and operational challenge.
+  Certifiers could audit the specific procedures and tools used for this verification.
+notes: ''

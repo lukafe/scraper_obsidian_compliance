@@ -1,0 +1,35 @@
+id: GB-RAO-2001
+note_id: GB-RAO-2001
+country: GB
+source_url: https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2001/544/contents
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: sem_regra
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This order defines the scope of regulated financial activities in the UK.
+  The provided text does not contain specific regulations for crypto-assets.
+gap_ou_ambiguidade: The primary gap is that crypto-asset activities are not yet specified
+  within this order. A future statutory instrument is expected to amend it to bring
+  these activities into the UK's financial regulatory perimeter.
+notes: ''

@@ -1,0 +1,36 @@
+id: AE-VARAMARKETING-2024
+note_id: AE-VARAMARKETING-2024
+country: AE
+source_url: https://rulebooks.vara.ae/rulebook/marketing-regulations
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: The regulation governs the marketing, advertising, and promotion of Virtual
+  Assets in Dubai. It applies to all entities, whether domestic or foreign, licensed
+  or not.
+gap_ou_ambiguidade: Utility token issuers must register a white paper with VARA prior
+  to promotion. The specific technical or disclosure standards for these white papers
+  are not detailed, creating a potential role for independent review.
+notes: ''

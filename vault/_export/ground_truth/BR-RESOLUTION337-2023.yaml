@@ -1,0 +1,36 @@
+id: BR-RESOLUTION337-2023
+note_id: BR-RESOLUTION337-2023
+country: BR
+source_url: https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=337
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2023-11-01'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This resolution amends Brazil's foreign exchange (FX) market regulations.
+  It updates the classification codes for reporting FX operations, including adding
+  a specific code for 'Virtual assets'.
+gap_ou_ambiguidade: The rule adds a reporting code for 'Virtual assets' under 'Trade
+  in goods' but fails to define the term. This creates ambiguity for FX operators
+  on what qualifies and how to value such transactions.
+notes: ''

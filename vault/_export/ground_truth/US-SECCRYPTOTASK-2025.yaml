@@ -1,0 +1,36 @@
+id: US-SECCRYPTOTASK-2025
+note_id: US-SECCRYPTOTASK-2025
+country: US
+source_url: https://web.archive.org/web/2025/https://www.sec.gov/about/crypto-task-force
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance establishes a task force to provide clarity on applying federal
+  securities laws to crypto assets. It aims to recommend policies, draw clear regulatory
+  lines, and create paths to registration.
+gap_ou_ambiguidade: The task force's entire purpose is to address the ambiguity of
+  how securities laws apply to crypto. The key gap is the lack of clear criteria to
+  distinguish securities from non-securities.
+notes: ''

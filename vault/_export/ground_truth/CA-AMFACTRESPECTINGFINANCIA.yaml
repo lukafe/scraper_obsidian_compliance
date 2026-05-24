@@ -1,0 +1,36 @@
+id: CA-AMFACTRESPECTINGFINANCIA
+note_id: CA-AMFACTRESPECTINGFINANCIA
+country: CA
+source_url: https://www.legisquebec.gouv.qc.ca/en/document/cs/C-67.3
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: sem_regra
+regime_evidence: null
+status_regulatorio: null
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This statute regulates the constitution, governance, and general financial
+  activities of financial services cooperatives, such as credit unions, in Quebec.
+  It does not address crypto-assets.
+gap_ou_ambiguidade: The Act is entirely silent on crypto-assets, virtual currencies,
+  or related activities. It is unclear whether financial services cooperatives are
+  permitted to offer services involving these assets under this framework.
+notes: ''

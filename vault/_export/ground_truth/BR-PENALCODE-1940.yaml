@@ -1,0 +1,37 @@
+id: BR-PENALCODE-1940
+note_id: BR-PENALCODE-1940
+country: BR
+source_url: https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto.lei:1940-12-07;2848
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: proibicao
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This norm amends the Brazilian Penal Code to criminalize fraud committed through
+  the use of virtual assets, securities, or financial assets. It establishes a penalty
+  of 4 to 8 years of imprisonment plus a fine.
+gap_ou_ambiguidade: The law defines a criminal offense but does not establish preventive
+  compliance requirements for businesses. This creates an opportunity for certifiers
+  to attest to anti-fraud controls, helping companies mitigate legal and operational
+  risks.
+notes: ''

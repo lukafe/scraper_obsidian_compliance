@@ -1,0 +1,36 @@
+id: ZA-FSCAIR2-2025
+note_id: ZA-FSCAIR2-2025
+country: ZA
+source_url: https://www.fsca.co.za/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: reporte_periodico
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: true
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: Requires licensed and provisional CASPs to submit operational and risk data.
+  The request covers AML, custody, stablecoins, reserves, consumer protection, and
+  cross-border activity.
+gap_ou_ambiguidade: The request is a data-gathering exercise to inform future rules,
+  indicating that specific technical standards are still under development. This presents
+  an opportunity for certifiers to help establish benchmarks.
+notes: ''

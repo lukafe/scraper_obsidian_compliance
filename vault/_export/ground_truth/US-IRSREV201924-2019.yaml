@@ -1,0 +1,38 @@
+id: US-IRSREV201924-2019
+note_id: US-IRSREV201924-2019
+country: US
+source_url: https://www.irs.gov/pub/irs-drop/rr-19-24.pdf
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This ruling clarifies the US federal income tax treatment of cryptocurrency
+  hard forks and airdrops. It establishes that receiving new cryptocurrency from an
+  airdrop constitutes ordinary income at the time the taxpayer gains dominion and
+  control over the asset.
+gap_ou_ambiguidade: The ruling hinges on when a taxpayer gains 'dominion and control'
+  over airdropped assets, which can be technically ambiguous. A certifier could provide
+  attestations on the specific date and time a user technically gained the ability
+  to transfer or sell assets on a given platform.
+notes: ''

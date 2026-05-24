@@ -1,0 +1,34 @@
+id: BR-CVMRES160-2022
+note_id: BR-CVMRES160-2022
+country: BR
+source_url: https://conteudo.cvm.gov.br/legislacao/resolucoes/resol160.html
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This resolution establishes the general regime for public offerings of securities
+  in Brazil. It applies to security tokens when they are offered to the public.
+gap_ou_ambiguidade: The provided text is only a header and does not contain substantive
+  articles, so specific technical requirements or gaps cannot be identified.
+notes: ''

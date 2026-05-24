@@ -19,3 +19,10 @@ vault/.obsidian/*
 !vault/.obsidian/community-plugins.json
 !vault/.obsidian/snippets/
 !vault/.obsidian/snippets/**
+
+# Phase 2 — gold-set ground-truth is reference data, not transient.
+# Auto-generated CSVs/JSON in vault/_export/ stay ignored.
+!vault/_export/
+vault/_export/*
+!vault/_export/ground_truth/
+!vault/_export/ground_truth/**

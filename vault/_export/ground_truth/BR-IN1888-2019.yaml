@@ -1,0 +1,36 @@
+id: BR-IN1888-2019
+note_id: BR-IN1888-2019
+country: BR
+source_url: http://normas.receita.fazenda.gov.br/sijut2consulta/link.action?visao=anotado&idAto=100592
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2019-09-30'
+deadline_principal_evidence: null
+tipo_deadline: reporte_periodico
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: false
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This rule mandates the reporting of crypto-asset transactions to Brazil's
+  federal tax authority (RFB). It applies to Brazilian exchanges and to individuals/entities
+  transacting above a certain threshold on foreign exchanges or P2P.
+gap_ou_ambiguidade: The norm requires reporting the value of operations in BRL but
+  does not specify a valuation methodology for non-fiat transactions like crypto-to-crypto
+  swaps or donations. This creates a gap for standardized valuation practices.
+notes: ''

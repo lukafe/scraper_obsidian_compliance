@@ -1,0 +1,36 @@
+id: GB-MLRS2017PART7A-2023
+note_id: GB-MLRS2017PART7A-2023
+country: GB
+source_url: https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2017/692/part/7A
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2023-09-01'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This regulation implements the FATF Travel Rule for UK cryptoasset businesses.
+  It mandates the collection, verification, and transmission of originator and beneficiary
+  information with cryptoasset transfers.
+gap_ou_ambiguidade: The regulation does not prescribe a specific technical standard
+  or protocol for transmitting Travel Rule data. This creates an opportunity for certifiers
+  to validate the effectiveness and compliance of a firm's chosen solution.
+notes: ''

@@ -1,0 +1,37 @@
+id: KR-KOFIU
+note_id: KR-KOFIU
+country: KR
+source_url: https://www.kofiu.go.kr/eng
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This text describes the role of the KoFIU in administering South Korea's AML/CFT
+  framework. This includes receiving Suspicious Transaction Reports (STRs), Customer
+  Due Diligence (CDD), and managing the registration of Virtual Asset Service Providers
+  (VASPs).
+gap_ou_ambiguidade: The text is a high-level overview and does not specify the technical
+  or security requirements for VASP registration. The criteria and standards for compliance
+  are not detailed, leaving room for interpretation.
+notes: ''

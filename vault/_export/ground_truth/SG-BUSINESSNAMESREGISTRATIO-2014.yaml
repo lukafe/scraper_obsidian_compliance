@@ -1,0 +1,36 @@
+id: SG-BUSINESSNAMESREGISTRATIO-2014
+note_id: SG-BUSINESSNAMESREGISTRATIO-2014
+country: SG
+source_url: https://sso.agc.gov.sg/Act/BNRA2014
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This Act establishes a general requirement for any person or firm carrying
+  on business in Singapore to register their business name. It is not specific to
+  the crypto-asset industry.
+gap_ou_ambiguidade: The Act provides a framework for business name registration but
+  does not contain any specific provisions or technical requirements for crypto-asset
+  businesses. Sector-specific obligations are not addressed.
+notes: ''

@@ -1,0 +1,35 @@
+id: US-CFTCCRYPTOSPRINT-2025
+note_id: US-CFTCCRYPTOSPRINT-2025
+country: US
+source_url: https://www.cftc.gov
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: '2026-08-01'
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This initiative is a 12-month effort to develop regulatory adaptations for
+  spot crypto trading and the use of tokenized collateral in derivatives.
+gap_ou_ambiguidade: The withdrawal of Staff Advisory 20-34 creates a regulatory vacuum
+  on how Futures Commission Merchants (FCMs) can accept crypto as collateral. This
+  initiative aims to define these rules, creating an opportunity for new standards.
+notes: ''

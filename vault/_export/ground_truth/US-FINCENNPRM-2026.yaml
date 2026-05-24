@@ -1,0 +1,36 @@
+id: US-FINCENNPRM-2026
+note_id: US-FINCENNPRM-2026
+country: US
+source_url: https://www.fincen.gov
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: proposto
+status_regulatorio_evidence: null
+deadline_principal: '2026-06-09'
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This proposed rule would classify PPSIs as financial institutions under the
+  Bank Secrecy Act. It would require them to implement AML/CFT and sanctions compliance
+  programs.
+gap_ou_ambiguidade: The rule's scope depends on the specific definition of 'PPSIs',
+  which is not provided in the summary. The technical standards for implementing the
+  required AML/CFT programs are also unspecified.
+notes: ''

@@ -1,0 +1,37 @@
+id: AR-RGCNV1058-2025
+note_id: AR-RGCNV1058-2025
+country: AR
+source_url: https://www.boletinoficial.gob.ar/detalleAviso/primera/322539/20250314
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: em_implementacao
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: true
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: true
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: true
+exige_certificacao_independente_evidence: null
+escopo: This regulation establishes a mandatory registration regime for Virtual Asset
+  Service Providers (VASPs) in Argentina. It imposes comprehensive duties including
+  AML, cybersecurity, asset segregation, and public proof-of-reserves.
+gap_ou_ambiguidade: The rule requires a 'report from an IT expert' for registration
+  and periodic audits but does not specify technical standards or qualifications for
+  the expert. This creates an opportunity for certifiers to establish a de facto standard
+  for VASP system audits.
+notes: ''

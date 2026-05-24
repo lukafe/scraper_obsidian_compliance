@@ -1,0 +1,35 @@
+id: GB-FCADP251-2025
+note_id: GB-FCADP251-2025
+country: GB
+source_url: https://www.fca.org.uk/publications/discussion-papers/dp25-1-regulating-cryptoasset-activities
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: '2025-06-13'
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This discussion paper seeks feedback on a future regulatory approach for cryptoasset
+  trading platforms, intermediaries, lending, staking, and DeFi.
+gap_ou_ambiguidade: The document is a high-level discussion paper seeking input on
+  future rules. Specific technical standards for security, operations, and consumer
+  protection are yet to be defined.
+notes: ''

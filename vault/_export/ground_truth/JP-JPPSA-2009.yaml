@@ -1,0 +1,37 @@
+id: JP-JPPSA-2009
+note_id: JP-JPPSA-2009
+country: JP
+source_url: https://www.fsa.go.jp/common/about/pamphlet/dendaigyo_start.pdf
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: transicao
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: The regulation establishes a registration system for Electronic Payment Service
+  Providers, which offer payment initiation and account information aggregation services.
+  It mandates contracts with banks and measures for user data security.
+gap_ou_ambiguidade: The law requires security management of user information in contracts
+  between providers and banks, but does not specify technical standards. This creates
+  an opportunity for independent certifiers to assess security controls and API implementations
+  against best practices.
+notes: ''

@@ -1,0 +1,35 @@
+id: US-FIN2019G001-2019
+note_id: US-FIN2019G001-2019
+country: US
+source_url: https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-certain-business-models
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance consolidates existing Money Services Business (MSB) registration
+  and AML rules for various crypto business models. It clarifies the application of
+  the Bank Secrecy Act, including the Travel Rule, to convertible virtual currencies
+  (CVCs).
+gap_ou_ambiguidade: null
+notes: ''

@@ -1,0 +1,36 @@
+id: AR-LEY27743-2024
+note_id: AR-LEY27743-2024
+country: AR
+source_url: https://www.boletinoficial.gob.ar/#!DetalleNorma/310191/20240708
+reviewed: true
+reviewer: phase2-starter
+reviewed_at: '2026-05-24'
+regime: sem_regra
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: The Regularization Regime for Tax, Customs, and Social
+  Security Obligations is hereby created
+deadline_principal: '2025-04-30'
+deadline_principal_evidence: null
+tipo_deadline: transicao
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: present
+gap_ou_ambiguidade: null
+notes: Negative-case gold row. Ley 27,743 is a tax statute with crypto-tangential
+  asset-declaration rules — there is no crypto-specific regime, no exige_* triggers,
+  and no certifier-relevant gap. The regime=sem_regra signal is evidenced by absence,
+  not by a quote.

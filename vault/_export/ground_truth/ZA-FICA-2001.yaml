@@ -1,0 +1,37 @@
+id: ZA-FICA-2001
+note_id: ZA-FICA-2001
+country: ZA
+source_url: https://www.gov.za/documents/financial-intelligence-centre-act
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This law designates Crypto Asset Service Providers (CASPs) as 'accountable
+  institutions' under its AML/CFT framework. It imposes duties including customer
+  due diligence (CDD/KYC), transaction monitoring, and reporting to the Financial
+  Intelligence Centre (FIC).
+gap_ou_ambiguidade: The Act imposes general AML/CFT duties but does not specify technical
+  standards for crypto transaction monitoring. This creates an opportunity for certifiers
+  to establish best practices for blockchain analytics and risk scoring.
+notes: ''

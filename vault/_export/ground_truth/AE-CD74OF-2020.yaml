@@ -1,0 +1,36 @@
+id: AE-CD74OF-2020
+note_id: AE-CD74OF-2020
+country: AE
+source_url: https://www.uaeiec.gov.ae/ar-ae/laws-regulations-listing/cabinet-resolution-no-74-of-2020
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This decision establishes the framework for implementing terrorism lists and
+  UN Security Council resolutions. It focuses on combating terrorist financing and
+  proliferation financing.
+gap_ou_ambiguidade: The text provides a general AML/CFT framework but lacks specific
+  guidance for the crypto-asset sector. The application of these rules to decentralized
+  or unhosted environments remains ambiguous.
+notes: ''

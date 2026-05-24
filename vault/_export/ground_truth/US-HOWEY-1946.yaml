@@ -1,0 +1,37 @@
+id: US-HOWEY-1946
+note_id: US-HOWEY-1946
+country: US
+source_url: https://www.govinfo.gov/app/details/USREPORTS-328/USREPORTS-328-293
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This case law establishes the 'Howey Test,' a legal test to determine if a
+  transaction qualifies as an 'investment contract' and is therefore considered a
+  security subject to registration requirements.
+gap_ou_ambiguidade: The primary ambiguity is applying this 1946 test, designed for
+  tangible assets, to novel crypto-assets. Determining whether returns depend on the
+  'efforts of others' is particularly contentious for decentralized protocols, creating
+  a need for expert analysis.
+notes: ''

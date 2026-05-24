@@ -1,0 +1,33 @@
+id: SG-MASCPSTABLECOIN-2022
+note_id: SG-MASCPSTABLECOIN-2022
+country: SG
+source_url: https://www.mas.gov.sg/publications/consultations/2022/consultation-paper-on-proposed-regulatory-approach-for-stablecoin-related-activities
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: '2022-12-21'
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This consultation paper proposes a regulatory approach for stablecoin-related
+  issuance and intermediation activities.
+gap_ou_ambiguidade: null
+notes: ''

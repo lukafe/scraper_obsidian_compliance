@@ -1,0 +1,35 @@
+id: UY-LEY18083-2006
+note_id: UY-LEY18083-2006
+country: UY
+source_url: https://www.impo.com.uy/bases/leyes/18083-2006
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: sem_regra
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This 2006 law enacts a major tax reform, creating the Personal Income Tax
+  (IRPF) and modifying other taxes. It does not contain any provisions related to
+  crypto-assets.
+gap_ou_ambiguidade: The law is entirely silent on the regulation and taxation of crypto-assets,
+  as it was enacted before their widespread adoption.
+notes: ''

@@ -1,0 +1,36 @@
+id: ZA-PARLIAMEPROTECTIONOFCONS-2004
+note_id: ZA-PARLIAMEPROTECTIONOFCONS-2004
+country: ZA
+source_url: https://www.gov.za/documents/protection-constitutional-democracy-against-terrorist-and-related-activities-act
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This act concerns the protection of constitutional democracy against terrorist
+  and related activities. It is a general anti-terrorism law, not a specific regulation
+  for crypto-assets.
+gap_ou_ambiguidade: The act was created in 2004, before the existence of modern crypto-assets.
+  The text does not specify how its provisions apply to virtual assets or their service
+  providers.
+notes: ''

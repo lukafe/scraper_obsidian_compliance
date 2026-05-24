@@ -1,0 +1,36 @@
+id: IT-DLGS231-2007
+note_id: IT-DLGS231-2007
+country: IT
+source_url: https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2007-11-21;231
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This decree is Italy's primary anti-money laundering (AML) law, establishing
+  obligations for customer due diligence, record-keeping, and suspicious activity
+  reporting. It explicitly includes crypto-asset service providers as obligated entities.
+gap_ou_ambiguidade: The decree focuses on AML/CFT obligations and does not specify
+  technical security standards for the custody of crypto-assets or the underlying
+  IT infrastructure. This leaves a gap that could be addressed by independent certifications.
+notes: ''

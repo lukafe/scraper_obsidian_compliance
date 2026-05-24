@@ -1,0 +1,37 @@
+id: GB-BOESTABLECOINCP-2025
+note_id: GB-BOESTABLECOINCP-2025
+country: GB
+source_url: https://www.bankofengland.co.uk/paper/2025/cp/proposed-regulatory-regime-for-sterling-denominated-systemic-stablecoins
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This consultation paper proposes a regulatory regime for sterling-denominated
+  systemic stablecoins in the UK. It focuses on prudential requirements like backing
+  assets, capital, and redemption rights to ensure financial stability.
+gap_ou_ambiguidade: The paper requires wind-down plans to be validated by external
+  auditors but does not specify the standards for this validation. Technical security
+  and operational resilience requirements are also mentioned but not detailed, leaving
+  a gap for independent assessment.
+notes: ''

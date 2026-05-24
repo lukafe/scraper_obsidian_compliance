@@ -1,0 +1,36 @@
+id: HK-DTROPO
+note_id: HK-DTROPO
+country: HK
+source_url: https://www.elegislation.gov.hk/hk/cap405
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This ordinance provides for the tracing, confiscation, and recovery of proceeds
+  from drug trafficking. It creates offenses for dealing with property derived from
+  such activities.
+gap_ou_ambiguidade: This is a general criminal law and does not specifically address
+  crypto-assets. The application of terms like 'property' and 'dealing' to crypto-assets
+  is not explicitly defined, creating potential ambiguity in enforcement.
+notes: ''

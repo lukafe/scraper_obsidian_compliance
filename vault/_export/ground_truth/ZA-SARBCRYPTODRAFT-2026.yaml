@@ -1,0 +1,36 @@
+id: ZA-SARBCRYPTODRAFT-2026
+note_id: ZA-SARBCRYPTODRAFT-2026
+country: ZA
+source_url: https://www.resbank.co.za/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: proposto
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This proposes amendments to include crypto-assets in the capital flow management
+  regime under the Currency and Exchanges Act. It also signals a move to criminalize
+  undeclared crypto at borders.
+gap_ou_ambiguidade: The text is a high-level proposal, so the specific technical and
+  reporting requirements for crypto transactions under the capital flow regime are
+  not yet defined.
+notes: ''

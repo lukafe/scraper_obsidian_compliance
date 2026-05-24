@@ -1,0 +1,36 @@
+id: BM-BMFIA
+note_id: BM-BMFIA
+country: BM
+source_url: https://web.archive.org/web/2024/https://www.fia.bm/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2008-11-15'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This text establishes Bermuda's Financial Intelligence Agency (FIA) as the
+  central authority for receiving and analyzing Suspicious Activity Reports (SARs).
+  It outlines the FIA's role in combating money laundering and terrorist financing.
+gap_ou_ambiguidade: The text does not specify the technical standards or specific
+  triggers for filing SARs related to crypto-asset transactions, creating a potential
+  role for independent validation of monitoring systems.
+notes: ''

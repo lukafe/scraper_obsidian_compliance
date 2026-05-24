@@ -1,0 +1,36 @@
+id: CH-ICOS-2017
+note_id: CH-ICOS-2017
+country: CH
+source_url: https://www.finma.ch/en/news/2017/09/20170929-mm-ico/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance clarifies that while no specific ICO regulation exists, existing
+  financial market laws may apply. The applicability of AML, banking, securities,
+  or collective investment scheme rules is assessed case-by-case.
+gap_ou_ambiguidade: The guidance creates ambiguity by applying a case-by-case analysis
+  without defining clear criteria for token classification. This leaves issuers uncertain
+  as to which specific financial regulations apply to their offering.
+notes: ''

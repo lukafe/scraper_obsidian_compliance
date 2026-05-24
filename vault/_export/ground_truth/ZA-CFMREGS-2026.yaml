@@ -1,0 +1,34 @@
+id: ZA-CFMREGS-2026
+note_id: ZA-CFMREGS-2026
+country: ZA
+source_url: https://www.treasury.gov.za/public%20comments/CapFlow/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This is a draft proposal for public comment concerning capital flow management
+  regulations, replacing the former Exchange Control Regulations. The text does not
+  specify the regulation's impact on crypto-assets.
+gap_ou_ambiguidade: null
+notes: ''

@@ -1,0 +1,36 @@
+id: US-BITLICENSE-2015
+note_id: US-BITLICENSE-2015
+country: US
+source_url: https://www.dfs.ny.gov/virtual_currency_businesses
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: false
+exige_certificacao_independente_evidence: null
+escopo: The regulation requires a license for virtual currency business activities
+  involving New York or its residents. This includes transmitting, custodying, buying,
+  selling, exchanging, or issuing virtual currency.
+gap_ou_ambiguidade: The framework allows licensees to self-certify new coin listings
+  based on a DFS-approved policy. This creates an opportunity for third parties to
+  assist in developing compliant policies and conducting coin risk assessments.
+notes: ''

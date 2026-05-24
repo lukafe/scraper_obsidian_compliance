@@ -1,0 +1,33 @@
+id: DE-KRYPTOWTRANSFERV-2023
+note_id: DE-KRYPTOWTRANSFERV-2023
+country: DE
+source_url: https://www.recht.bund.de/eli/bund/bgbl-1/2023/135
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This regulation establishes enhanced due diligence requirements for the transfer
+  of crypto-assets. It focuses on anti-money laundering (AML) obligations.
+gap_ou_ambiguidade: null
+notes: ''

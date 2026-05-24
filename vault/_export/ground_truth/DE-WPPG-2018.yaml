@@ -1,0 +1,37 @@
+id: DE-WPPG-2018
+note_id: DE-WPPG-2018
+country: DE
+source_url: https://www.gesetze-im-internet.de/wppg/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This act governs the requirement to prepare, have approved by the regulator,
+  and publish a prospectus for public offerings of securities, including security
+  tokens.
+gap_ou_ambiguidade: The law requires full disclosure in the prospectus but does not
+  specify technical standards for security tokens. This creates a gap regarding the
+  expected level of technical due diligence and disclosure for smart contracts and
+  underlying protocols.
+notes: ''

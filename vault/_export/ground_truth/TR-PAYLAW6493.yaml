@@ -1,0 +1,37 @@
+id: TR-PAYLAW6493
+note_id: TR-PAYLAW6493
+country: TR
+source_url: https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6493.pdf
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: true
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This law establishes a licensing framework for payment institutions and electronic
+  money institutions in Turkey. It regulates payment services, systems, and the issuance
+  of electronic money.
+gap_ou_ambiguidade: The law delegates the definition of specific technical standards
+  for information systems management and internal controls to secondary regulations.
+  This creates an opportunity for certifiers to assess compliance against these future
+  standards.
+notes: ''

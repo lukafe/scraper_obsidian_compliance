@@ -1,0 +1,38 @@
+id: BR-BCBRES85-2021
+note_id: BR-BCBRES85-2021
+country: BR
+source_url: https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20BCB&numero=85
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2026-03-03'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: true
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: true
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This resolution establishes a mandatory cybersecurity policy for payment institutions
+  and other regulated entities, including virtual asset service providers from 2026.
+  It details requirements for risk management, incident response, and contracting
+  cloud services.
+gap_ou_ambiguidade: The rule requires institutions to review audit reports from their
+  cloud/data service providers (Art. 12.II.e) but does not specify the required audit
+  standards. This creates an opportunity for certifiers to establish a market-accepted
+  standard.
+notes: ''

@@ -1,0 +1,37 @@
+id: HK-HKSTABLECOINSORD-2025
+note_id: HK-HKSTABLECOINSORD-2025
+country: HK
+source_url: https://www.elegislation.gov.hk/hk/cap656
+reviewed: true
+reviewer: phase2-starter
+reviewed_at: '2026-05-24'
+regime: licenciamento
+regime_evidence: The Monetary Authority must maintain a register of licensees in the
+  form that the Monetary Authority considers appropriate
+status_regulatorio: em_implementacao
+status_regulatorio_evidence: remains in force until it is revoked under section 28
+  or 29
+deadline_principal: '2025-08-01'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: present
+gap_ou_ambiguidade: present
+notes: HK Stablecoins Ordinance — licensing regime is clearly in body. Deadline date
+  (2025-08-01) is correct per the regulator's published commencement notice but not
+  in the scraped body; gold accepts the date with no evidence quote and lets the comparator
+  surface that gap. POR / custody / AML calls await body enrichment.

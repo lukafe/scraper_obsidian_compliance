@@ -1,0 +1,36 @@
+id: CA-CRACRYPTOGUIDE
+note_id: CA-CRACRYPTOGUIDE
+country: CA
+source_url: https://web.archive.org/web/2024/https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/compliance/digital-currency/cryptocurrency-guide.html
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: sem_regra
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This guidance clarifies the Canadian tax treatment of crypto-assets, defining
+  them as commodities for tax purposes. It outlines how to report gains as either
+  business income or capital gains and specifies record-keeping requirements.
+gap_ou_ambiguidade: The distinction between business income (100% taxable) and capital
+  gains (50% taxable) is determined case-by-case based on subjective factors. This
+  creates ambiguity for taxpayers in classifying their transaction profits.
+notes: ''

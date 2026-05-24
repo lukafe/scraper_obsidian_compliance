@@ -127,6 +127,28 @@ export default function MethodologyPage() {
         </ul>
       </Card>
 
+      <Card title="Calibration — gold set">
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          Every change to the extraction logic, the keyword vocabulary, or the scoring
+          formula is now measured against a hand-labelled gold set. The set is a stratified
+          sample of 100 norms balanced across region, regulatory regime and trigger density;
+          each row is annotated directly from the source legal text with a verbatim evidence
+          quote per non-null field.
+        </p>
+        <p className="text-sm text-zinc-300 leading-relaxed mt-3">
+          The comparator (<code>python scripts/gold.py report</code>) reports per-field
+          precision, recall and F1, and tracks drift against a saved baseline. A starter
+          pack of 5 hand-annotated rows is checked in; the remaining 95 are seeded with the
+          current extraction (ready for human review-and-correct rather than write-from-scratch).
+        </p>
+        <p className="text-sm text-amber-300/90 leading-relaxed mt-3">
+          First measurement on the starter pack: support-weighted F1 = 0.91. Weakest fields:
+          <code> exige_pentest</code> (LLM misses), <code>exige_seguranca_custodia</code>
+          (LLM over-claims without body evidence). These become the first targets for the next
+          enrichment pass.
+        </p>
+      </Card>
+
       <Card title="Known limitations">
         <ul className="list-disc pl-5 text-sm text-zinc-300 space-y-1.5 leading-relaxed">
           <li>

@@ -1,0 +1,44 @@
+id: AE-PTSR-2024
+note_id: AE-PTSR-2024
+country: AE
+source_url: https://rulebook.centralbank.ae/en/rulebook/payment-token-services-regulation
+reviewed: true
+reviewer: phase2-starter
+reviewed_at: '2026-05-24'
+regime: licenciamento
+regime_evidence: the Central Bank for granting a License or Registration for the provision
+  of Payment Token Services and related matters
+status_regulatorio: vigente
+status_regulatorio_evidence: 'Payment Token Services Regulation C 2/2024 Effective
+  from 31/8/2024Status: In-Force'
+deadline_principal: '2024-08-31'
+deadline_principal_evidence: Effective from 31/8/2024
+tipo_deadline: go_live
+tipo_deadline_evidence: 'Effective from 31/8/2024Status: In-Force'
+exige_auditoria_tecnica: true
+exige_auditoria_tecnica_evidence: 'External Auditor: means an independent juridical
+  Person that has been appointed to audit the accounts and financial statements of
+  a Licensed Payment Token Service Provider'
+exige_proof_of_reserves: true
+exige_proof_of_reserves_evidence: to audit the Reserve of Assets of a Licensed Payment
+  Token Issuer
+exige_pentest: true
+exige_pentest_evidence: the results of any penetration or cyber-attack simulation
+  testing performed pursuant to Article (35)17
+exige_kyt_aml: true
+exige_kyt_aml_evidence: 'AML/CFT: means Anti-Money Laundering and Combating the Financing
+  of Terrorism'
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: three categories, namely Payment Token Issuance,
+  Payment Token Conversion and Payment Token Custody and Transfer
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: true
+exige_certificacao_independente_evidence: 'External Auditor: means an independent
+  juridical Person that has been appointed to audit the accounts and financial statements
+  of a Licensed Payment Token Service Provider'
+escopo: present
+gap_ou_ambiguidade: present
+notes: UAE PTSR is dense — every Phase 1 field has body support. Pentest call is a
+  correction of the LLM (which had null); the body explicitly references penetration
+  testing under Article 35.17.

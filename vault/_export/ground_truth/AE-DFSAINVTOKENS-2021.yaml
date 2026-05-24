@@ -1,0 +1,36 @@
+id: AE-DFSAINVTOKENS-2021
+note_id: AE-DFSAINVTOKENS-2021
+country: AE
+source_url: https://www.dfsa.ae/news/dfsa-introduces-regulatory-framework-investment-tokens
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: The framework regulates Investment Tokens, defined as Security Tokens or Derivative
+  Tokens on DLT. It applies to firms marketing, issuing, trading, or holding these
+  tokens in or from the DIFC.
+gap_ou_ambiguidade: The framework explicitly excludes exchange tokens (cryptocurrencies),
+  utility tokens, and stablecoins, which are subject to future consultation. The announcement
+  lacks specific technical requirements for licensed firms.
+notes: ''

@@ -1,0 +1,35 @@
+id: JP-PSA-2009
+note_id: JP-PSA-2009
+country: JP
+source_url: https://www.japaneselawtranslation.go.jp/en/laws/view/3078
+reviewed: true
+reviewer: phase2-starter
+reviewed_at: '2026-05-24'
+regime: licenciamento
+regime_evidence: has obtained the license under Article 64, paragraph (1)
+status_regulatorio: null
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: present
+gap_ou_ambiguidade: present
+notes: JP-PSA scraped body is mostly the prepaid-payment-instruments section (licensing
+  under Article 64); the crypto-asset chapter (Article 63-2 ff) is not in the body.
+  Gold demotes all exige_* to null even where the LLM was right — gold needs body
+  evidence, not authoritative external knowledge.

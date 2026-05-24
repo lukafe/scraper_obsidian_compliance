@@ -1,0 +1,36 @@
+id: JP-APTCP-2007
+note_id: JP-APTCP-2007
+country: JP
+source_url: https://www.npa.go.jp/sosikihanzai/jafic/index.htm
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: null
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2024-04-01'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: The text provides updates on Japan's Act on Prevention of Transfer of Criminal
+  Proceeds. It imposes AML/CFT obligations, such as identity verification and suspicious
+  transaction reporting.
+gap_ou_ambiguidade: The text mentions new obligations for 'professionals' starting
+  April 1, 2024, but does not define this term. It is unclear from this text whether
+  this category includes crypto-asset service providers.
+notes: ''

@@ -1,0 +1,37 @@
+id: SG-TSOFA-2002
+note_id: SG-TSOFA-2002
+country: SG
+source_url: https://sso.agc.gov.sg/Act/TSFA2002
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: proibicao
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This act establishes the legal framework for prohibiting the financing of
+  terrorism in Singapore. Its broad definition of 'property' includes digital and
+  electronic assets, making it applicable to crypto-assets.
+gap_ou_ambiguidade: The act provides a broad, technology-neutral definition of 'property'
+  but lacks specific technical standards for crypto-assets. This creates an opportunity
+  for certifiers to validate the effectiveness of a VASP's on-chain monitoring tools
+  against terrorism financing typologies.
+notes: ''

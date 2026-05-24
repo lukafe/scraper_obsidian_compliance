@@ -1,0 +1,36 @@
+id: US-CLARITYACT-2025
+note_id: US-CLARITYACT-2025
+country: US
+source_url: https://web.archive.org/web/2025/https://www.congress.gov/bill/119th-congress/house-bill/3633
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: proposto
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: true
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This bill proposes a regulatory framework for digital assets, splitting jurisdiction
+  between the CFTC for digital commodities and the SEC for investment-contract assets.
+  It regulates exchanges, brokers, and dealers.
+gap_ou_ambiguidade: The bill's distinction between CFTC and SEC jurisdiction hinges
+  on whether a blockchain is 'mature' or has 'decentralized control'. These definitions
+  create an opportunity for independent technical assessment.
+notes: ''

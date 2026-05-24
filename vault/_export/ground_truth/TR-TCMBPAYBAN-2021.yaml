@@ -1,0 +1,36 @@
+id: TR-TCMBPAYBAN-2021
+note_id: TR-TCMBPAYBAN-2021
+country: TR
+source_url: https://www.resmigazete.gov.tr/eskiler/2021/04/20210416-4.htm
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: proibicao
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: '2021-04-30'
+deadline_principal_evidence: null
+tipo_deadline: go_live
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This regulation prohibits the direct or indirect use of crypto-assets for
+  payments in Turkey. It also forbids payment and electronic money institutions from
+  processing fund transfers to or from crypto-asset platforms.
+gap_ou_ambiguidade: The regulation's definition of a crypto-asset is broad, which
+  could create ambiguity for new digital assets. It bans the use of payment rails
+  for crypto but does not regulate crypto service providers themselves.
+notes: ''

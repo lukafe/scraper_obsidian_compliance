@@ -1,0 +1,36 @@
+id: NG-ARIP-2024
+note_id: NG-ARIP-2024
+country: NG
+source_url: https://sec.gov.ng/
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: licenciamento
+regime_evidence: null
+status_regulatorio: em_implementacao
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This program provides a provisional licensing pathway for crypto firms to
+  operate in a supervised sandbox. It acts as a transitional gateway to the market
+  while final digital asset rules are developed.
+gap_ou_ambiguidade: The text lacks any specific technical, security, or compliance
+  requirements for firms seeking a provisional license under the ARIP. This creates
+  an opportunity for certifiers to propose standards for entry.
+notes: ''

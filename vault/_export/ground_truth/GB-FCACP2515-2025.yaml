@@ -1,0 +1,35 @@
+id: GB-FCACP2515-2025
+note_id: GB-FCACP2515-2025
+country: GB
+source_url: https://www.fca.org.uk/publications/consultation-papers/cp25-15-prudential-regime-cryptoasset-firms
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: em_consulta
+regime_evidence: null
+status_regulatorio: em_consulta
+status_regulatorio_evidence: null
+deadline_principal: '2025-07-31'
+deadline_principal_evidence: null
+tipo_deadline: consulta_publica
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: true
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This consultation paper proposes prudential rules and guidance for issuing
+  qualifying stablecoins and safeguarding qualifying cryptoassets in the UK.
+gap_ou_ambiguidade: As a consultation paper, the specific technical standards for
+  the prudential and safeguarding requirements are not yet defined. This creates an
+  opportunity for certifiers to help shape and later audit against these future standards.
+notes: ''

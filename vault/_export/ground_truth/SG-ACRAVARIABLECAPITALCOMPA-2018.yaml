@@ -1,0 +1,36 @@
+id: SG-ACRAVARIABLECAPITALCOMPA-2018
+note_id: SG-ACRAVARIABLECAPITALCOMPA-2018
+country: SG
+source_url: https://sso.agc.gov.sg/Act/VCCA2018
+reviewed: false
+reviewer: ''
+reviewed_at: ''
+regime: registro
+regime_evidence: null
+status_regulatorio: vigente
+status_regulatorio_evidence: null
+deadline_principal: null
+deadline_principal_evidence: null
+tipo_deadline: null
+tipo_deadline_evidence: null
+exige_auditoria_tecnica: null
+exige_auditoria_tecnica_evidence: null
+exige_proof_of_reserves: null
+exige_proof_of_reserves_evidence: null
+exige_pentest: null
+exige_pentest_evidence: null
+exige_kyt_aml: null
+exige_kyt_aml_evidence: null
+exige_seguranca_custodia: null
+exige_seguranca_custodia_evidence: null
+exige_formal_verification: null
+exige_formal_verification_evidence: null
+exige_certificacao_independente: null
+exige_certificacao_independente_evidence: null
+escopo: This Act establishes the legal framework for a corporate structure known as
+  a Variable Capital Company (VCC), intended for use by collective investment schemes.
+gap_ou_ambiguidade: The Act defines a 'custodian' for the safekeeping of assets but
+  does not specify any technical or security standards for this function. This is
+  a gap for VCCs holding digital assets, where standards for secure custody could
+  be certified.
+notes: ''
