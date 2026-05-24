@@ -78,6 +78,10 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "banque-france.fr", "tracfin.economie.gouv.fr", "conseil-etat.fr",
     "courdecassation.fr", "bofip.impots.gouv.fr", "impots.gouv.fr",
     "vie-publique.fr", "assemblee-nationale.fr", "senat.fr",
+    # Italy
+    "normattiva.it", "gazzettaufficiale.it", "consob.it", "bancaditalia.it",
+    "uif.bancaditalia.it", "agenziaentrate.gov.it", "organismo-am.it",
+    "governo.it", "mef.gov.it", "camera.it", "senato.it", ".gov.it",
     # Lithuania
     "e-tar.lt", "e-seimas.lrs.lt", "lrs.lt", "lb.lt", "vmi.lt", "fntt.lt",
     ".gov.lt", "registrucentras.lt",

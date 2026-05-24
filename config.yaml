@@ -19,7 +19,8 @@ countries:
   - NG    # Phase 12 — Nigeria
   - LT    # Phase 13 — Lithuania
   - AR    # Phase 14 — Argentina
-  - CH    # Phase 15 — Switzerland
+  - CH    # Phase 15 — Switzerland ✓
+  - IT    # Phase 16 — Italy
   - ZA    # Phase 16 — South Africa
   - UY    # Phase 17 — Uruguay
   - CA    # Phase 18 — Canada ✓
@@ -2696,3 +2697,108 @@ force_include:
       type: guidance
       regulator: "Government of Bermuda"
       short_label: "BMTAXREGIME"
+
+  IT:
+    # ==================================================================
+    # Aligned with the user's Italy Crypto Regulatory Matrix — fourth
+    # EU jurisdiction in the vault (with DE, FR, LT). MiCA implementation
+    # via D.Lgs. 129/2024 ("Decreto MiCA"); dual regulators CONSOB
+    # (conduct/markets) + Banca d'Italia (prudential ART/EMT + AML).
+    # URL strategy: Normattiva works great for consolidated Italian laws.
+    # OAM blocks bots — let semantic resolver handle.
+    # ==================================================================
+
+    # ---------- Layer 1: EU directly applicable (already in vault) ----------
+    # EU-MICA-2023, EU-TFR-2023, EU-DORA-2022, EU-PROSPECTUSREG-2017,
+    # EU-DAC8-2023 — already present from prior phases.
+
+    # ---------- Layer 2: Italian MiCA implementation ----------
+    - title_hint: "Italian Legislative Decree No. 129 of 5 September 2024 ('Decreto MiCA', effective 2024-09-14) — implements MiCA in Italy; designates CONSOB (conduct, transparency, fair dealing, market abuse, supervision of non-ART/EMT crypto) and Banca d'Italia (prudential supervision of ART/EMT issuers + AML); amends TUF and TUB (banking consolidated act); MiFID-style 'fit & proper' + IAS/IFRS + external audit + internal controls"
+      title_original: "Decreto Legislativo 5 settembre 2024, n. 129"
+      url_hint: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2024-09-05;129"
+      type: statute
+      regulator: "Parlamento Italiano"
+      date: "2024-09-05"
+      short_label: "DLGS129"
+
+    - title_hint: "Italian Decree-Law 95/2025 — extends VASP-to-CASP transitional regime: deadline to apply for CASP authorisation extended to 2025-12-30; grace period (while application is examined) until 2026-06-30; without authorisation, VASPs must cease activity and return client assets/funds"
+      title_original: "Decreto-Legge 95/2025"
+      type: regulation
+      regulator: "Governo Italiano"
+      date: "2025-07-01"
+      short_label: "DL952025"
+
+    - title_hint: "CONSOB Communications on MiCA — No. 1/24 of 2024-09-12 (entry into force), public notice 2024-12-30 (full CASP regime), July 2025 update, alert 2025-10-31 against unauthorised VASPs"
+      type: guidance
+      regulator: "CONSOB"
+      date: "2024-09-12"
+      short_label: "CONSOBMICACOMMS"
+
+    # ---------- Layer 3: National AML + OAM legacy ----------
+    - title_hint: "OAM Registry of Operators in Virtual Currency (Organismo Agenti e Mediatori) — Italian VASP and wallet-provider registry since 2022 under AML legislation; pre-MiCA national regime; being REPLACED by CASP authorisation; quarterly reporting to OAM during transition"
+      title_original: "Registro degli operatori in valute virtuali (OAM)"
+      type: regulation
+      regulator: "OAM"
+      date: "2022-05-15"
+      short_label: "OAMVCREG"
+
+    - title_hint: "Italian Legislative Decree 231/2007 — Anti-Money Laundering Decree — transposed EU AML directives; basis for KYC/CDD, monitoring and reporting; brings crypto operators within obligated parties"
+      title_original: "Decreto Legislativo 21 novembre 2007, n. 231"
+      url_hint: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2007-11-21;231"
+      type: statute
+      regulator: "Parlamento Italiano"
+      date: "2007-11-21"
+      short_label: "DLGS231"
+
+    - title_hint: "UIF — Unità di Informazione Finanziaria per l'Italia (Financial Intelligence Unit of Italy, within Banca d'Italia) — Italian FIU; receives and analyses Suspicious Operation Reports (SOS)"
+      url_hint: "https://uif.bancaditalia.it"
+      type: guidance
+      regulator: "UIF / Banca d'Italia"
+      short_label: "UIFITALY"
+
+    # ---------- Layer 4: Securities + DLT emissions ----------
+    - title_hint: "Italian TUF — Testo Unico della Finanza (Legislative Decree 58/1998) — when token is a financial instrument / security token, the capital-markets regime applies (offering, prospectus, intermediation) under CONSOB — OUTSIDE MiCA"
+      title_original: "Decreto Legislativo 24 febbraio 1998, n. 58 (Testo Unico della Finanza)"
+      url_hint: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1998-02-24;58"
+      type: statute
+      regulator: "Parlamento Italiano / CONSOB"
+      date: "1998-02-24"
+      short_label: "TUF"
+
+    - title_hint: "Italian 'Decreto FinTech' — Decree-Law 25/2023, converted by Law 52/2023 — regulates the issuance and circulation of digital financial instruments on DLT (emissioni digitali); foundation of Italian DLT-based securities tokenisation under CONSOB and Banca d'Italia"
+      title_original: "Decreto-legge 17 marzo 2023, n. 25 - Decreto FinTech"
+      type: statute
+      regulator: "Parlamento Italiano / CONSOB / Banca d'Italia"
+      date: "2023-03-17"
+      short_label: "DECRETOFINTECH"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "Italian Legge di Bilancio 2023 (Law 197/2022, art. 1 commi 126-147) — creates dedicated crypto-asset tax regime: 'cripto-attività' gains taxed as 'redditi diversi' via substitute tax; until 2024: 26% with EUR 2,000 exemption; 2025 transition: 26% with NO exemption (threshold abolished); from 2026-01-01: 33% with no exemption (per Bilancio 2025 = Law 207/2024, confirmed by Bilancio 2026); crypto/crypto swap between tokens with DIFFERENT functions is taxable; losses carriable 4 years"
+      title_original: "Legge 29 dicembre 2022, n. 197"
+      type: statute
+      regulator: "Parlamento Italiano / Agenzia delle Entrate"
+      date: "2022-12-29"
+      short_label: "BILANCIO2023"
+
+    - title_hint: "Italian Legge di Bilancio 2025 (Law 207/2024) — confirms raise of substitute tax on crypto gains from 26% to 33% from 2026-01-01, removing the EUR 2,000 exemption"
+      title_original: "Legge 30 dicembre 2024, n. 207"
+      type: statute
+      regulator: "Parlamento Italiano"
+      date: "2024-12-30"
+      short_label: "BILANCIO2025"
+
+    - title_hint: "Italian Bilancio 2026 carve-out for EU-EMTs — maintains 26% (instead of 33%) for E-Money Tokens denominated in euro that are MiCA-compliant and structured as payment instruments"
+      type: statute
+      regulator: "Parlamento Italiano"
+      date: "2025-12-28"
+      short_label: "BILANCIO2026EMT"
+
+    - title_hint: "Italian 'imposta sul valore delle cripto-attività' / imposta di bollo (0.2%) — wealth-style tax of 0.2% per year on the value of crypto-assets held on December 31 (self-custody or foreign intermediary); 0.2% imposta di bollo if held via Italian intermediary; declaration in Quadro RW/W (monitoring), mandatory EVEN WITHOUT GAIN"
+      type: regulation
+      regulator: "Agenzia delle Entrate"
+      short_label: "IMPOSTAVALCRYPTO"
+
+    - title_hint: "Italian Rivalutazione facoltativa delle cripto-attività — optional cost-basis revaluation: pay reduced substitute tax (e.g. 18% on the 2025-01-01 value) to step up crypto cost basis; mitigates impact of 33% rate"
+      type: regulation
+      regulator: "Agenzia delle Entrate"
+      short_label: "RIVALUTAZIONECRYPTO"
