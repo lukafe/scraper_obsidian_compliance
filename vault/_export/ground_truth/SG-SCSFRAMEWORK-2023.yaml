@@ -2,36 +2,41 @@ id: SG-SCSFRAMEWORK-2023
 note_id: SG-SCSFRAMEWORK-2023
 country: SG
 source_url: https://www.mas.gov.sg/news/media-releases/2023/mas-finalises-stablecoin-regulatory-framework
-reviewed: false
-reviewer: ''
-reviewed_at: ''
+reviewed: true
+reviewer: phase2-starter-v2
+reviewed_at: '2026-05-24'
 regime: licenciamento
-regime_evidence: null
-status_regulatorio: vigente
+regime_evidence: The Monetary Authority of Singapore (MAS) today announced the features
+  of a new regulatory framework
+status_regulatorio: null
 status_regulatorio_evidence: null
 deadline_principal: null
 deadline_principal_evidence: null
 tipo_deadline: null
 tipo_deadline_evidence: null
-exige_auditoria_tecnica: null
-exige_auditoria_tecnica_evidence: null
+exige_auditoria_tecnica: true
+exige_auditoria_tecnica_evidence: Reserve assets will be subject to requirements relating
+  to their composition, valuation, custody and audit
 exige_proof_of_reserves: true
-exige_proof_of_reserves_evidence: null
+exige_proof_of_reserves_evidence: Reserve assets will be subject to requirements relating
+  to their composition, valuation, custody and audit, to give a high degree of assurance
+  of value stability
 exige_pentest: null
 exige_pentest_evidence: null
 exige_kyt_aml: null
 exige_kyt_aml_evidence: null
 exige_seguranca_custodia: true
-exige_seguranca_custodia_evidence: null
+exige_seguranca_custodia_evidence: Reserve assets will be subject to requirements
+  relating to their composition, valuation, custody and audit
 exige_formal_verification: null
 exige_formal_verification_evidence: null
 exige_certificacao_independente: true
-exige_certificacao_independente_evidence: null
-escopo: This framework applies to single-currency stablecoins (SCS) issued in Singapore
-  and pegged to the Singapore Dollar or any G10 currency. It establishes requirements
-  for reserve assets, capital, redemption, and disclosure.
-gap_ou_ambiguidade: The framework requires an audit of reserve assets but does not
-  specify the standards for this audit or the qualifications for the independent auditor.
-  This creates an opportunity for certifiers to establish and provide compliant attestation
-  services.
-notes: ''
+exige_certificacao_independente_evidence: Reserve assets will be subject to requirements
+  relating to their composition, valuation, custody and audit, to give a high degree
+  of assurance of value stability
+escopo: present
+gap_ou_ambiguidade: present
+notes: Singapore Stablecoin Framework press release. POR / custody / tech-audit /
+  independent-certification all anchored in the single sentence about reserve assets
+  being subject to composition / valuation / custody / audit requirements. Body is
+  short so the regime quote is weak; status / deadline are not in the press text.

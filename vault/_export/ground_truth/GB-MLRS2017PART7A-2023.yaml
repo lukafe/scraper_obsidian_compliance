@@ -2,16 +2,16 @@ id: GB-MLRS2017PART7A-2023
 note_id: GB-MLRS2017PART7A-2023
 country: GB
 source_url: https://web.archive.org/web/2024/https://www.legislation.gov.uk/uksi/2017/692/part/7A
-reviewed: false
-reviewer: ''
-reviewed_at: ''
-regime: registro
+reviewed: true
+reviewer: phase2-starter-v2
+reviewed_at: '2026-05-24'
+regime: null
 regime_evidence: null
-status_regulatorio: vigente
+status_regulatorio: null
 status_regulatorio_evidence: null
-deadline_principal: '2023-09-01'
+deadline_principal: null
 deadline_principal_evidence: null
-tipo_deadline: go_live
+tipo_deadline: null
 tipo_deadline_evidence: null
 exige_auditoria_tecnica: null
 exige_auditoria_tecnica_evidence: null
@@ -20,17 +20,17 @@ exige_proof_of_reserves_evidence: null
 exige_pentest: null
 exige_pentest_evidence: null
 exige_kyt_aml: true
-exige_kyt_aml_evidence: null
+exige_kyt_aml_evidence: the cryptoasset business of the originator must ensure that
+  the cryptoasset transfer is accompanied by the information specified in paragraph
+  (5)
 exige_seguranca_custodia: null
 exige_seguranca_custodia_evidence: null
 exige_formal_verification: null
 exige_formal_verification_evidence: null
 exige_certificacao_independente: null
 exige_certificacao_independente_evidence: null
-escopo: This regulation implements the FATF Travel Rule for UK cryptoasset businesses.
-  It mandates the collection, verification, and transmission of originator and beneficiary
-  information with cryptoasset transfers.
-gap_ou_ambiguidade: The regulation does not prescribe a specific technical standard
-  or protocol for transmitting Travel Rule data. This creates an opportunity for certifiers
-  to validate the effectiveness and compliance of a firm's chosen solution.
-notes: ''
+escopo: present
+gap_ou_ambiguidade: present
+notes: UK Travel-Rule amendment. Only exige_kyt_aml is body-grounded; regime / status
+  / deadline come from the title metadata, not the scraped Part 7A text itself, so
+  gold demotes them to null.

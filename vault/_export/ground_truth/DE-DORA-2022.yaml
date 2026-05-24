@@ -2,36 +2,36 @@ id: DE-DORA-2022
 note_id: DE-DORA-2022
 country: DE
 source_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554
-reviewed: false
-reviewer: ''
-reviewed_at: ''
+reviewed: true
+reviewer: phase2-starter-v2
+reviewed_at: '2026-05-24'
 regime: null
 regime_evidence: null
 status_regulatorio: em_implementacao
-status_regulatorio_evidence: null
+status_regulatorio_evidence: this Regulation shall be considered a sector-specific
+  Union legal act
 deadline_principal: null
 deadline_principal_evidence: null
 tipo_deadline: null
 tipo_deadline_evidence: null
 exige_auditoria_tecnica: true
-exige_auditoria_tecnica_evidence: null
+exige_auditoria_tecnica_evidence: the requirement to perform advanced testing of ICT
+  tools, systems and processes based on threat-led penetration testing (TLPT)
 exige_proof_of_reserves: null
 exige_proof_of_reserves_evidence: null
 exige_pentest: true
-exige_pentest_evidence: null
+exige_pentest_evidence: delivers a controlled, bespoke, intelligence-led (red team)
+  test of the financial entity’s critical live production systems
 exige_kyt_aml: null
 exige_kyt_aml_evidence: null
-exige_seguranca_custodia: true
+exige_seguranca_custodia: null
 exige_seguranca_custodia_evidence: null
 exige_formal_verification: null
 exige_formal_verification_evidence: null
 exige_certificacao_independente: false
 exige_certificacao_independente_evidence: null
-escopo: This regulation establishes a comprehensive framework for digital operational
-  resilience in the EU financial sector. It sets harmonized rules for ICT risk management,
-  incident reporting, resilience testing, and managing ICT third-party risk.
-gap_ou_ambiguidade: The regulation relies heavily on future Regulatory Technical Standards
-  (RTS) from the ESAs to specify key details, such as incident reporting thresholds
-  and testing methodologies. This creates an opportunity for certifiers to help firms
-  implement the high-level principles ahead of the final detailed rules.
-notes: ''
+escopo: present
+gap_ou_ambiguidade: present
+notes: DORA layers ICT-resilience obligations on top of existing financial regimes;
+  it is NOT a regime in itself. Pentest and tech-audit obligations are explicit in
+  the body (TLPT, red team). Custody claim from the LLM has no body grounding.

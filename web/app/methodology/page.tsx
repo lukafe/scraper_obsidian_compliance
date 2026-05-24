@@ -142,10 +142,15 @@ export default function MethodologyPage() {
           current extraction (ready for human review-and-correct rather than write-from-scratch).
         </p>
         <p className="text-sm text-amber-300/90 leading-relaxed mt-3">
-          First measurement on the starter pack: support-weighted F1 = 0.91. Weakest fields:
-          <code> exige_pentest</code> (LLM misses), <code>exige_seguranca_custodia</code>
-          (LLM over-claims without body evidence). These become the first targets for the next
-          enrichment pass.
+          Current measurement on the 8-row starter pack: support-weighted F1 = 0.88. The
+          model excels on
+          <code> exige_certificacao_independente</code>,
+          <code> escopo</code>, and free-form gap detection (F1 = 1.00); it still trails on
+          <code> exige_seguranca_custodia</code> (F1 = 0.57 — over-claims custody
+          requirements on stablecoin / DORA-style norms without body evidence) and
+          <code> exige_pentest</code> (F1 = 0.67 — caught DE-DORA's TLPT requirement, still
+          misses AE-PTSR's penetration-testing clause). These remain the top calibration
+          targets.
         </p>
       </Card>
 
