@@ -2,6 +2,9 @@
   "name": "crypto-lawmap-dashboard",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "predev": "node scripts/prepare-data.mjs",
     "prebuild": "node scripts/prepare-data.mjs",
