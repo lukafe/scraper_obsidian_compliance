@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import {
   LayoutDashboard, Map, Calendar, ShieldCheck,
-  Globe2, BookOpen,
+  Globe2, BookOpen, Share2,
 } from "lucide-react";
 
 const ITEMS = [
@@ -14,6 +14,7 @@ const ITEMS = [
   { href: "/timeline", label: "Deadline Timeline", Icon: Calendar },
   { href: "/services", label: "By Service", Icon: ShieldCheck },
   { href: "/jurisdictions", label: "Jurisdictions", Icon: Globe2 },
+  { href: "/graph", label: "Regulatory Graph", Icon: Share2 },
   { href: "/methodology", label: "Methodology", Icon: BookOpen },
 ];
 
@@ -21,9 +22,21 @@ export function Nav() {
   const pathname = usePathname();
   return (
     <nav className="w-60 bg-certik-panel border-r border-certik-border h-screen sticky top-0 flex flex-col">
-      <Link href="/" className="px-5 py-5 border-b border-certik-border flex items-center gap-2">
-        <span className="bg-certik-red px-2 py-1 rounded text-white font-bold text-sm">CertiK</span>
-        <span className="text-white font-semibold text-sm">Reg Intel</span>
+      <Link
+        href="/"
+        className="px-5 py-5 border-b border-certik-border flex items-center gap-3 group"
+      >
+        <div className="w-9 h-9 rounded-md bg-gradient-to-br from-certik-red to-red-900 flex items-center justify-center font-bold text-white text-sm shadow-sm shadow-certik-red/40">
+          C
+        </div>
+        <div className="leading-tight">
+          <div className="text-white font-semibold text-sm tracking-tight">
+            CertiK
+          </div>
+          <div className="text-[10px] uppercase tracking-widest text-certik-muted">
+            Regulatory Intelligence
+          </div>
+        </div>
       </Link>
       <ul className="flex-1 py-3">
         {ITEMS.map(({ href, label, Icon }) => {
@@ -46,8 +59,11 @@ export function Nav() {
           );
         })}
       </ul>
-      <div className="px-5 py-3 border-t border-certik-border text-[10px] text-certik-muted">
-        Source: <span className="font-mono">scraper_obsidian_compliance</span>
+      <div className="px-5 py-3 border-t border-certik-border text-[10px] text-certik-muted leading-relaxed">
+        <div>1,267 norms · 23 jurisdictions</div>
+        <div className="mt-0.5">
+          Source: <span className="font-mono">scraper_obsidian_compliance</span>
+        </div>
       </div>
     </nav>
   );
