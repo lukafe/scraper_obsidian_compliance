@@ -34,8 +34,8 @@
         "issuance"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 60.0,
-      "data_confidence_tier": "medium"
+      "data_confidence_score": 73.0,
+      "data_confidence_tier": "high"
     },
     {
       "id": "AR",
@@ -134,7 +134,7 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 57.5,
+      "data_confidence_score": 69.1,
       "data_confidence_tier": "medium"
     },
     {
@@ -6550,7 +6550,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skyinsights_aml_kyt"
+      ],
       "n_inlinks": 2,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -18792,7 +18794,7 @@
       "source_authority": "primary",
       "confidence": 0.825,
       "status": "analyzed",
-      "regime": null,
+      "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2021-09-01",
       "urgencia_deadline_dias": -1726,
@@ -19358,7 +19360,7 @@
       "confidence": 0.82,
       "status": "analyzed",
       "regime": "registro",
-      "status_regulatorio": "vigente",
+      "status_regulatorio": "em_implementacao",
       "deadline_principal": "2026-05-04",
       "urgencia_deadline_dias": -20,
       "servicos_certik_aplicaveis": [],
@@ -19482,7 +19484,7 @@
       "source_authority": "primary",
       "confidence": 0.913,
       "status": "scraped",
-      "regime": null,
+      "regime": "registro",
       "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
@@ -19921,7 +19923,7 @@
       "source_authority": "primary",
       "confidence": 0.896,
       "status": "scraped",
-      "regime": "licenciamento",
+      "regime": "registro",
       "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
@@ -20135,7 +20137,7 @@
       "confidence": 0.833,
       "status": "scraped",
       "regime": null,
-      "status_regulatorio": null,
+      "status_regulatorio": "vigente",
       "deadline_principal": "2022-12-31",
       "urgencia_deadline_dias": -1240,
       "servicos_certik_aplicaveis": [],

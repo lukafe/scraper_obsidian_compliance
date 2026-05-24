@@ -26,3 +26,4 @@ vault/.obsidian/*
 vault/_export/*
 !vault/_export/ground_truth/
 !vault/_export/ground_truth/**
+logs/
