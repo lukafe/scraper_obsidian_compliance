@@ -60,12 +60,22 @@ def apply_llm_findings(note: Note, findings: dict[str, Any]) -> bool:
             return
         if allowed_set is not None and value not in allowed_set:
             return
-        # Don't overwrite manually-set values; only fill where empty/None.
         cur = extra.get(key)
-        if cur in (None, "", []):
+        is_empty = cur in (None, "", [])
+        if is_empty:
+            # Empty cell: fill with new value (+ evidence if available).
             extra[key] = value
             if key in evidence_set:
                 extra[f"{key}_evidence"] = evidence
+            changed = True
+            return
+        # Phase 1 upgrade: when re-analyzing, allow a NEW evidence-backed
+        # finding to overwrite an existing UNEVIDENCED value. Strict
+        # improvement — the value either stays the same (now anchored) or
+        # gets replaced by something the LLM can defend with a quote.
+        if key in evidence_set and evidence and not extra.get(f"{key}_evidence"):
+            extra[key] = value
+            extra[f"{key}_evidence"] = evidence
             changed = True
 
     assign(
@@ -89,15 +99,27 @@ def apply_llm_findings(note: Note, findings: dict[str, Any]) -> bool:
     assign("escopo", findings.get("escopo"))
     assign("gap_ou_ambiguidade", findings.get("gap_ou_ambiguidade"))
 
-    # Boolean triggers (atomic with their evidence quote)
+    # Boolean triggers (atomic with their evidence quote — same Phase 1
+    # promotion rule as the structured fields above).
     for trigger in bs.SERVICE_TRIGGERS:
         v = findings.get(trigger)
-        if v is True or v is False:
-            if extra.get(trigger) is None:
-                extra[trigger] = v
-                if trigger in evidence_set:
-                    extra[f"{trigger}_evidence"] = findings.get(f"{trigger}_evidence")
-                changed = True
+        if v is not True and v is not False:
+            continue
+        cur = extra.get(trigger)
+        new_evidence = findings.get(f"{trigger}_evidence")
+        if cur is None:
+            extra[trigger] = v
+            if trigger in evidence_set:
+                extra[f"{trigger}_evidence"] = new_evidence
+            changed = True
+        elif (
+            trigger in evidence_set
+            and new_evidence
+            and not extra.get(f"{trigger}_evidence")
+        ):
+            extra[trigger] = v
+            extra[f"{trigger}_evidence"] = new_evidence
+            changed = True
 
     # Derive services from triggers (always re-derive — cheap)
     derived = bs.derive_services_from_triggers(extra)

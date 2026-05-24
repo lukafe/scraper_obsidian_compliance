@@ -69,8 +69,20 @@ def run_country(
         and n.body and len(n.body.strip()) > 200
     ]
     if skip_if_enriched:
-        # Skip if escopo already filled (i.e., LLM has run before)
-        notes = [n for n in notes if not (n.extra.get("escopo"))]
+        # Skip notes that already carry verbatim evidence on every
+        # extracted Phase-1 field AND have an `escopo`. Anything else is
+        # a Phase-1 upgrade target — re-analyze so the new prompt can
+        # produce evidence quotes and the validators (Phase 3) can
+        # demote unsupported calls.
+        def _fully_grounded(extra: dict) -> bool:
+            if not extra.get("escopo"):
+                return False
+            for f in bs.EVIDENCE_FIELDS:
+                if extra.get(f) is not None and not extra.get(f"{f}_evidence"):
+                    return False
+            return True
+
+        notes = [n for n in notes if not _fully_grounded(n.extra)]
 
     log.info("country=%s scanned=%d enriched=%d need_llm=%d (workers=%d)",
              country, scanned, modified, len(notes), max_workers)
