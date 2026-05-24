@@ -58,19 +58,27 @@ export default function MethodologyPage() {
         <ul className="mt-3 text-sm text-zinc-300 space-y-1.5">
           <li>
             <span className="text-white font-medium">40% Urgency.</span> Days to the next
-            regulatory deadline (closer is higher; missing deadlines receive a neutral 20).
+            regulatory deadline. Past-due deadlines decay from 100 toward a 50 floor over
+            12 months (the sales window closes as the rule beds in). A missing deadline
+            scores 30 when the regime is known and 0 when it is unknown — silence with no
+            structural context is not a buying signal.
           </li>
           <li>
-            <span className="text-white font-medium">40% Service intensity.</span> Number of CertiK
-            services triggered (0 to 14).
+            <span className="text-white font-medium">40% Service intensity.</span> Number of
+            CertiK services triggered (0 to 14).
           </li>
           <li>
-            <span className="text-white font-medium">20% Market maturity.</span> Heuristic combining
-            analysed norms, distinct regulators, and the age of the oldest anchor.
+            <span className="text-white font-medium">20% Market maturity.</span> Now grounded
+            in the underlying text: a 0-to-6 count of the regulatory dimensions the
+            jurisdiction's norms actually cover (issuance, custody, market abuse, AML,
+            taxation, consumer protection). High maturity requires 5+ dimensions, medium
+            3-4, low 1-2. The previous 40-norms / 3-regulators / anchor-before-2020
+            heuristic has been removed.
           </li>
         </ul>
         <p className="mt-3 text-xs text-certik-muted">
-          Weights are tunable in <code>web/lib/scoring.ts</code>.
+          Weights are tunable in <code>web/lib/scoring.ts</code>; coverage detection is in
+          <code> src/coverage.py</code>.
         </p>
       </Card>
 

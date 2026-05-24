@@ -2,7 +2,12 @@ import { loadJurisdictions, loadNorms, loadGraph } from "@/lib/data";
 import { opportunityScore, urgencyColor, maturityColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { SERVICE_CATEGORIES, SERVICE_LABELS } from "@/lib/types";
+import {
+  SERVICE_CATEGORIES,
+  SERVICE_LABELS,
+  COVERAGE_DIMENSIONS,
+  COVERAGE_DIMENSION_LABELS,
+} from "@/lib/types";
 import { label } from "@/lib/labels";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -81,6 +86,7 @@ export default async function JurisdictionPage({ params }: Props) {
               {label.maturity(juris.maturidade_mercado)}
             </span>
           }
+          hint={`${juris.n_cobertura}/6 dimensions`}
         />
         <Kpi
           label="Next deadline"
@@ -88,6 +94,34 @@ export default async function JurisdictionPage({ params }: Props) {
           hint={juris.urgencia_deadline_dias !== null ? `${juris.urgencia_deadline_dias} days` : undefined}
         />
       </div>
+
+      <Card
+        title="Regulatory coverage"
+        subtitle="Which of the six core regulatory dimensions this jurisdiction's norms actually address. Coverage is detected from the source text — not a structural heuristic."
+      >
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {COVERAGE_DIMENSIONS.map((dim) => {
+            const covered = juris.cobertura_regulatoria.includes(dim);
+            return (
+              <div
+                key={dim}
+                className={`px-3 py-2 rounded border text-xs flex items-center justify-between ${
+                  covered
+                    ? "border-emerald-600/40 bg-emerald-900/15"
+                    : "border-certik-border bg-certik-panel"
+                }`}
+              >
+                <span className={covered ? "text-white" : "text-certik-muted"}>
+                  {COVERAGE_DIMENSION_LABELS[dim]}
+                </span>
+                <span className={covered ? "text-emerald-400 text-[10px] uppercase tracking-wide" : "text-certik-muted text-[10px]"}>
+                  {covered ? "Covered" : "Not detected"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
 
       {juris.reguladores_secundarios.length > 0 && (
         <Card title="Regulators">

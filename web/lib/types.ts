@@ -21,6 +21,11 @@ export interface Jurisdiction {
   exige_certificacao_independente: boolean | null;
   servicos: string[];
   n_servicos: number;
+  /** Phase 4 — set of regulatory dimensions actually addressed by this
+   *  jurisdiction's underlying norms (derived from text, not from a
+   *  structural heuristic). See `src/coverage.py`. */
+  cobertura_regulatoria: string[];
+  n_cobertura: number;
   n_normas_total: number;
   n_normas_analyzed: number;
   n_quarantine: number;
@@ -30,6 +35,24 @@ export interface Jurisdiction {
   confianca_dados: string | null;
   ultima_revisao: string | null;
 }
+
+export const COVERAGE_DIMENSION_LABELS: Record<string, string> = {
+  issuance: "Token issuance",
+  custody: "Custody",
+  market_abuse: "Market abuse",
+  aml: "AML / KYT",
+  taxation: "Taxation",
+  consumer_protection: "Consumer protection",
+};
+
+export const COVERAGE_DIMENSIONS = [
+  "issuance",
+  "custody",
+  "market_abuse",
+  "aml",
+  "taxation",
+  "consumer_protection",
+] as const;
 
 export interface Norm {
   id: string;

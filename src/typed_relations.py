@@ -23,6 +23,8 @@ import logging
 import re
 from typing import Optional
 
+import re as _re
+
 from . import business_schema as bs
 from .vault import Note, Vault, wikilink
 
@@ -60,6 +62,35 @@ DERIVADO_DE_ANCHORS = {
     GDPR_ID: {"DE", "FR", "IT", "LT", "EU"},
 }
 
+# Phase 4 — transposition verbs across the languages we scrape. If any of
+# these appear in an evidence quote anchored to the same norm, derivado_de
+# is created irrespective of the hardcoded country eligibility (the text
+# itself says "this rule transposes X"). When no evidence is available the
+# original country allowlist applies as a fallback.
+_TRANSPOSITION_RE = _re.compile(
+    r"\btransposes?\b|\btransposi"      # transposes / transposition / transposição
+    r"|\bimplement(s|ing|ation)?\b"
+    r"|\bimplementa"                     # implementa / implementação
+    r"|\btranspone\b|\btransposici"
+    r"|\bumsetz"                         # umsetzt / Umsetzung
+    r"|\bumgesetzt\b",
+    _re.IGNORECASE,
+)
+
+
+def _has_transposition_evidence(extra: dict) -> bool:
+    """True if any evidence quote in the note's frontmatter contains
+    transposition language. Used to bypass the hardcoded country list when
+    the source text itself attests transposition.
+    """
+    for k, v in extra.items():
+        if not k.endswith("_evidence"):
+            continue
+        if isinstance(v, str) and _TRANSPOSITION_RE.search(v):
+            return True
+    return False
+
+
 # Soft inspiration (non-binding influence — works across all countries).
 INSPIRADO_EM_ANCHORS = {
     FATF_ID: None,            # FATF inspires every jurisdiction
@@ -82,22 +113,34 @@ def infer_typed_relations(note: Note, vault: Vault) -> list[tuple[str, str, str]
     extra = note.extra
     refs_str = " ".join(note.references)
 
-    # 1) derivado_de: country-level norms that legally transpose a supranational
-    #    anchor (MiCA/TFR/DORA/Prospectus/DAC8/GDPR within EU/EEA).
+    # 1) derivado_de: country-level norms that legally transpose a
+    #    supranational anchor. Phase 4 promotes any source whose evidence
+    #    quotes contain transposition language to derivado_de regardless of
+    #    the country allowlist (the text itself attests the relation). The
+    #    legacy country eligibility list is kept as a fallback for notes
+    #    that have no evidence yet — it disappears naturally as the LLM
+    #    pass populates Phase 1 evidence quotes.
+    has_text_attestation = _has_transposition_evidence(extra)
     for anchor, eligible in DERIVADO_DE_ANCHORS.items():
-        if anchor in refs_str and (eligible is None or note.country in eligible):
-            label_map = {
-                MICA_ID: "MiCA (UE 2023/1114)",
-                TFR_ID: "TFR (UE 2023/1113)",
-                DORA_ID: "DORA (UE 2022/2554)",
-                PROSPECTUS_ID: "EU Prospectus Regulation 2017/1129",
-                DAC8_ID: "DAC8 (UE 2023/2226)",
-                GDPR_ID: "GDPR (UE 2016/679)",
-            }
-            out.append((
-                "derivado_de", anchor,
-                f"transposição/implementação nacional de {label_map.get(anchor, anchor)}",
-            ))
+        if anchor not in refs_str:
+            continue
+        if not has_text_attestation:
+            if eligible is not None and note.country not in eligible:
+                continue
+        label_map = {
+            MICA_ID: "MiCA (EU 2023/1114)",
+            TFR_ID: "TFR (EU 2023/1113)",
+            DORA_ID: "DORA (EU 2022/2554)",
+            PROSPECTUS_ID: "EU Prospectus Regulation 2017/1129",
+            DAC8_ID: "DAC8 (EU 2023/2226)",
+            GDPR_ID: "GDPR (EU 2016/679)",
+        }
+        justification = (
+            f"transposition attested in evidence quote of {label_map.get(anchor, anchor)}"
+            if has_text_attestation
+            else f"national transposition of {label_map.get(anchor, anchor)}"
+        )
+        out.append(("derivado_de", anchor, justification))
 
     # 2) inspirado_em: non-binding influence (FATF for all; MiCA/Howey for non-EU
     #    when explicitly cited).

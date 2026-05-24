@@ -89,6 +89,8 @@ if (jurRows) {
     exige_certificacao_independente: bool(r.exige_certificacao_independente),
     servicos: listFromPipe(r.servicos_certik_aplicaveis_csv),
     n_servicos: num(r.n_servicos) ?? 0,
+    cobertura_regulatoria: listFromPipe(r.cobertura_regulatoria_csv),
+    n_cobertura: num(r.n_cobertura) ?? 0,
     n_normas_total: num(r.n_normas_total) ?? 0,
     n_normas_analyzed: num(r.n_normas_analyzed) ?? 0,
     n_quarantine: num(r.n_quarantine) ?? 0,

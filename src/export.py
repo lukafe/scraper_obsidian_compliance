@@ -97,6 +97,7 @@ JURISDICAO_COLUMNS = [
     "iso", "pais", "regiao",
     "regulador_principal", "reguladores_secundarios_csv",
     "regime", "status_regulatorio", "maturidade_mercado",
+    "cobertura_regulatoria_csv", "n_cobertura",
     "deadline_principal", "tipo_deadline", "urgencia_deadline_dias",
     "exige_auditoria_tecnica", "exige_proof_of_reserves",
     "exige_pentest", "exige_kyt_aml", "exige_seguranca_custodia",
@@ -124,6 +125,7 @@ def export_jurisdicoes_csv(vault: Vault, path: Path,
             competidores = fm.get("competidores_ativos") or []
             secundarios = fm.get("reguladores_secundarios") or []
             frameworks = fm.get("frameworks_aplicaveis") or []
+            cobertura = fm.get("cobertura_regulatoria") or []
             row = {
                 "iso": iso,
                 "pais": fm.get("pais"),
@@ -133,6 +135,8 @@ def export_jurisdicoes_csv(vault: Vault, path: Path,
                 "regime": fm.get("regime"),
                 "status_regulatorio": fm.get("status_regulatorio"),
                 "maturidade_mercado": fm.get("maturidade_mercado"),
+                "cobertura_regulatoria_csv": " | ".join(cobertura),
+                "n_cobertura": len(cobertura),
                 "deadline_principal": fm.get("deadline_principal"),
                 "tipo_deadline": fm.get("tipo_deadline"),
                 "urgencia_deadline_dias": _days_until(fm.get("deadline_principal")),
@@ -285,6 +289,7 @@ def export_grafo_json(vault: Vault, path: Path, inlinks: Counter) -> tuple[int, 
             "competidores_ativos": fm.get("competidores_ativos"),
             "forca_relacionamento_certik": fm.get("forca_relacionamento_certik"),
             "maturidade_mercado": fm.get("maturidade_mercado"),
+            "cobertura_regulatoria": fm.get("cobertura_regulatoria"),
             "confianca_dados": fm.get("confianca_dados"),
         }
         nodes.append(node)

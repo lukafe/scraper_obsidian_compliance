@@ -29,6 +29,7 @@ from typing import Optional
 import frontmatter
 
 from . import business_schema as bs
+from . import coverage as cov
 from .vault import Note, Vault, wikilink
 
 log = logging.getLogger(__name__)
@@ -43,24 +44,12 @@ def _overview_path(vault: Vault, country: str) -> Path:
     return vault.root / _BUSINESS_DIR / _JUR_DIR / f"{country.upper()}.md"
 
 
-def _infer_maturidade_mercado(
-    n_total: int, n_analyzed: int, n_distinct_regulators: int,
-    earliest_anchor_year: Optional[int],
-) -> str:
-    """Heuristic — no LLM call.
-
-    alta  : >=40 norms analyzed AND >=3 distinct regulators AND anchor before 2020
-    media : >=15 norms analyzed AND >=2 regulators (or anchor 2020-2023)
-    baixa : everything else (newly-regulated or sparse coverage)
+def _infer_maturidade_mercado(covered: set[str]) -> str:
+    """Phase 4 — text-grounded maturity. Maps the set of regulatory
+    dimensions actually covered by this jurisdiction's norms to the
+    legacy `MATURIDADE_VALUES` vocabulary. See `coverage.maturity_from_coverage`.
     """
-    has_old_anchor = earliest_anchor_year is not None and earliest_anchor_year < 2020
-    has_mid_anchor = earliest_anchor_year is not None and earliest_anchor_year <= 2023
-
-    if n_analyzed >= 40 and n_distinct_regulators >= 3 and has_old_anchor:
-        return "alta"
-    if n_analyzed >= 15 and (n_distinct_regulators >= 2 or has_mid_anchor):
-        return "media"
-    return "baixa"
+    return cov.maturity_from_coverage(covered)
 
 
 def _aggregate_country(vault: Vault, country: str) -> dict:
@@ -122,8 +111,7 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
     reguladores_secundarios = [r for r, _ in regulators_seen.most_common(6)[1:]
                                if r != regulador_principal]
 
-    # Earliest anchor year (oldest analyzed-status norm) — heuristic for
-    # market maturity.
+    # Earliest anchor year (oldest analyzed-status norm) — kept for context.
     earliest_anchor_year = None
     for n in norms:
         if n.status != "analyzed":
@@ -136,9 +124,9 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
             except Exception:
                 pass
 
-    maturidade = _infer_maturidade_mercado(
-        n_total, n_analyzed, len(regulators_seen), earliest_anchor_year,
-    )
+    # Phase 4 — text-grounded coverage and maturity.
+    covered = cov.aggregate_coverage(n.extra for n in norms)
+    maturidade = _infer_maturidade_mercado(covered)
 
     return {
         "n_total": n_total,
@@ -152,6 +140,7 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
         "top_frameworks": top_frameworks,
         "maturidade_inferred": maturidade,
         "earliest_anchor_year": earliest_anchor_year,
+        "cobertura": sorted(covered),
     }
 
 
@@ -191,9 +180,12 @@ def upsert_overview(vault: Vault, country: str) -> Path:
     ensure("fontes", [])
     ensure("competidores_ativos", [])
     ensure("tipo_deadline", None)
-    # maturidade is heuristically inferred; overwrite only if "desconhecido"
-    if fm.get("maturidade_mercado") in (None, "", "desconhecido"):
-        fm["maturidade_mercado"] = agg["maturidade_inferred"]
+    # Phase 4 — maturity is now text-grounded; recompute every run so
+    # changes to the underlying norms (or to the coverage detector) are
+    # reflected immediately. The earlier "preserve manual edits" carve-out
+    # is dropped — the field is now algorithmic, not editorial.
+    fm["maturidade_mercado"] = agg["maturidade_inferred"]
+    fm["cobertura_regulatoria"] = agg["cobertura"]
 
     # Always refresh aggregates (they're computed, not human-edited).
     fm["regulador_principal"] = agg["regulador_principal"]
