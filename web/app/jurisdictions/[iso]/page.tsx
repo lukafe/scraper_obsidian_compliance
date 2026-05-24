@@ -196,13 +196,29 @@ export default async function JurisdictionPage({ params }: Props) {
             const evidenceEntries = Object.entries(n.evidence ?? {}).filter(
               ([, quote]) => !!quote,
             );
+            const populated = countPopulated(n as unknown as Record<string, unknown>);
+            const anchored = evidenceEntries.length;
             return (
               <article key={n.id} className="border-b border-certik-border/30 pb-3 last:border-0">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-semibold text-white">{n.title}</div>
-                    <div className="text-xs text-certik-muted mt-0.5">
-                      {n.type} · {n.regulator ?? "—"} · {n.date ?? "—"}
+                    <div className="text-xs text-certik-muted mt-0.5 flex flex-wrap gap-x-2">
+                      <span>{n.type} · {n.regulator ?? "—"} · {n.date ?? "—"}</span>
+                      {populated > 0 && (
+                        <span
+                          className={
+                            anchored === populated
+                              ? "text-emerald-400"
+                              : anchored > 0
+                                ? "text-amber-400"
+                                : "text-zinc-500"
+                          }
+                          title="Share of non-null structured fields backed by a verbatim source quote (Phase 1)."
+                        >
+                          · {anchored}/{populated} anchored
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="flex gap-1 shrink-0">
@@ -294,6 +310,27 @@ export default async function JurisdictionPage({ params }: Props) {
       </Card>
     </div>
   );
+}
+
+const STRUCTURED_FIELDS = [
+  "regime",
+  "status_regulatorio",
+  "deadline_principal",
+  "tipo_deadline",
+  "exige_auditoria_tecnica",
+  "exige_proof_of_reserves",
+  "exige_pentest",
+  "exige_kyt_aml",
+  "exige_seguranca_custodia",
+  "exige_formal_verification",
+  "exige_certificacao_independente",
+] as const;
+
+function countPopulated(n: Record<string, unknown>): number {
+  return STRUCTURED_FIELDS.reduce((acc, f) => {
+    const v = n[f];
+    return acc + (v !== null && v !== undefined && v !== "" ? 1 : 0);
+  }, 0);
 }
 
 const EVIDENCE_FIELD_LABELS: Record<string, string> = {
