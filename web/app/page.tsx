@@ -4,6 +4,7 @@ import { rankJurisdictions, maturityColor, urgencyColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
 import { OpportunityBubble } from "@/components/charts/opportunity-bubble";
 import { ConfidenceBadge } from "@/components/ui/confidence-badge";
+import { ScoreChip } from "@/components/ui/score-chip";
 import { SERVICE_LABELS, SERVICE_CATEGORIES } from "@/lib/types";
 import { label } from "@/lib/labels";
 
@@ -45,7 +46,7 @@ export default function HomePage() {
           hint={upcoming30 > 0 ? "Immediate sales window" : undefined}
         />
         <Kpi label="Deadlines within 180 days" value={upcoming180} />
-        <Kpi label="High-maturity markets" value={matureMarkets} hint="Heuristic — see methodology" />
+        <Kpi label="High-maturity markets" value={matureMarkets} hint="5+ of 6 regulatory dimensions covered" />
       </div>
 
       <Card
@@ -105,15 +106,7 @@ export default function HomePage() {
                     </span>
                   </td>
                   <td className="py-2 px-3 text-right">
-                    <span
-                      className="px-2 py-0.5 rounded font-mono text-xs"
-                      style={{
-                        background: `rgba(232,60,50,${j.score / 100})`,
-                        color: j.score > 60 ? "white" : "#FCC",
-                      }}
-                    >
-                      {j.score.toFixed(1)}
-                    </span>
+                    <ScoreChip score={j.score} />
                   </td>
                   <td className="py-2 px-3">
                     <ConfidenceBadge confidence={j.data_confidence} />
@@ -141,14 +134,25 @@ export default function HomePage() {
                     <Link
                       key={s}
                       href={`/services?focus=${s}`}
-                      className="grid grid-cols-12 items-center gap-2 text-xs hover:bg-certik-border/20 px-2 py-1 rounded transition-colors"
+                      className="group grid grid-cols-12 items-center gap-2 text-xs hover:bg-certik-border/20 px-2 py-1.5 rounded transition-colors"
                     >
-                      <span className="col-span-4 text-zinc-300">{SERVICE_LABELS[s] ?? s}</span>
+                      <span className="col-span-4 text-zinc-300 group-hover:text-white">
+                        {SERVICE_LABELS[s] ?? s}
+                      </span>
                       <div className="col-span-6 bg-certik-border/30 rounded h-2 overflow-hidden">
-                        <div className="h-full bg-certik-red" style={{ width: `${pct}%` }} />
+                        <div
+                          className="h-full bg-certik-red transition-all"
+                          style={{ width: `${pct}%` }}
+                        />
                       </div>
-                      <span className="col-span-2 text-right text-certik-muted font-mono">
+                      <span className="col-span-2 text-right text-certik-muted font-mono flex items-center justify-end gap-1">
                         {count}/{juris.length}
+                        <span
+                          aria-hidden
+                          className="text-certik-muted opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          ›
+                        </span>
                       </span>
                     </Link>
                   );

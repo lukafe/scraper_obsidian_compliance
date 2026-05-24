@@ -9,6 +9,7 @@ import {
   COVERAGE_DIMENSION_LABELS,
 } from "@/lib/types";
 import { ConfidenceBadge } from "@/components/ui/confidence-badge";
+import { ScoreChip } from "@/components/ui/score-chip";
 import { label } from "@/lib/labels";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -50,30 +51,29 @@ export default async function JurisdictionPage({ params }: Props) {
 
   return (
     <div className="space-y-6">
-      <header className="flex items-baseline justify-between flex-wrap gap-2">
-        <div>
-          <Link href="/jurisdictions" className="text-xs text-certik-muted hover:text-certik-red">
-            ← all jurisdictions
-          </Link>
-          <h1 className="text-3xl font-bold text-white">
-            {juris.pais} <span className="text-certik-muted text-2xl">({iso})</span>
-          </h1>
-          <p className="text-certik-muted mt-0.5">
-            {juris.regiao} · Lead regulator: <span className="text-white">{juris.regulador_principal ?? "—"}</span>
-          </p>
-        </div>
-        <div className="text-right">
-          <div className="text-xs text-certik-muted">Opportunity Score</div>
-          <div
-            className="px-4 py-2 rounded font-mono text-xl mt-1"
-            style={{
-              background: `rgba(232,60,50,${score / 100})`,
-              color: score > 60 ? "white" : "#FCC",
-            }}
-          >
-            {score.toFixed(1)}
+      <header className="border-b border-certik-border pb-6">
+        <Link
+          href="/jurisdictions"
+          className="text-xs text-certik-muted hover:text-certik-red inline-block mb-2"
+        >
+          ← all jurisdictions
+        </Link>
+        <div className="flex items-start justify-between gap-6 flex-wrap">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-semibold text-white tracking-tight">
+              {juris.pais}{" "}
+              <span className="text-certik-muted text-2xl font-normal">({iso})</span>
+            </h1>
+            <p className="text-certik-muted mt-2">
+              {juris.regiao} · Lead regulator:{" "}
+              <span className="text-white">{juris.regulador_principal ?? "—"}</span>
+            </p>
           </div>
-          <div className="mt-2">
+          <div className="flex flex-col items-end gap-2 shrink-0">
+            <div className="text-xs text-certik-muted uppercase tracking-wide">
+              Opportunity score
+            </div>
+            <ScoreChip score={score} size="lg" />
             <ConfidenceBadge confidence={juris.data_confidence} />
           </div>
         </div>
@@ -128,8 +128,8 @@ export default async function JurisdictionPage({ params }: Props) {
       </Card>
 
       <Card
-        title="Data confidence"
-        subtitle="How much the underlying data supports the opportunity score. Orthogonal to the score itself."
+        title="Data confidence — four components"
+        subtitle="Breakdown of the confidence badge shown above. Each component is independent and they sum (weighted) to the overall score."
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
           {([
@@ -189,9 +189,10 @@ export default async function JurisdictionPage({ params }: Props) {
 
       <Card
         title="Underlying norms"
-        subtitle={`${norms.length} norms with regime, scope, gaps and verbatim evidence quotes.`}
+        subtitle={`${norms.length} norms with regime, scope, gaps and verbatim evidence quotes. Scroll for more.`}
       >
-        <div className="space-y-3 max-h-[700px] overflow-y-auto">
+        <div className="relative">
+          <div className="space-y-3 max-h-[700px] overflow-y-auto pb-6">
           {norms.map((n) => {
             const evidenceEntries = Object.entries(n.evidence ?? {}).filter(
               ([, quote]) => !!quote,
@@ -283,6 +284,13 @@ export default async function JurisdictionPage({ params }: Props) {
               </article>
             );
           })}
+          </div>
+          {norms.length > 5 && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-certik-panel to-transparent rounded-b-lg"
+            />
+          )}
         </div>
       </Card>
 

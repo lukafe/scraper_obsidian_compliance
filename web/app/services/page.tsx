@@ -17,10 +17,11 @@ export default async function ServicesPage({ searchParams }: Props) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-3xl font-bold text-white">By CertiK Service</h1>
-        <p className="text-certik-muted mt-1">
-          For each security service, see which jurisdictions trigger it and how attractive each market is right now.
+      <header className="border-b border-certik-border pb-6">
+        <h1 className="text-3xl font-semibold text-white tracking-tight">By CertiK service</h1>
+        <p className="text-certik-muted mt-2 max-w-3xl leading-relaxed">
+          For each security service, see which jurisdictions trigger it and how attractive each
+          market is right now.
         </p>
       </header>
 

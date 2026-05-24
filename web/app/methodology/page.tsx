@@ -142,15 +142,15 @@ export default function MethodologyPage() {
           current extraction (ready for human review-and-correct rather than write-from-scratch).
         </p>
         <p className="text-sm text-amber-300/90 leading-relaxed mt-3">
-          Current measurement on the 8-row starter pack: support-weighted F1 = 0.88. The
-          model excels on
-          <code> exige_certificacao_independente</code>,
-          <code> escopo</code>, and free-form gap detection (F1 = 1.00); it still trails on
-          <code> exige_seguranca_custodia</code> (F1 = 0.57 — over-claims custody
-          requirements on stablecoin / DORA-style norms without body evidence) and
-          <code> exige_pentest</code> (F1 = 0.67 — caught DE-DORA's TLPT requirement, still
-          misses AE-PTSR's penetration-testing clause). These remain the top calibration
-          targets.
+          Current measurement on the 13-row starter pack: support-weighted F1 = 0.85. The
+          model is perfect on <code>exige_certificacao_independente</code> and
+          <code> escopo</code> (F1 = 1.00) and strong on regime detection (F1 = 0.91); it
+          has a clear bias toward TRUE on the trigger booleans where the source text is
+          ambiguous — <code>exige_seguranca_custodia</code> (F1 = 0.36) and
+          <code> exige_kyt_aml</code> (F1 = 0.50) over-claim 6-7 times across the gold
+          rows. Status defaults to "vigente" (F1 = 0.56). These over-claim patterns are
+          exactly what Phase 1 evidence quotes are designed to strip out — the next
+          analyzer pass will demote any TRUE that the LLM cannot quote.
         </p>
       </Card>
 
