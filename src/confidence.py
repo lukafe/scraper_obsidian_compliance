@@ -45,6 +45,8 @@ PRIMARY_DOMAINS: tuple[str, ...] = (
     "bankofcanada.ca", "securities-administrators.ca", "ciro.ca",
     "osc.ca", "bcsc.bc.ca", "lautorite.qc.ca", "asc.ca",
     "gc.ca",  # generic Canadian federal
+    # Bermuda
+    "bermudalaws.bm", "bma.bm", "fia.bm", "gov.bm", ".bm",
     # Singapore
     "mas.gov.sg", "sso.agc.gov.sg", "supremecourt.gov.sg",
     # Japan

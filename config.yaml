@@ -13,15 +13,17 @@ countries:
   - AE    # Phase 7 — United Arab Emirates ✓
   - US    # Phase 8 — United States ✓
   - HK    # Phase 9 — Hong Kong ✓
-  - JP    # Phase 10 — Japan
-  - MX    # Phase 11 — Mexico
+  - JP    # Phase 10 — Japan ✓
+  - KR    # Phase 11 — South Korea
+  - MX    # Phase 12 — Mexico
   - NG    # Phase 12 — Nigeria
   - LT    # Phase 13 — Lithuania
   - AR    # Phase 14 — Argentina
   - CH    # Phase 15 — Switzerland
   - ZA    # Phase 16 — South Africa
   - UY    # Phase 17 — Uruguay
-  - CA    # Phase 18 — Canada
+  - CA    # Phase 18 — Canada ✓
+  - BM    # Phase 19 — Bermuda
   # --- not yet active ---
   # - US    # United States
   # - SG    # Singapore
@@ -1663,6 +1665,106 @@ force_include:
       date: "2026-04-01"
       short_label: "JPFY2026FLAT20"
 
+  KR:
+    # ==================================================================
+    # Aligned with the user's South Korea Crypto Regulatory Matrix.
+    # URL strategy: elaw.klri.re.kr (KLRI English translations) has
+    # inconsistent IDs — most matrix IDs don't match real laws. Use
+    # law.go.kr Korean source where stable; KoFIU + BOK + FSC where
+    # available with browser UA. Many entries left for semantic resolver.
+    # ==================================================================
+
+    # ---------- Layer 1: VAUPA — User Protection ----------
+    - title_hint: "South Korea Virtual Asset User Protection Act (가상자산 이용자 보호 등에 관한 법률 / VAUPA) — Act No. 19563 of 2023-07-18, in force 2024-07-19; Phase-1 user-protection landmark; defines 'virtual asset' (excludes CBDC); requires VASPs to segregate client assets (~80%+ in cold storage), insurance/reserve against hacking and IT failures, deposit client funds at a bank, prohibits unfair trading practices (market manipulation, insider trading, fraudulent orders); FSC supervision and 24h monitoring of abnormal transactions"
+      title_original: "가상자산 이용자 보호 등에 관한 법률"
+      type: statute
+      regulator: "Korean National Assembly / FSC"
+      date: "2024-07-19"
+      short_label: "VAUPA"
+
+    - title_hint: "South Korea VAUPA Enforcement Decree (시행령) — in force 2024-07-19; details 'abnormal transactions' (extreme price/volume volatility thresholds), cold-storage percentages, insurance/reserve requirements, sanctions procedures"
+      title_original: "가상자산 이용자 보호 등에 관한 법률 시행령"
+      type: regulation
+      regulator: "FSC"
+      date: "2024-07-19"
+      short_label: "VAUPADECREE"
+
+    # ---------- Layer 2: 특금법 (FTRA) — AML + VASP registration ----------
+    - title_hint: "South Korea Act on Reporting and Using Specified Financial Transaction Information (특정금융정보법 / 특금법 / FTRA) — amended 2020-03-24, in force 2021-03-25; brought VASPs under AML/CFT regime; mandatory KoFIU registration (report), real-name verified bank account (via bank partnership), ISMS certification (KISA), KYC/CDD, 15-year record-keeping, STR reporting; effectively LEGALIZED crypto in 2021 and consolidated the market (only exchanges with bank partnerships survived)"
+      title_original: "특정 금융거래정보의 보고 및 이용 등에 관한 법률"
+      type: statute
+      regulator: "Korean National Assembly / FSC / KoFIU"
+      date: "2021-03-25"
+      short_label: "FTRA"
+
+    - title_hint: "South Korea Travel Rule (in force 2022-03-25) — mandates transmission of originator/beneficiary data for transfers from KRW 1 million; enforced under FTRA"
+      type: regulation
+      regulator: "FSC / KoFIU"
+      date: "2022-03-25"
+      short_label: "KRTRAVELRULE"
+
+    - title_hint: "South Korea ISMS Certification (Information Security Management System) — MANDATORY certification by KISA (Korea Internet & Security Agency) as a condition for VASP registration; covers IT security management, network controls, incident response"
+      title_original: "정보보호관리체계 인증 (ISMS)"
+      url_hint: "https://www.kisa.or.kr/EN/index.aspx"
+      type: regulation
+      regulator: "KISA"
+      short_label: "ISMS"
+
+    - title_hint: "KoFIU — Korea Financial Intelligence Unit (under FSC) — FIU receiving and analysing STRs; administers VASP registration"
+      url_hint: "https://www.kofiu.go.kr/eng"
+      type: guidance
+      regulator: "KoFIU / FSC"
+      short_label: "KOFIU"
+
+    # ---------- Layer 3: Phase 2 — Digital Asset Basic Act + Stablecoins ----------
+    - title_hint: "South Korea Digital Asset Basic Act (디지털자산기본법 / Phase-2 framework, BILL — under legislative discussion) — would create unified regime for stablecoin issuance (licensing, reserves, protections), foreign VASPs, cross-border activities, token issuance/disclosure, DeFi; expands FSC investigative powers including over foreign operators serving Koreans; introduced in 2025, delayed"
+      title_original: "디지털자산기본법 (안)"
+      type: statute
+      regulator: "Korean National Assembly / FSC"
+      date: "2026-01-01"
+      short_label: "DABA"
+
+    - title_hint: "South Korea Won-pegged stablecoin framework — strong push for KRW-backed stablecoin; 8 major banks + KakaoPay plan to issue by 2026; regulatory framework (reserves, licensing) STALLED by jurisdictional dispute between FSC and Bank of Korea (BOK); debate over interest-bearing stablecoins"
+      type: guidance
+      regulator: "FSC / BOK"
+      date: "2026-01-01"
+      short_label: "KRWSTABLECOIN"
+
+    # ---------- Layer 4: Capital Markets + ICO ban ----------
+    - title_hint: "South Korea Financial Investment Services and Capital Markets Act (자본시장법 / FISCMA) — when a token is a security (security token), this Act applies (registration, prospectus, intermediation), under FSC/FSS; Korea is advancing the LEGALIZATION of STOs (security-token offerings) under this Act, distinguishing tokenized securities from non-security virtual assets (dual-track regime)"
+      title_original: "자본시장과 금융투자업에 관한 법률"
+      type: statute
+      regulator: "Korean National Assembly / FSC / FSS"
+      date: "2009-02-04"
+      short_label: "CAPMKTS"
+
+    - title_hint: "South Korea 2017 ICO ban — Initial Coin Offerings have been PROHIBITED since September 2017 by the FSC; review pending as part of Phase 2"
+      type: guidance
+      regulator: "FSC"
+      date: "2017-09-29"
+      short_label: "ICOBAN2017"
+
+    # ---------- Layer 5: Taxation ----------
+    - title_hint: "South Korea crypto income tax — legislated but POSTPONED — under the Income Tax Act, virtual-asset gains classified as 'other income' (other income): 22% (20% national + 2% local) on annual gains above KRW 2.5 million; legislated 2020, postponed THREE times (2022 → 2023 → 2025 → 2027-01-01); revocation bill discussed 2025/2026; risk of 4th postponement; IN PRACTICE, crypto is NOT YET taxed (as of 2026)"
+      title_original: "가상자산 양도소득 과세 (소득세법)"
+      url_hint: "https://www.nts.go.kr/english/"
+      type: statute
+      regulator: "Korean National Assembly / NTS"
+      date: "2027-01-01"
+      short_label: "KRCRYPTOTAX"
+
+    - title_hint: "NTS — Korean National Tax Service — operational implementation in progress with Upbit/Dunamu, Bithumb, Coinone, Korbit, Gopax; should publish guidance by 2026 for eventual 2027 entry into force"
+      url_hint: "https://www.nts.go.kr/english/"
+      type: guidance
+      regulator: "NTS"
+      short_label: "NTS"
+
+    - title_hint: "South Korea CARF adoption — Korea joined the OECD CARF multilateral agreement (~48 countries); automatic data exchange from 2027 (domestic exchanges report; data on Koreans at foreign exchanges flows back to NTS)"
+      type: regulation
+      regulator: "NTS / MOFE"
+      date: "2027-01-01"
+      short_label: "KRCARF"
+
   NG:
     # ==================================================================
     # Aligned with the user's Nigeria Crypto Regulatory Matrix.
@@ -2508,3 +2610,89 @@ force_include:
       regulator: "CRA"
       date: "2026-01-01"
       short_label: "CACARF"
+
+  BM:
+    # ==================================================================
+    # Aligned with the user's Bermuda Crypto Regulatory Matrix.
+    # World-pioneer dedicated digital-asset law (DABA 2018), single
+    # integrated regulator (BMA). Zero direct tax except 15% CIT for
+    # MNEs €750M+ (CITA 2023).
+    # URL strategy: bermudalaws.bm has a non-standard CGI URL pattern
+    # (direct PDFs 404); bma.bm digital-assets page works directly;
+    # fia.bm times out (use Wayback). Specific BMA Rules left for resolver.
+    # ==================================================================
+
+    - title_hint: "Bermuda Digital Asset Business Act 2018 (DABA) — world-pioneer dedicated digital-asset law; licenses Digital Asset Business (DAB) under the BMA; covers issuance, sale, redemption, exchange, custodial wallets, payment services with digital assets, derivatives, benchmarks; 'mind and management' in Bermuda; penalties up to USD 250k + 5 years for unlicensed operation, USD 10M for breaches; Classes T (test/sandbox), M (modified), F (full)"
+      title_original: "Digital Asset Business Act 2018"
+      type: statute
+      regulator: "Parliament of Bermuda"
+      date: "2018-07-10"
+      short_label: "DABA"
+
+    - title_hint: "BMA Digital Assets Supervision and Regulation landing — BMA hub for DABA classes (T/M/F), Codes of Practice, Rules including Custody of Client Assets Rules 2025"
+      url_hint: "https://www.bma.bm/digital-assets-supervision-regulation"
+      type: guidance
+      regulator: "Bermuda Monetary Authority (BMA)"
+      short_label: "BMADIGITAL"
+
+    - title_hint: "BMA Digital Asset Business (Custody of Client Assets) Rules 2025 — prescriptive Code of Practice on client-asset protection, segregation, governance"
+      type: regulation
+      regulator: "BMA"
+      date: "2025-01-01"
+      short_label: "BMACUSTODY2025"
+
+    - title_hint: "BMA Code of Practice on Cyber Risk for Digital Asset Businesses — cybersecurity and operational resilience standards for DAB licensees"
+      type: regulation
+      regulator: "BMA"
+      short_label: "BMACYBERCODE"
+
+    - title_hint: "BMA Single Currency Pegged Stablecoin (SCPS) Guidance 2024 — prudential standards for SCPS issuers licensed under DABA: 100% reserve backing, quality/segregation, redemption, governance and risk management"
+      type: guidance
+      regulator: "BMA"
+      date: "2024-09-18"
+      short_label: "BMASCPS"
+
+    - title_hint: "Bermuda Proposed Payment Services Act (PSA) 2025 consultation — replaces Money Service Business Act 2016; creates tiered risk-based regime: Digital Facility Providers (DFP), Payment-Handling Providers (PHP), Payment Technology Providers (PTP); stablecoin issuers may opt-in to PSA or DABA"
+      type: regulation
+      regulator: "BMA"
+      date: "2025-08-29"
+      short_label: "BMPSA2025"
+
+    - title_hint: "Bermuda Investment Business Act 2003 (IBA) — when a token is an 'investment'/security, this Act applies (intermediation, management, advisory) under the BMA; dual DABA + IBA licence is common"
+      title_original: "Investment Business Act 2003"
+      type: statute
+      regulator: "Parliament of Bermuda"
+      date: "2003-12-31"
+      short_label: "IBA2003"
+
+    - title_hint: "Bermuda Proceeds of Crime Act 1997 (POCA) — base AML/CFT law; underpins suspicious-activity reporting to the FIA"
+      title_original: "Proceeds of Crime Act 1997"
+      type: statute
+      regulator: "Parliament of Bermuda"
+      date: "1997-01-01"
+      short_label: "BMPOCA"
+
+    - title_hint: "Bermuda Anti-Money Laundering and Anti-Terrorist Financing Regulations 2008 — AML/ATF regulations applicable to DABs supervised by the BMA: CDD/KYC, monitoring, Travel Rule, recordkeeping, suspicious-transaction reports"
+      type: regulation
+      regulator: "Government of Bermuda"
+      date: "2008-01-01"
+      short_label: "BMAMLATF2008"
+
+    - title_hint: "Bermuda Financial Intelligence Agency (FIA) — Bermuda FIU; receives and analyzes Suspicious Activity Reports (SARs); part of Caribbean FATF (CFATF)"
+      url_hint: "https://web.archive.org/web/2024/https://www.fia.bm/"
+      type: guidance
+      regulator: "FIA"
+      short_label: "BMFIA"
+
+    - title_hint: "Bermuda Corporate Income Tax Act 2023 (CITA) — assented 2023-12-27, effective 2025-01-01 — introduces 15% CIT but ONLY for multinational enterprise (MNE) groups with revenue ≥ EUR 750M/year (OECD Pillar Two/GloBE alignment); entities outside that scope continue with NO income tax"
+      title_original: "Corporate Income Tax Act 2023"
+      type: statute
+      regulator: "Parliament of Bermuda"
+      date: "2023-12-27"
+      short_label: "BMCITA"
+
+    - title_hint: "Bermuda tax regime landing — Bermuda has no income tax, capital gains tax, dividends tax or wealth tax for individuals or (historically) companies; government revenue from payroll tax, customs duties and fees; no VAT/GST"
+      url_hint: "https://www.gov.bm/"
+      type: guidance
+      regulator: "Government of Bermuda"
+      short_label: "BMTAXREGIME"
