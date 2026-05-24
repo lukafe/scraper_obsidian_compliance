@@ -38,75 +38,118 @@ _FIT_CERTIK_END = "<!-- fit-certik: end -->"
 
 # ---------- Typed-relation inference rules --------------------------------
 
-# Norms that anchor the MiCA cluster — anything in DE/FR/IT/LT/EU that
-# references MiCA is `derivado_de` it.
+# Cross-jurisdiction anchor nodes.
 MICA_ID = "EU-MICA-2023"
 FATF_ID = "INTL-FATFRECS-2025"
 TFR_ID = "EU-TFR-2023"
 DORA_ID = "EU-DORA-2022"
+PROSPECTUS_ID = "EU-PROSPECTUSREG-2017"
+DAC8_ID = "EU-DAC8-2023"
+GDPR_ID = "EU-GDPR-2016"
+HOWEY_ID = "US-HOWEY-1946"
+FSB_GSC_ID = "INTL-FSBGSCRECS-2023"
+BCBS_CRYPTO_ID = "INTL-BCBSCRYPTOSTANDARD-2022"
+
+# Direct implementations (binding-law transposition).
+DERIVADO_DE_ANCHORS = {
+    MICA_ID: {"DE", "FR", "IT", "LT", "EU"},
+    TFR_ID: {"DE", "FR", "IT", "LT", "EU"},
+    DORA_ID: {"DE", "FR", "IT", "LT", "EU"},
+    PROSPECTUS_ID: {"DE", "FR", "IT", "LT", "EU"},
+    DAC8_ID: {"DE", "FR", "IT", "LT", "EU"},
+    GDPR_ID: {"DE", "FR", "IT", "LT", "EU"},
+}
+
+# Soft inspiration (non-binding influence — works across all countries).
+INSPIRADO_EM_ANCHORS = {
+    FATF_ID: None,            # FATF inspires every jurisdiction
+    FSB_GSC_ID: None,         # FSB stablecoin recommendations
+    BCBS_CRYPTO_ID: None,     # Basel crypto-asset standard
+    MICA_ID: {"BR", "GB", "AE", "US", "SG", "JP", "HK", "CH", "KR", "AR", "TR",
+              "ZA", "NG", "MX", "UY", "BM", "CA"},  # non-EU referencing MiCA
+    HOWEY_ID: {"BR", "GB", "AE", "SG", "JP", "HK", "CH", "KR", "AR", "CA"},  # security test exported
+}
 
 
 def infer_typed_relations(note: Note, vault: Vault) -> list[tuple[str, str, str]]:
     """Derive typed relations for a note.
 
     Returns list of (tipo_relacao, target_id, justificativa).
-    Tipos: derivado_de | equivalente_a | regulado_por | exige_servico |
-    referencia_cruzada | precede_deadline.
-
-    The model is reuse — we don't ask the LLM here; we derive from existing
-    references + frontmatter.
+    Tipos: derivado_de | inspirado_em | equivalente_a | regulado_por |
+    exige_servico | referencia_cruzada | precede_deadline.
     """
     out: list[tuple[str, str, str]] = []
     extra = note.extra
+    refs_str = " ".join(note.references)
 
-    # 1) derivado_de: country-level norms in MiCA states that link to MiCA
-    eu_mica_states = {"DE", "FR", "IT", "LT"}
-    if note.country in eu_mica_states:
-        for ref in note.references:
-            if MICA_ID in ref:
-                out.append((
-                    "derivado_de", MICA_ID,
-                    f"{note.country} implementa MiCA (UE 2023/1114) via norma nacional",
-                ))
-                break
+    # 1) derivado_de: country-level norms that legally transpose a supranational
+    #    anchor (MiCA/TFR/DORA/Prospectus/DAC8/GDPR within EU/EEA).
+    for anchor, eligible in DERIVADO_DE_ANCHORS.items():
+        if anchor in refs_str and (eligible is None or note.country in eligible):
+            label_map = {
+                MICA_ID: "MiCA (UE 2023/1114)",
+                TFR_ID: "TFR (UE 2023/1113)",
+                DORA_ID: "DORA (UE 2022/2554)",
+                PROSPECTUS_ID: "EU Prospectus Regulation 2017/1129",
+                DAC8_ID: "DAC8 (UE 2023/2226)",
+                GDPR_ID: "GDPR (UE 2016/679)",
+            }
+            out.append((
+                "derivado_de", anchor,
+                f"transposição/implementação nacional de {label_map.get(anchor, anchor)}",
+            ))
 
-    # 2) referencia_cruzada: all existing citation refs become explicit edges
+    # 2) inspirado_em: non-binding influence (FATF for all; MiCA/Howey for non-EU
+    #    when explicitly cited).
+    for anchor, eligible in INSPIRADO_EM_ANCHORS.items():
+        if anchor not in refs_str:
+            continue
+        if eligible is not None and note.country not in eligible:
+            continue
+        label_map = {
+            FATF_ID: "FATF Recommendations (R.15 / Travel Rule)",
+            FSB_GSC_ID: "FSB stablecoin/crypto recommendations",
+            BCBS_CRYPTO_ID: "Basel Committee crypto-asset standard",
+            MICA_ID: "MiCA (referência não vinculante fora da UE)",
+            HOWEY_ID: "teste de Howey (US securities test)",
+        }
+        out.append((
+            "inspirado_em", anchor,
+            f"alinhamento com {label_map.get(anchor, anchor)}",
+        ))
+
+    # 3) referencia_cruzada: explicit citations in body (from ref_types).
     for ref_id, ref_type in note.ref_types.items():
         if ref_type == "citation":
             out.append((
                 "referencia_cruzada", ref_id,
-                "norma cita explicitamente outra norma no corpo",
+                "citação explícita no corpo da norma",
             ))
 
-    # 3) regulado_por: from `regulator` field (string -> not a node, captured
-    #    inline so it surfaces in Dataview queries)
+    # 4) regulado_por: regulator string from frontmatter.
     if note.regulator:
         out.append((
             "regulado_por", note.regulator,
             "regulador competente designado pela norma",
         ))
 
-    # 4) exige_servico: from `servicos_certik_aplicaveis` (already derived
-    #    from exige_* triggers in enrichment).
+    # 5) exige_servico: services derived from boolean triggers.
     for svc in extra.get("servicos_certik_aplicaveis") or []:
         triggers = [
             k for k, s in bs.SERVICE_TRIGGERS.items()
             if s == svc and extra.get(k) is True
         ]
-        why = "exigência da norma dispara este serviço CertiK"
-        if triggers:
-            why = f"trigger(s) frontmatter: {', '.join(triggers)}"
+        why = f"trigger(s) frontmatter: {', '.join(triggers)}" if triggers else "exigência da norma dispara este serviço"
         out.append(("exige_servico", svc, why))
 
-    # 5) precede_deadline: if both date_publicacao and deadline_principal
-    #    exist, the date precedes the deadline (within same note — meta).
+    # 6) precede_deadline: if a future deadline is set.
     if extra.get("deadline_principal"):
         out.append((
             "precede_deadline", str(extra["deadline_principal"]),
             f"data de vigência -> deadline em {extra['deadline_principal']}",
         ))
 
-    # Dedup
+    # Dedup (preserve order, keep first occurrence).
     seen = set()
     unique = []
     for tipo, target, just in out:
