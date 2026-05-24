@@ -2,12 +2,12 @@ id: MX-LFPIORPI-2012
 note_id: MX-LFPIORPI-2012
 country: MX
 source_url: https://web.archive.org/web/2024/https://www.diputados.gob.mx/LeyesBiblio/ref/LFPIORPI.htm
-reviewed: false
-reviewer: ''
-reviewed_at: ''
+reviewed: true
+reviewer: phase2-starter-v3
+reviewed_at: '2026-05-24'
 regime: registro
 regime_evidence: null
-status_regulatorio: vigente
+status_regulatorio: null
 status_regulatorio_evidence: null
 deadline_principal: null
 deadline_principal_evidence: null
@@ -19,7 +19,7 @@ exige_proof_of_reserves: null
 exige_proof_of_reserves_evidence: null
 exige_pentest: null
 exige_pentest_evidence: null
-exige_kyt_aml: true
+exige_kyt_aml: null
 exige_kyt_aml_evidence: null
 exige_seguranca_custodia: null
 exige_seguranca_custodia_evidence: null
@@ -27,11 +27,8 @@ exige_formal_verification: null
 exige_formal_verification_evidence: null
 exige_certificacao_independente: null
 exige_certificacao_independente_evidence: null
-escopo: This law classifies the habitual or professional exchange of virtual assets
-  as a 'vulnerable activity'. It imposes AML/CFT obligations, including registration,
-  customer identification (KYC), and reporting to tax authorities.
-gap_ou_ambiguidade: The law applies a general AML framework to crypto but lacks specific
-  technical standards for virtual asset transaction monitoring (KYT). This creates
-  an opportunity for independent validation of AML/CFT control effectiveness for crypto
-  operations.
-notes: ''
+escopo: present
+gap_ou_ambiguidade: present
+notes: Mexican LFPIORPI — scraped body is too thin to ground any structured field.
+  Even regime (registro) lands without a verbatim quote. Comparator will flag the
+  LLM's regime=registro as a match-on-value-only (no evidence backed).

@@ -2,12 +2,13 @@ id: TR-PAYLAW6493
 note_id: TR-PAYLAW6493
 country: TR
 source_url: https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6493.pdf
-reviewed: false
-reviewer: ''
-reviewed_at: ''
+reviewed: true
+reviewer: phase2-starter-v3
+reviewed_at: '2026-05-24'
 regime: licenciamento
-regime_evidence: null
-status_regulatorio: vigente
+regime_evidence: 'The system operator must: a) Be established as a joint stock company,
+  b) Have a paid-up capital of at least five million Turkish Liras'
+status_regulatorio: null
 status_regulatorio_evidence: null
 deadline_principal: null
 deadline_principal_evidence: null
@@ -15,23 +16,21 @@ tipo_deadline: null
 tipo_deadline_evidence: null
 exige_auditoria_tecnica: null
 exige_auditoria_tecnica_evidence: null
-exige_proof_of_reserves: true
+exige_proof_of_reserves: null
 exige_proof_of_reserves_evidence: null
 exige_pentest: null
 exige_pentest_evidence: null
-exige_kyt_aml: true
+exige_kyt_aml: null
 exige_kyt_aml_evidence: null
-exige_seguranca_custodia: true
+exige_seguranca_custodia: null
 exige_seguranca_custodia_evidence: null
 exige_formal_verification: null
 exige_formal_verification_evidence: null
 exige_certificacao_independente: null
 exige_certificacao_independente_evidence: null
-escopo: This law establishes a licensing framework for payment institutions and electronic
-  money institutions in Turkey. It regulates payment services, systems, and the issuance
-  of electronic money.
-gap_ou_ambiguidade: The law delegates the definition of specific technical standards
-  for information systems management and internal controls to secondary regulations.
-  This creates an opportunity for certifiers to assess compliance against these future
-  standards.
-notes: ''
+escopo: present
+gap_ou_ambiguidade: present
+notes: Turkish Law 6493 (Payment Services + Electronic Money). Regime is clear (BDDK
+  permission + joint-stock + minimum capital), but the LLM's POR / AML / custody claims
+  have no quotes in this scrape — crypto-specific obligations live in BDDK/SPK secondary
+  rules, not in Law 6493 itself.

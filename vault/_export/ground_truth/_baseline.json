@@ -1,29 +1,29 @@
 {
   "regime": {
-    "tp": 6,
-    "fp": 1,
+    "tp": 10,
+    "fp": 2,
     "fn": 0,
     "tn": 1,
-    "precision": 0.8571,
+    "precision": 0.8333,
     "recall": 1.0,
-    "f1": 0.9231,
-    "support": 6
+    "f1": 0.9091,
+    "support": 10
   },
   "status_regulatorio": {
     "tp": 5,
-    "fp": 3,
+    "fp": 8,
     "fn": 0,
     "tn": 0,
-    "precision": 0.625,
+    "precision": 0.3846,
     "recall": 1.0,
-    "f1": 0.7692,
+    "f1": 0.5556,
     "support": 5
   },
   "deadline_principal": {
     "tp": 4,
     "fp": 1,
     "fn": 0,
-    "tn": 3,
+    "tn": 8,
     "precision": 0.8,
     "recall": 1.0,
     "f1": 0.8889,
@@ -31,39 +31,39 @@
   },
   "tipo_deadline": {
     "tp": 4,
-    "fp": 1,
+    "fp": 2,
     "fn": 0,
-    "tn": 3,
-    "precision": 0.8,
+    "tn": 7,
+    "precision": 0.6667,
     "recall": 1.0,
-    "f1": 0.8889,
+    "f1": 0.8,
     "support": 4
   },
   "exige_auditoria_tecnica": {
     "tp": 3,
-    "fp": 0,
+    "fp": 1,
     "fn": 1,
-    "tn": 4,
-    "precision": 1.0,
+    "tn": 8,
+    "precision": 0.75,
     "recall": 0.75,
-    "f1": 0.8571,
+    "f1": 0.75,
     "support": 4
   },
   "exige_proof_of_reserves": {
-    "tp": 2,
-    "fp": 1,
+    "tp": 3,
+    "fp": 3,
     "fn": 0,
-    "tn": 5,
-    "precision": 0.6667,
+    "tn": 7,
+    "precision": 0.5,
     "recall": 1.0,
-    "f1": 0.8,
-    "support": 2
+    "f1": 0.6667,
+    "support": 3
   },
   "exige_pentest": {
     "tp": 1,
     "fp": 0,
     "fn": 1,
-    "tn": 6,
+    "tn": 11,
     "precision": 1.0,
     "recall": 0.5,
     "f1": 0.6667,
@@ -71,62 +71,62 @@
   },
   "exige_kyt_aml": {
     "tp": 3,
-    "fp": 1,
+    "fp": 6,
     "fn": 0,
     "tn": 4,
-    "precision": 0.75,
+    "precision": 0.3333,
     "recall": 1.0,
-    "f1": 0.8571,
+    "f1": 0.5,
     "support": 3
   },
   "exige_seguranca_custodia": {
     "tp": 2,
-    "fp": 3,
+    "fp": 7,
     "fn": 0,
-    "tn": 3,
-    "precision": 0.4,
+    "tn": 4,
+    "precision": 0.2222,
     "recall": 1.0,
-    "f1": 0.5714,
+    "f1": 0.3636,
     "support": 2
   },
   "exige_formal_verification": {
-    "tp": 0,
+    "tp": 1,
     "fp": 0,
     "fn": 0,
-    "tn": 8,
+    "tn": 12,
     "precision": 1.0,
     "recall": 1.0,
     "f1": 1.0,
-    "support": 0
+    "support": 1
   },
   "exige_certificacao_independente": {
-    "tp": 4,
+    "tp": 6,
     "fp": 0,
     "fn": 0,
-    "tn": 4,
+    "tn": 7,
     "precision": 1.0,
     "recall": 1.0,
     "f1": 1.0,
-    "support": 4
+    "support": 6
   },
   "escopo": {
-    "tp": 8,
+    "tp": 13,
     "fp": 0,
     "fn": 0,
     "tn": 0,
     "precision": 1.0,
     "recall": 1.0,
     "f1": 1.0,
-    "support": 8
+    "support": 13
   },
   "gap_ou_ambiguidade": {
-    "tp": 7,
+    "tp": 12,
     "fp": 1,
     "fn": 0,
     "tn": 0,
-    "precision": 0.875,
+    "precision": 0.9231,
     "recall": 1.0,
-    "f1": 0.9333,
-    "support": 7
+    "f1": 0.96,
+    "support": 12
   }
 }
