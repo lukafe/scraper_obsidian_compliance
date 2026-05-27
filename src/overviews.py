@@ -69,6 +69,8 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
     services: set[str] = set()
     regulators_seen: Counter[str] = Counter()
     earliest_deadline: Optional[str] = None
+    earliest_deadline_tipo: Optional[str] = None
+    earliest_deadline_source: Optional[str] = None
     today = date.today()
 
     for n in norms:
@@ -89,6 +91,12 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
                     or dt < datetime.fromisoformat(earliest_deadline).date()
                 ):
                     earliest_deadline = d[:10]
+                    # Track the tipo + source norm of the chosen deadline so
+                    # the jurisdiction overview can surface what KIND of
+                    # deadline this is (go_live / transicao / consulta etc.)
+                    # and which norm carries it.
+                    earliest_deadline_tipo = n.extra.get("tipo_deadline")
+                    earliest_deadline_source = n.id
             except Exception:
                 pass
 
@@ -147,6 +155,8 @@ def _aggregate_country(vault: Vault, country: str) -> dict:
         "regulador_principal": regulador_principal,
         "reguladores_secundarios": reguladores_secundarios,
         "earliest_deadline": earliest_deadline,
+        "earliest_deadline_tipo": earliest_deadline_tipo,
+        "earliest_deadline_source": earliest_deadline_source,
         "top_frameworks": top_frameworks,
         "maturidade_inferred": maturidade,
         "earliest_anchor_year": earliest_anchor_year,
@@ -206,6 +216,12 @@ def upsert_overview(vault: Vault, country: str) -> Path:
     fm["regulador_principal"] = agg["regulador_principal"]
     fm["reguladores_secundarios"] = agg["reguladores_secundarios"]
     fm["deadline_principal"] = agg["earliest_deadline"]
+    # Recompute tipo_deadline + source from the chosen norm so the
+    # jurisdiction overview shows what KIND of deadline this is and which
+    # norm carries it. Previously these were initialised to None and never
+    # refreshed, leaving the dashboard with a deadline date but no type.
+    fm["tipo_deadline"] = agg["earliest_deadline_tipo"]
+    fm["deadline_source"] = agg["earliest_deadline_source"]
     fm["frameworks_aplicaveis"] = [wikilink(x) for x in agg["top_frameworks"]]
     fm["servicos_certik_aplicaveis"] = agg["services"]
     for k, v in agg["exige"].items():

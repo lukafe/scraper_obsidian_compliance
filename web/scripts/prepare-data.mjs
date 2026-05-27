@@ -79,6 +79,7 @@ if (jurRows) {
     maturidade_mercado: r.maturidade_mercado || null,
     deadline_principal: r.deadline_principal || null,
     tipo_deadline: r.tipo_deadline || null,
+    deadline_source: r.deadline_source || null,
     urgencia_deadline_dias: num(r.urgencia_deadline_dias),
     exige_auditoria_tecnica: bool(r.exige_auditoria_tecnica),
     exige_proof_of_reserves: bool(r.exige_proof_of_reserves),

@@ -87,14 +87,28 @@ export default function HomePage() {
                   <Row
                     label="Next deadline"
                     value={
-                      <span style={{ color: urgencyColor(j.urgencia_deadline_dias) }}>
-                        {j.deadline_principal ?? "—"}
-                        {j.urgencia_deadline_dias !== null && (
-                          <span className="text-certik-muted ml-1">
-                            ({j.urgencia_deadline_dias}d)
-                          </span>
-                        )}
-                      </span>
+                      j.deadline_principal ? (
+                        <span style={{ color: urgencyColor(j.urgencia_deadline_dias) }}>
+                          {j.deadline_principal}
+                          {j.urgencia_deadline_dias !== null && (
+                            <span className="text-certik-muted ml-1">
+                              ({j.urgencia_deadline_dias}d)
+                            </span>
+                          )}
+                          {j.tipo_deadline && (
+                            <span className="text-certik-muted ml-1">
+                              · {label.deadlineType(j.tipo_deadline)}
+                            </span>
+                          )}
+                        </span>
+                      ) : (
+                        <span
+                          className="text-certik-muted"
+                          title="No body-grounded deadline extracted yet for this jurisdiction."
+                        >
+                          none verified
+                        </span>
+                      )
                     }
                   />
                   <Row

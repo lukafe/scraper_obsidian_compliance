@@ -11,6 +11,9 @@ export interface Jurisdiction {
   maturidade_mercado: "alta" | "media" | "baixa" | "desconhecido" | null;
   deadline_principal: string | null;
   tipo_deadline: string | null;
+  /** Norm id whose `deadline_principal` was chosen as the jurisdiction's
+   *  earliest future deadline. Lets the dashboard cite the source norm. */
+  deadline_source: string | null;
   urgencia_deadline_dias: number | null;
   exige_auditoria_tecnica: boolean | null;
   exige_proof_of_reserves: boolean | null;
