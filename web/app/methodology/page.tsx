@@ -127,6 +127,27 @@ export default function MethodologyPage() {
         </ul>
       </Card>
 
+      <Card title="Deadline policy (post-audit)">
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          A deadline is shown ONLY when it is anchored in the source body by a
+          verbatim quote that passes the Phase 3 temporal-anchor validator
+          (date or year present + preposition like "by" / "before" / "até" or
+          a free-form marker like "deadline" / "in force" within 80 characters).
+          Anything short of that is wiped — null is more useful than an invented
+          urgency.
+        </p>
+        <p className="text-sm text-zinc-300 leading-relaxed mt-3">
+          A retroactive audit (
+          <code>scripts/audit_deadlines.py</code>
+          ) confirmed only 16 of 83 norm-level deadlines were grounded; the
+          remaining 67 — many of them publication dates, founding years, or
+          inferred end-of-period markers wrongly flagged as deadlines — have
+          been removed from the vault. The 12 jurisdictions still without a
+          Phase 1 rerun honestly show "none verified" until the next analyzer
+          pass produces a body-grounded quote.
+        </p>
+      </Card>
+
       <Card title="Calibration — gold set">
         <p className="text-sm text-zinc-300 leading-relaxed">
           Every change to the extraction logic, the keyword vocabulary, or the scoring

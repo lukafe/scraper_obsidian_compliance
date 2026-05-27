@@ -12,19 +12,14 @@ export default function HomePage() {
   const juris = loadJurisdictions();
   const ranked = rankJurisdictions(juris);
 
-  const upcoming30 = juris.filter(
-    (j) =>
-      j.urgencia_deadline_dias !== null &&
-      j.urgencia_deadline_dias >= 0 &&
-      j.urgencia_deadline_dias <= 30,
-  ).length;
-  const upcoming180 = juris.filter(
-    (j) =>
-      j.urgencia_deadline_dias !== null &&
-      j.urgencia_deadline_dias >= 0 &&
-      j.urgencia_deadline_dias <= 180,
+  const verifiedDeadlines = juris.filter(
+    (j) => j.urgencia_deadline_dias !== null && j.urgencia_deadline_dias >= 0,
+  );
+  const upcomingYear = verifiedDeadlines.filter(
+    (j) => (j.urgencia_deadline_dias ?? 0) <= 365,
   ).length;
   const matureMarkets = juris.filter((j) => j.maturidade_mercado === "alta").length;
+  const totalNorms = juris.reduce((acc, j) => acc + j.n_normas_total, 0);
 
   // Aggregate service demand
   const serviceCount = new Map<string, number>();
@@ -172,11 +167,19 @@ export default function HomePage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Kpi label="Jurisdictions tracked" value={juris.length} accent />
         <Kpi
-          label="Deadlines within 30 days"
-          value={upcoming30}
-          hint={upcoming30 > 0 ? "Immediate sales window" : undefined}
+          label="Norms tracked"
+          value={totalNorms.toLocaleString()}
+          hint="Source-cited statutes, regulations & guidance"
         />
-        <Kpi label="Deadlines within 180 days" value={upcoming180} />
+        <Kpi
+          label="Verified upcoming deadlines"
+          value={verifiedDeadlines.length}
+          hint={
+            upcomingYear > 0
+              ? `${upcomingYear} within the next 12 months`
+              : "Body-grounded, with verbatim quote"
+          }
+        />
         <Kpi
           label="High-maturity markets"
           value={matureMarkets}
