@@ -66,6 +66,7 @@ export function GraphView({ graph, isoToRegion }: Props) {
   const [selected, setSelected] = useState<Node | null>(null);
   const [search, setSearch] = useState("");
   const [hiddenTypes, setHiddenTypes] = useState<Set<string>>(new Set());
+  const [frozen, setFrozen] = useState(false);
   const transformRef = useRef<ZoomTransform>(zoomIdentity);
   const simRef = useRef<Simulation<Node, Link> | null>(null);
   const nodesRef = useRef<Node[]>([]);
@@ -106,6 +107,19 @@ export function GraphView({ graph, isoToRegion }: Props) {
     return { nodes: allNodes, links: filteredLinks };
   }, [allNodes, allLinks, hiddenTypes]);
 
+  // Build a 1-hop neighbor index for the currently-selected node.
+  const neighborIds = useMemo(() => {
+    if (!selected) return null;
+    const set = new Set<string>([selected.id]);
+    for (const e of allLinks) {
+      const s = typeof e.source === "string" ? e.source : e.source.id;
+      const t = typeof e.target === "string" ? e.target : e.target.id;
+      if (s === selected.id) set.add(t);
+      else if (t === selected.id) set.add(s);
+    }
+    return set;
+  }, [selected, allLinks]);
+
   // Set up + run simulation when filters change.
   useEffect(() => {
     nodesRef.current = nodes.map((n) => ({ ...n }));
@@ -127,10 +141,19 @@ export function GraphView({ graph, isoToRegion }: Props) {
       )
       .alphaDecay(0.025);
     simRef.current = sim;
+    setFrozen(false);
     return () => {
       sim.stop();
     };
   }, [nodes, links]);
+
+  // Freeze / unfreeze toggle.
+  useEffect(() => {
+    const sim = simRef.current;
+    if (!sim) return;
+    if (frozen) sim.stop();
+    else sim.alpha(0.25).restart();
+  }, [frozen]);
 
   // Canvas paint loop.
   useEffect(() => {
@@ -153,18 +176,21 @@ export function GraphView({ graph, isoToRegion }: Props) {
       ctx.scale(t.k, t.k);
 
       // edges
+      const focusActive = neighborIds !== null;
       for (const l of linksRef.current) {
         const s = l.source as Node;
         const tgt = l.target as Node;
         if (typeof s !== "object" || typeof tgt !== "object") continue;
         if (s.x == null || tgt.x == null) continue;
-        const isFocused =
+        const touchesSelected =
           selected && (s.id === selected.id || tgt.id === selected.id);
-        ctx.strokeStyle = isFocused
+        // Focus mode dims everything that does NOT touch the selected node.
+        const dim = focusActive && !touchesSelected;
+        ctx.strokeStyle = touchesSelected
           ? "#E83C32"
           : RELATION_COLORS[l.type] ?? "#444";
-        ctx.globalAlpha = isFocused ? 0.85 : 0.18;
-        ctx.lineWidth = isFocused ? 1.2 : 0.4;
+        ctx.globalAlpha = touchesSelected ? 0.9 : dim ? 0.04 : 0.18;
+        ctx.lineWidth = touchesSelected ? 1.4 : 0.4;
         ctx.beginPath();
         ctx.moveTo(s.x, s.y!);
         ctx.lineTo(tgt.x, tgt.y!);
@@ -183,6 +209,10 @@ export function GraphView({ graph, isoToRegion }: Props) {
             n.label.toLowerCase().includes(searchLower));
         const isSelected = selected?.id === n.id;
         const isHovered = hovered?.id === n.id;
+        const isNeighbor = focusActive && neighborIds!.has(n.id);
+        const dim =
+          (focusActive && !isNeighbor) ||
+          (searchLower !== "" && !matches);
         const fill =
           n.kind === "jurisdicao"
             ? REGION_COLORS[n.region ?? ""] ?? "#888"
@@ -190,7 +220,7 @@ export function GraphView({ graph, isoToRegion }: Props) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
         ctx.fillStyle = fill;
-        ctx.globalAlpha = searchLower && !matches ? 0.18 : 1;
+        ctx.globalAlpha = dim ? 0.12 : 1;
         ctx.fill();
         if (n.kind === "jurisdicao") {
           ctx.strokeStyle = "#fff";
@@ -203,14 +233,19 @@ export function GraphView({ graph, isoToRegion }: Props) {
           ctx.stroke();
         }
         ctx.globalAlpha = 1;
-        // label jurisdictions always; norms only when zoomed in or selected/hovered
-        if (
-          n.kind === "jurisdicao" ||
-          isSelected ||
-          isHovered ||
-          t.k > 2.2 ||
-          matches
-        ) {
+        // labels:
+        //  - jurisdictions always labelled unless dimmed (focus or search miss)
+        //  - in focus mode, label every neighbor norm too
+        //  - otherwise label norms only when zoomed, selected, hovered or matched
+        const labelMe =
+          !dim &&
+          (n.kind === "jurisdicao" ||
+            isSelected ||
+            isHovered ||
+            isNeighbor ||
+            t.k > 2.2 ||
+            matches);
+        if (labelMe) {
           ctx.fillStyle = "#fff";
           ctx.font = `${n.kind === "jurisdicao" ? 11 : 9}px Inter, sans-serif`;
           ctx.fillText(n.kind === "jurisdicao" ? n.id : n.label.slice(0, 32), n.x + r + 3, n.y + 3);
@@ -303,10 +338,37 @@ export function GraphView({ graph, isoToRegion }: Props) {
             placeholder="Search node id or title…"
             className="pointer-events-auto px-3 py-1.5 text-xs rounded bg-certik-panel border border-certik-border text-white placeholder:text-certik-muted w-72"
           />
-          <div className="text-xs text-certik-muted bg-certik-panel/70 border border-certik-border rounded px-3 py-1.5 pointer-events-none">
-            {nodesRef.current.length} nodes · {linksRef.current.length} edges
+          <div className="flex items-center gap-2 pointer-events-none">
+            <button
+              type="button"
+              onClick={() => setFrozen((f) => !f)}
+              className="pointer-events-auto text-xs px-3 py-1.5 rounded border border-certik-border bg-certik-panel text-zinc-300 hover:border-certik-red/60 hover:text-white transition-colors"
+              title={frozen ? "Resume layout simulation" : "Freeze layout in place"}
+            >
+              {frozen ? "▶  Resume" : "❘❘  Freeze layout"}
+            </button>
+            <div className="text-xs text-certik-muted bg-certik-panel/70 border border-certik-border rounded px-3 py-1.5">
+              {nodesRef.current.length} nodes · {linksRef.current.length} edges
+            </div>
           </div>
         </div>
+        {selected && (
+          <div className="absolute bottom-3 left-3 text-[11px] bg-certik-panel/80 border border-certik-border rounded px-3 py-1.5 text-zinc-300 pointer-events-none">
+            Focus mode — showing{" "}
+            <span className="text-white font-mono">
+              {(neighborIds?.size ?? 1) - 1}
+            </span>{" "}
+            neighbours of{" "}
+            <span className="text-certik-red font-mono">{selected.id}</span>
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              className="ml-2 pointer-events-auto text-certik-muted hover:text-white"
+            >
+              clear ×
+            </button>
+          </div>
+        )}
       </div>
 
       <aside className="w-72 shrink-0 flex flex-col gap-4">
@@ -478,6 +540,31 @@ function SelectedDetail({
           <div className="text-white text-base font-mono">{incoming.length}</div>
         </div>
       </div>
+      {(outgoing.length > 0 || incoming.length > 0) && (
+        <div className="mt-3">
+          <div className="text-[10px] uppercase tracking-wider text-certik-muted mb-1">
+            Connections
+          </div>
+          <ul className="space-y-0.5 max-h-44 overflow-y-auto pr-1">
+            {outgoing.slice(0, 12).map((e, i) => (
+              <ConnectionRow
+                key={`o-${i}-${e.target}`}
+                direction="out"
+                otherId={e.target}
+                relation={e.tipo_relacao}
+              />
+            ))}
+            {incoming.slice(0, 12).map((e, i) => (
+              <ConnectionRow
+                key={`i-${i}-${e.source}`}
+                direction="in"
+                otherId={e.source}
+                relation={e.tipo_relacao}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
       {node.kind === "jurisdicao" && (
         <a
           href={`/jurisdictions/${node.id}`}
@@ -487,5 +574,34 @@ function SelectedDetail({
         </a>
       )}
     </div>
+  );
+}
+
+function ConnectionRow({
+  direction,
+  otherId,
+  relation,
+}: {
+  direction: "in" | "out";
+  otherId: string;
+  relation: string;
+}) {
+  return (
+    <li className="text-[11px] flex items-baseline gap-1 leading-tight">
+      <span
+        aria-hidden
+        className="text-certik-muted shrink-0 font-mono"
+        title={direction === "out" ? "outgoing" : "incoming"}
+      >
+        {direction === "out" ? "→" : "←"}
+      </span>
+      <span className="text-zinc-200 font-mono truncate flex-1">{otherId}</span>
+      <span
+        className="text-[9px] uppercase tracking-wider shrink-0"
+        style={{ color: RELATION_COLORS[relation] ?? "#777" }}
+      >
+        {relation.replace(/_/g, " ")}
+      </span>
+    </li>
   );
 }
