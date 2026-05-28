@@ -2,7 +2,6 @@ import Link from "next/link";
 import { loadJurisdictions } from "@/lib/data";
 import { rankJurisdictions, maturityColor, urgencyColor } from "@/lib/scoring";
 import { Card, Kpi } from "@/components/ui/card";
-import { OpportunityBubble } from "@/components/charts/opportunity-bubble";
 import { ConfidenceBadge } from "@/components/ui/confidence-badge";
 import { ScoreChip } from "@/components/ui/score-chip";
 import { SERVICE_LABELS, SERVICE_CATEGORIES } from "@/lib/types";
@@ -227,14 +226,6 @@ export default function HomePage() {
             );
           })}
         </div>
-      </Card>
-
-      {/* ---------- Opportunity matrix ---------- */}
-      <Card
-        title="Opportunity matrix"
-        subtitle="X axis: CertiK services triggered. Y axis: days to the next regulatory deadline (lower is more urgent). Bubble size: total norms tracked. Colour: market maturity."
-      >
-        <OpportunityBubble data={juris} />
       </Card>
 
       {/* ---------- Full ranking table ---------- */}

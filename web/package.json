@@ -27,7 +27,6 @@
     "next": "^15.5.18",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "recharts": "^2.13.3",
     "topojson-client": "^3.1.0"
   },
   "devDependencies": {

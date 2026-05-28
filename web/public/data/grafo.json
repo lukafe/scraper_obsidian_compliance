@@ -107,7 +107,7 @@
       "regime": "desconhecido",
       "status_regulatorio": "desconhecido",
       "deadline_principal": "2026-10-30",
-      "urgencia_deadline_dias": 156,
+      "urgencia_deadline_dias": 155,
       "n_normas_total": 102,
       "servicos_certik_aplicaveis": [
         "due_diligence",
@@ -286,7 +286,7 @@
       "regime": "desconhecido",
       "status_regulatorio": "desconhecido",
       "deadline_principal": "2027-10-25",
-      "urgencia_deadline_dias": 516,
+      "urgencia_deadline_dias": 515,
       "n_normas_total": 79,
       "servicos_certik_aplicaveis": [
         "due_diligence",
@@ -404,8 +404,8 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 41.5,
-      "data_confidence_tier": "low"
+      "data_confidence_score": 59.8,
+      "data_confidence_tier": "medium"
     },
     {
       "id": "JP",
@@ -436,8 +436,8 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 38.3,
-      "data_confidence_tier": "low"
+      "data_confidence_score": 51.5,
+      "data_confidence_tier": "medium"
     },
     {
       "id": "KR",
@@ -462,7 +462,7 @@
         "aml"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 50.4,
+      "data_confidence_score": 67.1,
       "data_confidence_tier": "medium"
     },
     {
@@ -489,7 +489,7 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 57.1,
+      "data_confidence_score": 59.2,
       "data_confidence_tier": "medium"
     },
     {
@@ -514,11 +514,12 @@
       "cobertura_regulatoria": [
         "aml",
         "consumer_protection",
-        "issuance"
+        "issuance",
+        "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 58.7,
-      "data_confidence_tier": "medium"
+      "data_confidence_score": 75.4,
+      "data_confidence_tier": "high"
     },
     {
       "id": "NG",
@@ -540,10 +541,11 @@
       "forca_relacionamento_certik": "desconhecido",
       "maturidade_mercado": "baixa",
       "cobertura_regulatoria": [
-        "aml"
+        "aml",
+        "consumer_protection"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 51.7,
+      "data_confidence_score": 61.2,
       "data_confidence_tier": "medium"
     },
     {
@@ -600,7 +602,7 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 49.0,
+      "data_confidence_score": 66.6,
       "data_confidence_tier": "medium"
     },
     {
@@ -637,8 +639,8 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 37.1,
-      "data_confidence_tier": "low"
+      "data_confidence_score": 55.6,
+      "data_confidence_tier": "medium"
     },
     {
       "id": "US",
@@ -671,8 +673,8 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 35.4,
-      "data_confidence_tier": "low"
+      "data_confidence_score": 46.0,
+      "data_confidence_tier": "medium"
     },
     {
       "id": "UY",
@@ -704,8 +706,8 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 34.7,
-      "data_confidence_tier": "low"
+      "data_confidence_score": 46.0,
+      "data_confidence_tier": "medium"
     },
     {
       "id": "ZA",
@@ -738,7 +740,7 @@
         "taxation"
       ],
       "confianca_dados": "media",
-      "data_confidence_score": 53.3,
+      "data_confidence_score": 62.8,
       "data_confidence_tier": "medium"
     },
     {
@@ -2526,7 +2528,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skynet_threat_monitoring"
+      ],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -3649,7 +3653,7 @@
       "confidence": 0.82,
       "status": "analyzed",
       "regime": "licenciamento",
-      "status_regulatorio": "em_implementacao",
+      "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
       "servicos_certik_aplicaveis": [
@@ -4430,7 +4434,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_consulta",
       "deadline_principal": "2023-03-31",
-      "urgencia_deadline_dias": -1153,
+      "urgencia_deadline_dias": -1154,
       "servicos_certik_aplicaveis": [
         "due_diligence",
         "incident_response",
@@ -6134,7 +6138,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2025-06-19",
-      "urgencia_deadline_dias": -342,
+      "urgencia_deadline_dias": -343,
       "servicos_certik_aplicaveis": [
         "incident_response",
         "penetration_testing",
@@ -6240,7 +6244,7 @@
       "regime": "em_consulta",
       "status_regulatorio": "em_consulta",
       "deadline_principal": "2025-10-31",
-      "urgencia_deadline_dias": -208,
+      "urgencia_deadline_dias": -209,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 2,
       "in_quarantine": false,
@@ -6300,7 +6304,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2025-06-19",
-      "urgencia_deadline_dias": -342,
+      "urgencia_deadline_dias": -343,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -6424,7 +6428,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2024-08-31",
-      "urgencia_deadline_dias": -634,
+      "urgencia_deadline_dias": -635,
       "servicos_certik_aplicaveis": [
         "due_diligence",
         "incident_response",
@@ -11145,7 +11149,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skyinsights_aml_kyt"
+      ],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -12657,7 +12663,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skyinsights_aml_kyt"
+      ],
       "n_inlinks": 3,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -13287,8 +13295,8 @@
       "status": "analyzed",
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
-      "deadline_principal": null,
-      "urgencia_deadline_dias": null,
+      "deadline_principal": "2024-05-10",
+      "urgencia_deadline_dias": -748,
       "servicos_certik_aplicaveis": [
         "incident_response",
         "penetration_testing",
@@ -15699,7 +15707,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2027-10-25",
-      "urgencia_deadline_dias": 516,
+      "urgencia_deadline_dias": 515,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -18686,7 +18694,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2022-12-31",
-      "urgencia_deadline_dias": -1243,
+      "urgencia_deadline_dias": -1244,
       "servicos_certik_aplicaveis": [
         "regulatory_compliance_support",
         "skyinsights_aml_kyt"
@@ -18809,7 +18817,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2021-09-01",
-      "urgencia_deadline_dias": -1729,
+      "urgencia_deadline_dias": -1730,
       "servicos_certik_aplicaveis": [
         "skyinsights_aml_kyt"
       ],
@@ -18891,7 +18899,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2026-02-02",
-      "urgencia_deadline_dias": -114,
+      "urgencia_deadline_dias": -115,
       "servicos_certik_aplicaveis": [
         "due_diligence",
         "incident_response",
@@ -19052,7 +19060,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2023-11-01",
-      "urgencia_deadline_dias": -938,
+      "urgencia_deadline_dias": -939,
       "servicos_certik_aplicaveis": [
         "skyinsights_aml_kyt"
       ],
@@ -19695,7 +19703,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": "2025-03-31",
-      "urgencia_deadline_dias": -422,
+      "urgencia_deadline_dias": -423,
       "servicos_certik_aplicaveis": [
         "incident_response",
         "l1_chain_audit",
@@ -20091,7 +20099,7 @@
       "regime": null,
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2024-09-02",
-      "urgencia_deadline_dias": -632,
+      "urgencia_deadline_dias": -633,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -20151,7 +20159,7 @@
       "regime": null,
       "status_regulatorio": "vigente",
       "deadline_principal": "2022-12-31",
-      "urgencia_deadline_dias": -1243,
+      "urgencia_deadline_dias": -1244,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -20404,7 +20412,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2026-10-30",
-      "urgencia_deadline_dias": 156,
+      "urgencia_deadline_dias": 155,
       "servicos_certik_aplicaveis": [
         "skyinsights_aml_kyt"
       ],
@@ -20949,7 +20957,7 @@
       "regime": "licenciamento",
       "status_regulatorio": "em_implementacao",
       "deadline_principal": "2024-12-30",
-      "urgencia_deadline_dias": -513,
+      "urgencia_deadline_dias": -514,
       "servicos_certik_aplicaveis": [
         "incident_response",
         "penetration_testing",
@@ -21016,7 +21024,7 @@
       "regime": null,
       "status_regulatorio": "vigente",
       "deadline_principal": "2019-06-01",
-      "urgencia_deadline_dias": -2552,
+      "urgencia_deadline_dias": -2553,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -21235,8 +21243,8 @@
       "status": "analyzed",
       "regime": null,
       "status_regulatorio": "vigente",
-      "deadline_principal": null,
-      "urgencia_deadline_dias": null,
+      "deadline_principal": "2021-09-01",
+      "urgencia_deadline_dias": -1730,
       "servicos_certik_aplicaveis": [],
       "n_inlinks": 0,
       "in_quarantine": false,
@@ -22145,7 +22153,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "regulatory_compliance_support"
+      ],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -22989,7 +22999,7 @@
       "confidence": 0.868,
       "status": "scraped",
       "regime": null,
-      "status_regulatorio": "em_consulta",
+      "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
       "servicos_certik_aplicaveis": [],
@@ -23263,7 +23273,7 @@
       "source_authority": "primary",
       "confidence": 0.818,
       "status": "scraped",
-      "regime": null,
+      "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
@@ -26003,7 +26013,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skyinsights_aml_kyt"
+      ],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -26151,7 +26163,9 @@
       "status_regulatorio": null,
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "skyinsights_aml_kyt"
+      ],
       "n_inlinks": 1,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -26333,11 +26347,15 @@
       "source_authority": "primary",
       "confidence": 0.857,
       "status": "analyzed",
-      "regime": null,
+      "regime": "licenciamento",
       "status_regulatorio": "vigente",
       "deadline_principal": null,
       "urgencia_deadline_dias": null,
-      "servicos_certik_aplicaveis": [],
+      "servicos_certik_aplicaveis": [
+        "due_diligence",
+        "independent_certification",
+        "regulatory_compliance_support"
+      ],
       "n_inlinks": 0,
       "in_quarantine": false,
       "confianca_dados": "media"
@@ -47821,5 +47839,5 @@
       "justificativa": "relação tipada extraída do body (inline Dataview)"
     }
   ],
-  "generated": "2026-05-27"
+  "generated": "2026-05-28"
 }

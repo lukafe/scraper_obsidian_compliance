@@ -13,21 +13,6 @@ html, body {
 
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/* react-simple-maps polish */
-.rsm-svg { background: transparent; }
-
-/* Recharts tooltip on dark theme */
-.recharts-tooltip-wrapper {
-  background: #1A0F0F !important;
-  border: 1px solid #2D1A1A !important;
-  border-radius: 6px;
-}
-.recharts-default-tooltip {
-  background: #1A0F0F !important;
-  border: 1px solid #2D1A1A !important;
-  color: #F5F5F5 !important;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #0F0808; }

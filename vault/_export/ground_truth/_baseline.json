@@ -20,23 +20,23 @@
     "support": 5
   },
   "deadline_principal": {
-    "tp": 4,
-    "fp": 1,
-    "fn": 0,
-    "tn": 8,
-    "precision": 0.8,
-    "recall": 1.0,
-    "f1": 0.8889,
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 9,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4,
     "support": 4
   },
   "tipo_deadline": {
-    "tp": 4,
-    "fp": 2,
-    "fn": 0,
-    "tn": 7,
-    "precision": 0.6667,
-    "recall": 1.0,
-    "f1": 0.8,
+    "tp": 1,
+    "fp": 1,
+    "fn": 3,
+    "tn": 8,
+    "precision": 0.5,
+    "recall": 0.25,
+    "f1": 0.3333,
     "support": 4
   },
   "exige_auditoria_tecnica": {

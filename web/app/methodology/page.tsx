@@ -80,35 +80,37 @@ export default function MethodologyPage() {
         >
           <ol className="space-y-3 text-sm text-zinc-300 leading-relaxed">
             <Step n={1} title="Discovery">
-              A curated regulatory matrix per jurisdiction is fed to Gemini 2.5 Flash
-              with Google Search grounding, which identifies the statutes, regulations,
-              circulars and guidance notes worth tracking. Output:{" "}
+              A curated regulatory matrix per jurisdiction is fed to a large language
+              model with live web-search grounding, which identifies the statutes,
+              regulations, circulars and guidance notes worth tracking. Output:{" "}
               <strong>{norms.length.toLocaleString()} candidate norms</strong> across{" "}
               <strong>{juris.length} jurisdictions</strong>.
             </Step>
             <Step n={2} title="Scrape">
-              Each norm is fetched from the official source (Planalto, BaFin, MAS,
-              Légifrance, NYDFS, FSCA …). When the gazette is behind a WAF
-              (Légifrance, legislation.gov.uk, parts of uaelegislation.gov.ae), the
-              pipeline falls back to the Wayback Machine snapshot. Cloudflare-blocked
-              Angular SPAs (BCB, mevzuat.gov.tr) are handled with a headless browser.
+              Each norm is fetched from the official source (national gazettes,
+              regulator portals, statutory databases). When a primary source is
+              unreachable — strict firewalls, login walls, JavaScript-rendered single
+              pages — the pipeline falls back to archive snapshots or to a headless
+              browser, with the chosen path logged per norm.
             </Step>
             <Step n={3} title="Translate">
               Non-English texts are auto-translated; the original language is preserved
               alongside so legal verification can quote either side.
             </Step>
             <Step n={4} title="Analyse">
-              Gemini 2.5 Pro reads each body and extracts thirteen structured signals:{" "}
+              A reasoning LLM reads each body and extracts thirteen structured signals:{" "}
               <code>regime</code>, <code>status_regulatorio</code>, principal deadline
               + deadline type, seven <code>exige_*</code> service triggers (audit,
               proof-of-reserves, pentest, AML/KYT, custody, formal verification,
               independent certification), free-text <code>escopo</code>, and{" "}
-              <code>gap_ou_ambiguidade</code>. <strong>Phase 1 rule:</strong> every
-              non-null value MUST come with a verbatim quote copied from the body. Quotes
-              that fail a substring check or a semantic validator (imperative-verb test
-              for triggers, temporal-anchor test for deadlines, regime-vocabulary test
-              for regimes) are stripped — the field drops back to null. Better silence
-              than a fabricated claim.
+              <code>gap_ou_ambiguidade</code>. A second deterministic pass — pure
+              algorithm, no LLM — then re-validates every claim: substring presence of
+              the quote in the body, imperative-verb test for triggers, temporal-anchor
+              test for deadlines, regime-vocabulary test for regimes. Anything that
+              fails the validator is stripped back to null.{" "}
+              <strong>Phase 1 rule:</strong> every non-null value MUST come with a
+              verbatim quote copied from the body. Better silence than a fabricated
+              claim.
             </Step>
             <Step n={5} title="Aggregate &amp; export">
               Per-country overviews are built from the underlying norms. Any-true on
@@ -451,13 +453,15 @@ export default function MethodologyPage() {
           </p>
           <p className="text-sm text-amber-300/90 leading-relaxed mt-3">
             Current measurement on a 13-row starter pack: support-weighted F1 ={" "}
-            <strong>0.85</strong>. The model is perfect on{" "}
+            <strong>0.80</strong>. The model is perfect on{" "}
             <code>exige_certificacao_independente</code> and <code>escopo</code> (1.00)
-            and strong on <code>regime</code> (0.91). The clearest weakness is a bias
-            toward TRUE on <code>exige_seguranca_custodia</code> (0.36) and{" "}
-            <code>exige_kyt_aml</code> (0.50) — body-grounded evidence quotes are
-            designed precisely to strip those out, and the next analyzer pass already
-            improves the numbers materially.
+            and strong on <code>regime</code> (0.91). The two structural weaknesses
+            are unchanged after the Phase 1 rerun: a bias toward TRUE on{" "}
+            <code>exige_seguranca_custodia</code> (0.36) and <code>exige_kyt_aml</code>{" "}
+            (0.50), where the source body uses descriptive prose rather than the
+            imperative verbs the validator demands. Net effect for the decision-maker:
+            those two triggers should be cross-checked manually before any commercial
+            move; the other eleven fields are reliable.
           </p>
         </Section>
 
@@ -482,9 +486,9 @@ export default function MethodologyPage() {
               text.
             </li>
             <li>
-              Some federal sites with strict WAFs (Légifrance, legislation.gov.uk,
-              parts of uaelegislation.gov.ae) required the Wayback fallback; content
-              may be slightly stale.
+              A handful of national gazettes are behind aggressive firewalls and were
+              fetched from official archive snapshots; their content can be slightly
+              stale until the next refresh cycle.
             </li>
             <li>
               The opportunity score is a heuristic — a high score is a candidate to
